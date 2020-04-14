@@ -7,48 +7,6 @@ import prody as pd
 from collections import defaultdict
 from . import utility, protein_utility, moment_utility
 
-
-def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: float, shape_keys: list=None):
-    shapes = get_shapes(moments, resolution)
-    same_shapes = get_same_shapes(shapes)
-    if shape_keys is None:
-        shape_keys = sorted(list(same_shapes))
-    embedding = make_embedding(shapes, shape_keys)
-    return shapes, same_shapes, embedding
-
-
-def get_shapes(moments: typing.List[MomentInvariants], resolution=2.):
-    binned_moments = []
-    for shape in moments:
-        binned_moments.append((np.log1p(shape.moments) * resolution).astype(int))
-    return binned_moments
-
-
-def get_same_shapes(binned_moments):
-    same_shapes = defaultdict(list)
-    for i, moments in enumerate(binned_moments):
-        for j in range(moments.shape[0]):
-            same_shapes[tuple(moments[j])].append((i, j))
-    return same_shapes
-
-
-def get_shape_counts(same_shapes, shape_keys):
-    shape_counts = np.zeros(len(shape_keys))
-    for i, k in enumerate(shape_keys):
-        shape_counts[i] = len(same_shapes[k])
-    return shape_counts
-
-
-def make_embedding(binned_moments, shape_keys):
-    shape_to_index = dict(zip(shape_keys, range(len(shape_keys))))
-    embedding = np.zeros((len(binned_moments), len(shape_keys)))
-    for i in range(len(binned_moments)):
-        for m in binned_moments[i]:
-            if tuple(m) in shape_to_index:
-                embedding[i, shape_to_index[tuple(m)]] += 1
-    return embedding
-
-
 @dataclass(eq=False)
 class MomentInvariants(protein_utility.Structure):
     residue_splits: list = field(repr=False)
@@ -155,5 +113,47 @@ class MomentInvariants(protein_utility.Structure):
             kd_tree.search(center=self.coordinates[self.residue_splits[i][0]], radius=self.split_size)
             split_indices.append(kd_tree.getIndices())
         return self._get_moments(split_indices)
+
+
+def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: float, shape_keys: list=None):
+    shapes = get_shapes(moments, resolution)
+    same_shapes = get_same_shapes(shapes)
+    if shape_keys is None:
+        shape_keys = sorted(list(same_shapes))
+    embedding = make_embedding(shapes, shape_keys)
+    return shapes, same_shapes, embedding
+
+
+def get_shapes(moments: typing.List[MomentInvariants], resolution=2.):
+    binned_moments = []
+    for shape in moments:
+        binned_moments.append((np.log1p(shape.moments) * resolution).astype(int))
+    return binned_moments
+
+
+def get_same_shapes(binned_moments):
+    same_shapes = defaultdict(list)
+    for i, moments in enumerate(binned_moments):
+        for j in range(moments.shape[0]):
+            same_shapes[tuple(moments[j])].append((i, j))
+    return same_shapes
+
+
+def get_shape_counts(same_shapes, shape_keys):
+    shape_counts = np.zeros(len(shape_keys))
+    for i, k in enumerate(shape_keys):
+        shape_counts[i] = len(same_shapes[k])
+    return shape_counts
+
+
+def make_embedding(binned_moments, shape_keys):
+    shape_to_index = dict(zip(shape_keys, range(len(shape_keys))))
+    embedding = np.zeros((len(binned_moments), len(shape_keys)))
+    for i in range(len(binned_moments)):
+        for m in binned_moments[i]:
+            if tuple(m) in shape_to_index:
+                embedding[i, shape_to_index[tuple(m)]] += 1
+    return embedding
+
 
 
