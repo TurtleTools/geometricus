@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import prody as pd
 from collections import defaultdict
-from . import utility, protein_utility, moment_utility
+import utility, protein_utility, moment_utility
 
 @dataclass(eq=False)
 class MomentInvariants(protein_utility.Structure):
@@ -121,7 +121,7 @@ def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: flo
     if shape_keys is None:
         shape_keys = sorted(list(same_shapes))
     embedding = make_embedding(shapes, shape_keys)
-    return shapes, same_shapes, embedding
+    return shapes, same_shapes, embedding, shape_keys
 
 
 def get_shapes(moments: typing.List[MomentInvariants], resolution=2.):
