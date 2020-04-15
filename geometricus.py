@@ -7,6 +7,13 @@ import prody as pd
 from collections import defaultdict
 import utility, protein_utility, moment_utility
 
+
+class GeometricusEmbedding:
+    def __init__(self, invariants: MomentInvariants, resolution: typing.Union[float, np.ndarray], protein_keys: list, shape_keys: list = None):
+        self.protein_keys = protein_keys
+        self.protein_to_shapes, self.shape_to_proteins, self.embedding, self.shape_keys = geometricus.moments_to_embedding([invariants[name] for name in protein_keys], resolution = resolution, shape_keys = shape_keys)
+
+
 @dataclass(eq=False)
 class MomentInvariants(protein_utility.Structure):
     residue_splits: list = field(repr=False)
