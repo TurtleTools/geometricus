@@ -9,10 +9,58 @@ import utility, protein_utility, moment_utility
 
 
 class GeometricusEmbedding:
-    def __init__(self, invariants: MomentInvariants, resolution: typing.Union[float, np.ndarray], protein_keys: list, shape_keys: list = None):
+    def __init__(self, kmer_invariants: dict, radius_invariants: dict, resolution: typing.Union[float, np.ndarray], protein_keys: list, kmer_shape_keys: list = None, radius_shape_keys: list = None):
         self.protein_keys = protein_keys
-        self.protein_to_shapes, self.shape_to_proteins, self.embedding, self.shape_keys = geometricus.moments_to_embedding([invariants[name] for name in protein_keys], resolution = resolution, shape_keys = shape_keys)
+        
+        self.kmer_invariants = kmer_invariants
+        self.radius_invariants = radius_invariants
+        
+        self.protein_to_kmer_shapes, self.kmer_shape_to_proteins, self.kmer_embedding, self.kmer_shape_keys = moments_to_embedding([self.kmer_invariants[name] for name in protein_keys], resolution = resolution, shape_keys = kmer_shape_keys)
+        self.protein_to_radius_shapes, self.radius_shape_to_proteins, self.radius_embedding, self.radius_shape_keys = moments_to_embedding([self.radius_invariants[name] for name in protein_keys], resolution = resolution, shape_keys = radius_shape_keys)
 
+        self.concatenated_embedding = np.hstack((self.kmer_embedding, self.radius_embedding))
+
+
+    def map_feature_to_residues(self, feature_index):
+        protein_to_important_residues = {}
+        for protein in self.protein_keys:
+            protein_to_important_residues[protein] = set([])
+            
+        kmer_feature_nr = len(self.kmer_shape_keys)
+        if feature_index >= kmer_feature_nr: #this means the feature is a radius invariant
+            invariants = self.radius_invariants
+            shape_to_proteins = self.radius_shape_to_proteins
+            shape_key = self.radius_shape_keys[feature_index - kmer_feature_nr]
+            
+        else: #this means the feature is a kmer invariant
+            invariants = self.kmer_invariants
+            shape_to_proteins = self.kmer_shape_to_proteins
+            shape_key = self.kmer_shape_keys[feature_index]
+
+        locations = shape_to_proteins[shape_key]
+        print(locations)
+
+        for protein_index, residue_index in locations:
+            protein_name = self.protein_keys[protein_index]
+            moment_invariants = invariants[protein_name]
+            important_residues = moment_invariants.split_indices[residue_index]
+            for important_residue in important_residues:
+                protein_to_important_residues[protein_name].add(important_residue)
+
+        return protein_to_important_residues
+            
+
+            
+            
+            
+            
+            
+        
+
+            
+            
+            
+        
 
 @dataclass(eq=False)
 class MomentInvariants(protein_utility.Structure):
