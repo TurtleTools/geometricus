@@ -71,4 +71,3 @@ def group_indices(input_list: list) -> list:
         current_index = input_list[i]
     output_list.append(current_list)
     return output_list
-

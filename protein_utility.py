@@ -80,4 +80,3 @@ def get_beta_indices(protein: pd.AtomGroup) -> list:
             assert ca is not None
             indices.append(ca)
     return indices
-

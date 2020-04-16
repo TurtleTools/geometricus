@@ -5,6 +5,7 @@ from . import utility
 
 NUM_MOMENTS = 4
 
+
 @nb.njit(cache=False)
 def mu(p, q, r, coords, centroid):
     return np.sum(((coords[:, 0] - centroid[0]) ** p) * ((coords[:, 1] - centroid[1]) ** q) * ((coords[:, 2] - centroid[2]) ** r))

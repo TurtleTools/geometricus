@@ -9,30 +9,32 @@ import utility, protein_utility, moment_utility
 
 
 class GeometricusEmbedding:
-    def __init__(self, kmer_invariants: dict, radius_invariants: dict, resolution: typing.Union[float, np.ndarray], protein_keys: list, kmer_shape_keys: list = None, radius_shape_keys: list = None):
+    def __init__(self, kmer_invariants: dict, radius_invariants: dict, resolution: typing.Union[float, np.ndarray], protein_keys: list,
+                 kmer_shape_keys: list = None, radius_shape_keys: list = None):
         self.protein_keys = protein_keys
-        
+
         self.kmer_invariants = kmer_invariants
         self.radius_invariants = radius_invariants
-        
-        self.protein_to_kmer_shapes, self.kmer_shape_to_proteins, self.kmer_embedding, self.kmer_shape_keys = moments_to_embedding([self.kmer_invariants[name] for name in protein_keys], resolution = resolution, shape_keys = kmer_shape_keys)
-        self.protein_to_radius_shapes, self.radius_shape_to_proteins, self.radius_embedding, self.radius_shape_keys = moments_to_embedding([self.radius_invariants[name] for name in protein_keys], resolution = resolution, shape_keys = radius_shape_keys)
+
+        self.protein_to_kmer_shapes, self.kmer_shape_to_proteins, self.kmer_embedding, self.kmer_shape_keys = moments_to_embedding(
+            [self.kmer_invariants[name] for name in protein_keys], resolution=resolution, shape_keys=kmer_shape_keys)
+        self.protein_to_radius_shapes, self.radius_shape_to_proteins, self.radius_embedding, self.radius_shape_keys = moments_to_embedding(
+            [self.radius_invariants[name] for name in protein_keys], resolution=resolution, shape_keys=radius_shape_keys)
 
         self.concatenated_embedding = np.hstack((self.kmer_embedding, self.radius_embedding))
-
 
     def map_feature_to_residues(self, feature_index):
         protein_to_important_residues = {}
         for protein in self.protein_keys:
             protein_to_important_residues[protein] = set([])
-            
+
         kmer_feature_nr = len(self.kmer_shape_keys)
-        if feature_index >= kmer_feature_nr: #this means the feature is a radius invariant
+        if feature_index >= kmer_feature_nr:  # this means the feature is a radius invariant
             invariants = self.radius_invariants
             shape_to_proteins = self.radius_shape_to_proteins
             shape_key = self.radius_shape_keys[feature_index - kmer_feature_nr]
-            
-        else: #this means the feature is a kmer invariant
+
+        else:  # this means the feature is a kmer invariant
             invariants = self.kmer_invariants
             shape_to_proteins = self.kmer_shape_to_proteins
             shape_key = self.kmer_shape_keys[feature_index]
@@ -48,19 +50,7 @@ class GeometricusEmbedding:
                 protein_to_important_residues[protein_name].add(important_residue)
 
         return protein_to_important_residues
-            
 
-            
-            
-            
-            
-            
-        
-
-            
-            
-            
-        
 
 @dataclass(eq=False)
 class MomentInvariants(protein_utility.Structure):
@@ -92,7 +82,8 @@ class MomentInvariants(protein_utility.Structure):
         coordinates = protein.getCoords()
         sequence = protein.getSequence()
         residue_splits = utility.group_indices(protein.getResindices())
-        shape = cls(name, coordinates.shape[0], coordinates, residue_splits, np.array(indices), sequence=sequence, split_type=split_type, split_size=split_size)
+        shape = cls(name, coordinates.shape[0], coordinates, residue_splits, np.array(indices), sequence=sequence, split_type=split_type,
+                    split_size=split_size)
         shape.split(split_type)
         return shape
 
@@ -130,7 +121,7 @@ class MomentInvariants(protein_utility.Structure):
         split_indices = []
         for i in range(self.length):
             kmer = []
-            for j in range(max(0, i - self.split_size//2), min(len(self.residue_splits), i + self.split_size//2)):
+            for j in range(max(0, i - self.split_size // 2), min(len(self.residue_splits), i + self.split_size // 2)):
                 kmer += self.residue_splits[j]
             split_indices.append(kmer)
         return self._get_moments(split_indices)
@@ -138,7 +129,7 @@ class MomentInvariants(protein_utility.Structure):
     def kmerize_cut_ends(self):
         split_indices = []
         overlap = 1
-        for i in range(self.split_size//2, self.length - self.split_size//2, overlap):
+        for i in range(self.split_size // 2, self.length - self.split_size // 2, overlap):
             kmer = []
             for j in range(max(0, i - self.split_size // 2), min(len(self.residue_splits), i + self.split_size // 2)):
                 kmer += self.residue_splits[j]
@@ -170,7 +161,7 @@ class MomentInvariants(protein_utility.Structure):
         return self._get_moments(split_indices)
 
 
-def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: float, shape_keys: list=None):
+def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: float, shape_keys: list = None):
     shapes = get_shapes(moments, resolution)
     same_shapes = get_same_shapes(shapes)
     if shape_keys is None:
@@ -209,6 +200,3 @@ def make_embedding(binned_moments, shape_keys):
             if tuple(m) in shape_to_index:
                 embedding[i, shape_to_index[tuple(m)]] += 1
     return embedding
-
-
-
