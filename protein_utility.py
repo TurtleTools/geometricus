@@ -2,7 +2,6 @@ import typing
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import Bio.PDB
 import numpy as np
 import prody as pd
 
