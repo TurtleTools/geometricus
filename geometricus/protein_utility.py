@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import prody as pd
 
-from . import utility
+from geometricus import utility
 
 
 @dataclass(eq=False)

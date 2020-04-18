@@ -1,7 +1,7 @@
 import numba as nb
 import numpy as np
 
-from . import utility
+from geometricus import utility
 
 NUM_MOMENTS = 4
 

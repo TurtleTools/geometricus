@@ -6,7 +6,7 @@ TODO: Add link to paper
 
 ## Requirements
 * `python 3.7+`
-* `numpy`
+* `scipy`
 * `numba`
 * `prody`
 
@@ -21,7 +21,7 @@ Embeddings can be made from
 Resolution is a parameter that can be optimized for the task at hand. Higher values result in more specific shape-mers
 
 ```python
-import geometricus
+from geometricus import geometricus
 
 invariants_kmer = {}
 invariants_radius = {}

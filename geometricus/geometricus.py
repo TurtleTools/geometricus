@@ -6,9 +6,7 @@ from pathlib import Path
 import numpy as np
 import prody as pd
 
-import moment_utility
-import protein_utility
-import utility
+from geometricus import moment_utility, protein_utility, utility
 
 
 class GeometricusEmbedding:
