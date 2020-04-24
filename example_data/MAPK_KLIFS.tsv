@@ -1,0 +1,744 @@
+FAMILY	GROUPS	PDB	CHAIN	ALTERNATE_MODEL	SPECIES	LIGAND	PDB_IDENTIFIER	ALLOSTERIC_NAME	ALLOSTERIC_PDB	DFG	AC_HELIX	CLASS
+MAPK8 (JNK1)	MAPK	CMGC	3o2m	A	-	Human	-	-	N-butyl-4,6-dimethyl-N-{[2&apos;-(2H-tetrazol-5-yl)biphenyl-4-yl]methyl}pyrimidin-2-amine	46A	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3o2m	B	-	Human	-	-	N-butyl-4,6-dimethyl-N-{[2&apos;-(2H-tetrazol-5-yl)biphenyl-4-yl]methyl}pyrimidin-2-amine	46A	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	4eh8	A	A	Human	[3-(benzyloxy)phenyl]methanol	0OP	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh2	A	-	Human	3-phenylquinazolin-4(3H)-one	0OK	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh7	A	A	Human	(3-phenoxyphenyl)methanol	0OO	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh5	A	-	Human	benzyl pyridine-3-carboxylate	0OM	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4dli	A	-	Human	-	-	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh3	A	-	Human	NARINGENIN	NAR	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	na	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh6	A	-	Human	N-phenylpyridine-3-carboxamide	0ON	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	na	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh4	A	-	Human	phenyl(piperidin-1-yl)methanone	0OL	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh7	A	B	Human	(3-phenoxyphenyl)methanol	0OO	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh8	A	B	Human	[3-(benzyloxy)phenyl]methanol	0OP	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4eh9	A	-	Human	-	-	N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine	IRG	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4e8a	A	-	Human	-	-	(1R,2S,3R,4S,6S)-6-(cyclohexylmethoxy)-2,3,4-trihydroxycyclohexyl (2R)-2-methoxy-3-(octadecyloxy)propyl hydrogen (S)-phosphate	0OA	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4ehv	A	A	Human	-	-	(1R,5S)-3-(4-chlorobenzoyl)-1,2,3,4,5,6-hexahydro-8H-1,5-methanopyrido[1,2-a][1,5]diazocin-8-one	0SJ	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4ehv	A	B	Human	-	-	(1R,5S)-3-(4-chlorobenzoyl)-1,2,3,4,5,6-hexahydro-8H-1,5-methanopyrido[1,2-a][1,5]diazocin-8-one	0SJ	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6qdz	A	B	Human	1-[5-~{tert}-butyl-2-(4-methylphenyl)pyrazol-3-yl]-3-[(1~{S},4~{S})-4-[(3-propan-2-yl-[1,2,4]triazolo[4,3-a]pyridin-6-yl)oxy]-1,2,3,4-tetrahydronaphthalen-1-yl]urea	HYK	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6qe1	A	-	Human	1-[5-~{tert}-butyl-2-(4-methylphenyl)pyrazol-3-yl]-3-[(1~{S},4~{R})-4-[(3-propan-2-yl-[1,2,4]triazolo[4,3-a]pyridin-6-yl)oxy]-1,2,3,4-tetrahydronaphthalen-1-yl]urea	HYW	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6qdz	A	A	Human	1-[5-~{tert}-butyl-2-(4-methylphenyl)pyrazol-3-yl]-3-[(1~{S},4~{S})-4-[(3-propan-2-yl-[1,2,4]triazolo[4,3-a]pyridin-6-yl)oxy]-1,2,3,4-tetrahydronaphthalen-1-yl]urea	HYK	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3k3i	A	A	Human	(3S)-3-[4-(4-bromophenyl)-1H-imidazol-2-yl]-1,2,3,4-tetrahydroisoquinoline	JZJ	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hll	A	B	Human	3-{3-bromo-4-[(2,4-difluorobenzyl)oxy]-6-methyl-2-oxopyridin-1(2H)-yl}-N,4-dimethylbenzamide	I45	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hl7	A	-	Human	2-{4-[5-(4-chlorophenyl)-4-pyrimidin-4-yl-1H-pyrazol-3-yl]piperidin-1-yl}-2-oxoethanol	I47	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hp2	A	A	Human	1-benzyl-4-(benzyloxy)-3-bromopyridin-2(1H)-one	P36	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2yis	A	-	Human	1-[3-tert-butyl-1-(3-chloro-4-hydroxyphenyl)-1H-pyrazol-5-yl]-3-{2-[(3-{2-[(2-hydroxyethyl)sulfanyl]phenyl}[1,2,4]triazolo[4,3-a]pyridin-6-yl)sulfanyl]benzyl}urea	YIS	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hp5	A	-	Human	5-(2,6-dichlorophenyl)-2-[(2,4-difluorophenyl)sulfanyl]-6H-pyrimido[1,6-b]pyridazin-6-one	52P	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hll	A	A	Human	3-{3-bromo-4-[(2,4-difluorobenzyl)oxy]-6-methyl-2-oxopyridin-1(2H)-yl}-N,4-dimethylbenzamide	I45	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3k3j	A	-	Human	2-(4-fluorophenyl)-3-oxo-6-pyridin-4-yl-N-[2-(trifluoromethyl)benzyl]-2,3-dihydropyridazine-4-carboxamide	F4C	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3k3i	A	B	Human	(3S)-3-[4-(4-bromophenyl)-1H-imidazol-2-yl]-1,2,3,4-tetrahydroisoquinoline	JZJ	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hp2	A	B	Human	1-benzyl-4-(benzyloxy)-3-bromopyridin-2(1H)-one	P36	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2yiw	A	-	Human	1-(3-tert-butyl-1-phenyl-1H-pyrazol-5-yl)-3-(2-{[3-(1-methylethyl)[1,2,4]triazolo[4,3-a]pyridin-6-yl]sulfanyl}benzyl)urea	YIW	2-fluoro-4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	I46	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3roc	A	-	Human	3-{5-chloro-4-[(2,4-difluorobenzyl)oxy]-6-oxopyrimidin-1(6H)-yl}-N-(2-hydroxyethyl)-4-methylbenzamide	29A	4-[4-(4-fluorophenyl)-1H-pyrazol-3-yl]pyridine	29B	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4e6c	A	-	Human	-	-	(1,1-dimethylpiperidin-1-ium-4-yl) octadecyl hydrogen phosphate	0O8	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4zth	A	A	Human	6-chloro-3-phenyl-4-(pyridin-4-yl)pyridazine	VVT	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	out-like	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4ewq	A	B	Human	3-phenyl-4-(pyridin-4-yl)-6-[4-(pyrimidin-2-yl)piperazin-1-yl]pyridazine	MWL	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4ewq	A	A	Human	3-phenyl-4-(pyridin-4-yl)-6-[4-(pyrimidin-2-yl)piperazin-1-yl]pyridazine	MWL	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4f9y	A	B	Human	N,N-dimethyl-6-(naphthalen-1-yl)-5-(pyridin-4-yl)pyridazin-3-amine	LM3	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4fa2	A	A	Human	trans-4-[4-(4-fluorophenyl)-5-(2-methoxypyrimidin-4-yl)-1H-imidazol-1-yl]cyclohexanol	SB0	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	out-like	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4f9w	A	A	Human	N,N-dimethyl-6-(naphthalen-2-yl)-5-(pyridin-4-yl)pyridazin-3-amine	LM4	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4zth	A	B	Human	6-chloro-3-phenyl-4-(pyridin-4-yl)pyridazine	VVT	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	out-like	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4r3c	A	B	Human	6-(4-methylpiperazin-1-yl)-3-(naphthalen-2-yl)-4-(pyridin-4-yl)pyridazine	3GF	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4f9y	A	A	Human	N,N-dimethyl-6-(naphthalen-1-yl)-5-(pyridin-4-yl)pyridazin-3-amine	LM3	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4r3c	A	A	Human	6-(4-methylpiperazin-1-yl)-3-(naphthalen-2-yl)-4-(pyridin-4-yl)pyridazine	3GF	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4fa2	A	B	Human	trans-4-[4-(4-fluorophenyl)-5-(2-methoxypyrimidin-4-yl)-1H-imidazol-1-yl]cyclohexanol	SB0	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	out-like	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4f9w	A	B	Human	N,N-dimethyl-6-(naphthalen-2-yl)-5-(pyridin-4-yl)pyridazin-3-amine	LM4	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hvc	A	-	Human	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	4-[3-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL]PYRIDINE	GG5	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3new	A	B	Human	-	-	4-(trifluoromethyl)-3-[3-(trifluoromethyl)phenyl]-1,7-dihydro-6H-pyrazolo[3,4-b]pyridin-6-one	3NE	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3new	A	A	Human	-	-	4-(trifluoromethyl)-3-[3-(trifluoromethyl)phenyl]-1,7-dihydro-6H-pyrazolo[3,4-b]pyridin-6-one	3NE	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3c5u	A	-	Human	6-[4-(2-fluorophenyl)-1,3-oxazol-5-yl]-N-(1-methylethyl)-1,3-benzothiazol-2-amine	P41	6-[4-(2-fluorophenyl)-1,3-oxazol-5-yl]-N-(1-methylethyl)-1,3-benzothiazol-2-amine	P41	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2rg6	A	-	Human	4-{[5-(methoxycarbamoyl)-2-methylphenyl]amino}-5-methyl-N-[(1S)-1-phenylethyl]pyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	287	4-{[5-(methoxycarbamoyl)-2-methylphenyl]amino}-5-methyl-N-[(1S)-1-phenylethyl]pyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	287	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4e6a	A	-	Human	-	-	(2S)-2-methoxy-3-(octadecyloxy)propyl (1R,2R,3R,4S,6S)-2,3,4-trihydroxy-6-(2-methylpropoxy)cyclohexyl hydrogen (S)-phosphate	0O9	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4dlj	A	-	Human	2-phenyl-N~4~-(2-phenylethyl)quinazoline-4,7-diamine	6RG	2-phenyl-N~4~-(2-phenylethyl)quinazoline-4,7-diamine	6RG	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	5o8v	A	-	Human	-	-	~{N}-[3-[7-azanyl-4-(2-phenylethylamino)quinazolin-2-yl]phenyl]propanamide	9O2	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	5o8u	A	-	Human	-	-	4-[3-[7-azanyl-4-(2-phenylethylamino)quinazolin-2-yl]phenyl]butan-2-one	9O5	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	5n67	A	A	Human	-	-	1-[4-[4-[7-azanyl-4-(2-phenylethylamino)quinazolin-2-yl]phenyl]piperazin-1-yl]ethanone	8ON	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5n67	A	B	Human	-	-	1-[4-[4-[7-azanyl-4-(2-phenylethylamino)quinazolin-2-yl]phenyl]piperazin-1-yl]ethanone	8ON	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5n68	A	-	Human	-	-	2-(4-morpholin-4-ylphenyl)-~{N}4-(2-phenylethyl)quinazoline-4,7-diamine	8OK	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5n66	A	-	Human	1-(5-TERT-BUTYL-2-P-TOLYL-2H-PYRAZOL-3-YL)-3-[4-(2-MORPHOLIN-4-YL-ETHOXY)-NAPHTHALEN-1-YL]-UREA	B96	~{N}4-[[4-(cyclopropylmethyl)furan-2-yl]methyl]-2-phenyl-quinazoline-4,7-diamine	BW1	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5n65	A	-	Human	2-phenyl-~{N}4-(2-thiophen-2-ylethyl)quinazoline-4,7-diamine	8OT	2-phenyl-~{N}4-(2-thiophen-2-ylethyl)quinazoline-4,7-diamine	8OT	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	5n63	A	-	Human	-	-	~{N}4-[(4-fluorophenyl)methyl]-2-phenyl-quinazoline-4,7-diamine	8OW	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	5n64	A	-	Human	-	-	2-phenyl-~{N}4-(thiophen-2-ylmethyl)quinazoline-4,7-diamine	8OH	out	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	5wp1	A	A	Human	5,7-dihydroxy-4H-1-benzopyran-4-one	B7S	BENZOIC ACID	BEZ	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5wp1	A	B	Human	5,7-dihydroxy-4H-1-benzopyran-4-one	B7S	BENZOIC ACID	BEZ	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	6ges	A	A	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	~{N}-[2-[[5-chloranyl-2-[[4-(4-methylpiperazin-1-yl)phenyl]amino]pyrimidin-4-yl]amino]phenyl]prop-2-enamide	EWH	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	6ges	A	B	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	~{N}-[2-[[5-chloranyl-2-[[4-(4-methylpiperazin-1-yl)phenyl]amino]pyrimidin-4-yl]amino]phenyl]prop-2-enamide	EWH	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qal	A	B	Human	1,1-bis(oxidanylidene)thietan-3-ol	HV2	1,1-bis(oxidanylidene)thietan-3-ol	HV2	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qal	A	A	Human	1,1-bis(oxidanylidene)thietan-3-ol	HV2	1,1-bis(oxidanylidene)thietan-3-ol	HV2	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qaq	A	A	Human	thiophen-3-ylmethylazanium	HVQ	thiophen-3-ylmethylazanium	HVQ	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qaq	A	B	Human	thiophen-3-ylmethylazanium	HVQ	thiophen-3-ylmethylazanium	HVQ	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa4	A	A	Human	1~{H}-pyridin-2-one	HRZ	1~{H}-pyridin-2-one	HRZ	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa4	A	B	Human	1~{H}-pyridin-2-one	HRZ	1~{H}-pyridin-2-one	HRZ	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa1	A	B	Human	pyridin-2-amine	HVK	pyridin-2-amine	HVK	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa1	A	A	Human	pyridin-2-amine	HVK	pyridin-2-amine	HVK	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qah	A	B	Human	1-azanylpropylideneazanium	HVB	1-azanylpropylideneazanium	HVB	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qah	A	A	Human	1-azanylpropylideneazanium	HVB	1-azanylpropylideneazanium	HVB	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6nbs	A	A	Human	-	-	(5S)-5-benzyl-4,5-dihydro-1H-imidazol-2-amine	KJ7	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6nbs	A	B	Human	-	-	(5S)-5-benzyl-4,5-dihydro-1H-imidazol-2-amine	KJ7	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	6sfj	A	A	Human	~{N}-[5-[[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]carbamoyl]-2-methyl-phenyl]-1-(2-methylphenyl)pyrazole-4-carboxamide	LBB	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfj	A	B	Human	~{N}-[5-[[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]carbamoyl]-2-methyl-phenyl]-1-(2-methylphenyl)pyrazole-4-carboxamide	LBB	-	-	out	out	p38
+MAPK12 (p38g)	MAPK	CMGC	6una	A	A	Human	-	-	-	-	in	out-like	p38
+MAPK12 (p38g)	MAPK	CMGC	6una	B	B	Human	-	-	-	-	in	out-like	p38
+MAPK12 (p38g)	MAPK	CMGC	6una	A	B	Human	-	-	-	-	in	out-like	p38
+MAPK12 (p38g)	MAPK	CMGC	6una	B	A	Human	-	-	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	6rq4	A	A	Human	6,6-dimethyl-2-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-5-(2-morpholin-4-ylethyl)thieno[2,3-c]pyrrol-4-one	KE8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6rq4	A	B	Human	6,6-dimethyl-2-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-5-(2-morpholin-4-ylethyl)thieno[2,3-c]pyrrol-4-one	KE8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6slg	A	A	Human	(6~{R})-7-[[3,4-bis(fluoranyl)phenyl]methyl]-6-(methoxymethyl)-2-[5-methyl-2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-5,6-dihydroimidazo[1,2-a]pyrazin-8-one	LHZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6slg	A	B	Human	(6~{R})-7-[[3,4-bis(fluoranyl)phenyl]methyl]-6-(methoxymethyl)-2-[5-methyl-2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-5,6-dihydroimidazo[1,2-a]pyrazin-8-one	LHZ	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	6ohd	A	A	Human	3-(3-tert-butyl-2-oxo-2,3-dihydro-1H-imidazo[4,5-b]pyridin-6-yl)-4-methyl-N-(1,2-oxazol-3-yl)benzamide	MKP	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	6ohd	A	B	Human	3-(3-tert-butyl-2-oxo-2,3-dihydro-1H-imidazo[4,5-b]pyridin-6-yl)-4-methyl-N-(1,2-oxazol-3-yl)benzamide	MKP	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfi	A	A	Human	~{N}-[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]-2-[[[1-(2-methylphenyl)pyrazol-4-yl]carbonylamino]methyl]-1,3-thiazole-5-carboxamide	LB5	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfi	A	B	Human	~{N}-[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]-2-[[[1-(2-methylphenyl)pyrazol-4-yl]carbonylamino]methyl]-1,3-thiazole-5-carboxamide	LB5	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfk	A	A	Human	~{N}-[5-[[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]carbamoyl]-2-methyl-phenyl]-1-phenyl-5-(trifluoromethyl)pyrazole-4-carboxamide	LB8	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfk	A	B	Human	~{N}-[5-[[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]carbamoyl]-2-methyl-phenyl]-1-phenyl-5-(trifluoromethyl)pyrazole-4-carboxamide	LB8	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfj	A	C	Human	~{N}-[5-[[(2~{S})-1-azanyl-4-cyclohexyl-1-oxidanylidene-butan-2-yl]carbamoyl]-2-methyl-phenyl]-1-(2-methylphenyl)pyrazole-4-carboxamide	LBB	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfo	A	B	Human	5-azanyl-~{N}-[[4-(3-cyclohexylpropylcarbamoyl)phenyl]methyl]-1-phenyl-pyrazole-4-carboxamide	LBE	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6sfo	A	A	Human	5-azanyl-~{N}-[[4-(3-cyclohexylpropylcarbamoyl)phenyl]methyl]-1-phenyl-pyrazole-4-carboxamide	LBE	-	-	out	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	6oph	A	-	Human	1-[(1~{S})-1-(4-chloranyl-3-fluoranyl-phenyl)-2-oxidanyl-ethyl]-4-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]pyridin-2-one	6QB	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6opg	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6opi	A	-	Human	(3R)-N-[3-(2-cyclopropylpyridin-4-yl)-1H-indazol-5-yl]-3-(methoxymethyl)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]-3,6-dihydropyridin-1(2H)-yl}ethyl)pyrrolidine-3-carboxamide	N0V	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9n	A	A	Human	(2~{R})-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{S})-1-(3-methylphenyl)-2-oxidanyl-ethyl]propanamide	ESN	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9n	A	B	Human	(2~{R})-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{S})-1-(3-methylphenyl)-2-oxidanyl-ethyl]propanamide	ESN	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g92	A	A	Human	~{N}-(1,5-dimethylpyrazol-4-yl)-5-methyl-pyrimidin-2-amine	ERZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g92	A	B	Human	~{N}-(1,5-dimethylpyrazol-4-yl)-5-methyl-pyrimidin-2-amine	ERZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9a	A	A	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2-(2-morpholin-4-ylethyl)-3~{H}-isoindol-1-one	ESQ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9a	A	B	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2-(2-morpholin-4-ylethyl)-3~{H}-isoindol-1-one	ESQ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6q7t	A	B	Human	1,2-oxazol-3-amine	HOW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6q7t	A	A	Human	1,2-oxazol-3-amine	HOW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6q7s	A	B	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6q7s	A	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa3	A	B	Human	PYRAZOLE	PZO	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qa3	A	A	Human	PYRAZOLE	PZO	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	6ges	B	B	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	6ges	B	A	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	6hwt	A	A	Human	3-(2,5-dimethoxyphenyl)-~{N}-[4-[4-(4-fluorophenyl)-2-(2-phenylhydrazinyl)-1,3-thiazol-5-yl]pyridin-2-yl]propanamide	GXH	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6hwt	A	B	Human	3-(2,5-dimethoxyphenyl)-~{N}-[4-[4-(4-fluorophenyl)-2-(2-phenylhydrazinyl)-1,3-thiazol-5-yl]pyridin-2-yl]propanamide	GXH	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6m9l	A	-	Human	3-benzyl-6-[(2,4-difluorophenyl)amino]-1,3-dihydro-2H-imidazo[4,5-b]pyridin-2-one	J9G	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5omg	A	B	Human	3-(4-fluorophenyl)-4-methyl-1~{H}-pyrazolo[4,3-c][1,2]benzothiazine 5,5-dioxide	9Y8	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5omg	A	A	Human	3-(4-fluorophenyl)-4-methyl-1~{H}-pyrazolo[4,3-c][1,2]benzothiazine 5,5-dioxide	9Y8	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6hwu	A	A	Human	-	-	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6hwu	A	B	Human	-	-	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5omh	A	-	Human	1-(3-chlorophenyl)-3-methyl-4~{H}-pyrazolo[4,3-c][1,2]benzothiazine 5,5-dioxide	9Y5	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	6hwv	A	B	Human	-	-	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6hwv	A	A	Human	-	-	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6m95	A	-	Human	(4-benzylpiperidin-1-yl)[2-methoxy-4-(methylsulfanyl)phenyl]methanone	J8S	-	-	na	na	p38
+MAPK1 (Erk2)	MAPK	CMGC	6qag	A	B	Human	1~{H}-1,2,3-triazole	HUH	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qag	A	A	Human	1~{H}-1,2,3-triazole	HUH	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6q7k	A	-	Human	1H-imidazol-2-amine	2AI	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qaw	A	A	Human	[1-(7~{H}-pyrrolo[2,3-d]pyrimidin-4-yl)piperidin-4-yl]methylazanium	HVE	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6qaw	A	B	Human	[1-(7~{H}-pyrrolo[2,3-d]pyrimidin-4-yl)piperidin-4-yl]methylazanium	HVE	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6d5y	A	-	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g54	A	B	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g54	A	A	Human	N-{2-[(5-chloro-2-{[4-(4-methylpiperazin-1-yl)phenyl]amino}pyrimidin-4-yl)amino]phenyl}propanamide	6H3	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	6hkm	A	-	Human	[4-(6,7-dimethoxyquinazolin-4-yl)piperidin-1-yl]-[4-(trifluoromethyloxy)phenyl]methanone	G92	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	6hkn	A	A	Human	[2-azanyl-4-(trifluoromethyloxy)phenyl]-[4-(7-methoxyquinazolin-4-yl)piperidin-1-yl]methanone	G9E	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	6hkn	A	B	Human	[2-azanyl-4-(trifluoromethyloxy)phenyl]-[4-(7-methoxyquinazolin-4-yl)piperidin-1-yl]methanone	G9E	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gjb	A	B	Human	[(1~{R},4~{Z})-cyclooct-4-en-1-yl] ~{N}-[4-[4-[[4-[1-[(1~{S})-1-(4-chloranyl-3-fluoranyl-phenyl)-2-oxidanyl-ethyl]-2-oxidanylidene-pyridin-4-yl]pyrimidin-2-yl]amino]pyridin-2-yl]but-3-ynyl]carbamate	F0H	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gjb	A	A	Human	[(1~{R},4~{Z})-cyclooct-4-en-1-yl] ~{N}-[4-[4-[[4-[1-[(1~{S})-1-(4-chloranyl-3-fluoranyl-phenyl)-2-oxidanyl-ethyl]-2-oxidanylidene-pyridin-4-yl]pyrimidin-2-yl]amino]pyridin-2-yl]but-3-ynyl]carbamate	F0H	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gjd	A	A	Human	cyclooctyl ~{N}-[3-[[4-[5-[[(3~{R})-1-[2-oxidanylidene-2-[4-(4-pyrimidin-2-ylphenyl)piperazin-1-yl]ethyl]pyrrolidin-3-yl]carbonylamino]-1~{H}-indazol-3-yl]pyridin-2-yl]carbonylamino]propyl]carbamate	F0E	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gjd	A	B	Human	cyclooctyl ~{N}-[3-[[4-[5-[[(3~{R})-1-[2-oxidanylidene-2-[4-(4-pyrimidin-2-ylphenyl)piperazin-1-yl]ethyl]pyrrolidin-3-yl]carbonylamino]-1~{H}-indazol-3-yl]pyridin-2-yl]carbonylamino]propyl]carbamate	F0E	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6dmg	A	C	Human	ethyl N-{2-chloro-4-[5-(5-{[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]carbamoyl}-1H-pyrrol-3-yl)-1H-pyrazol-4-yl]benzyl}glycinate	EK6	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6dmg	A	B	Human	ethyl N-{2-chloro-4-[5-(5-{[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]carbamoyl}-1H-pyrrol-3-yl)-1H-pyrazol-4-yl]benzyl}glycinate	EK6	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	4z9l	A	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	6dmg	A	A	Human	-	-	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	6ekd	A	B	Human	4-(4-methyl-2-methylsulfanyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	B9K	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6eq9	A	A	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6eq9	B	A	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6eq9	A	B	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6ekd	A	A	Human	4-(4-methyl-2-methylsulfanyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	B9K	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6eq9	B	B	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	D	A	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	1bmk	A	-	Human	4-(FLUOROPHENYL)-1-CYCLOPROPYLMETHYL-5-(2-AMINO-4-PYRIMIDINYL)IMIDAZOLE	SB5	-	-	in	out-like	p38
+MAPK12 (p38g)	MAPK	CMGC	1cm8	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	p38
+MAPK10 (JNK3)	MAPK	CMGC	1jnk	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	1r39	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1bl6	A	-	Human	4-(4-FLUOROPHENYL)-1-CYCLOROPROPYLMETHYL-5-(4-PYRIDYL)-IMIDAZOLE	SB6	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1bl7	A	-	Human	4-(4-FLUOROPHENYL)-1-(4-PIPERIDINYL)-5-(2-AMINO-4-PYRIMIDINYL)-IMIDAZOLE	SB4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5mz3	A	B	Human	~{N}-[3-(2-acetamidoimidazo[1,2-a]pyridin-6-yl)-4-methyl-phenyl]-3-(trifluoromethyl)benzamide	8EN	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5mz3	A	A	Human	~{N}-[3-(2-acetamidoimidazo[1,2-a]pyridin-6-yl)-4-methyl-phenyl]-3-(trifluoromethyl)benzamide	8EN	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wfc	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1di9	A	-	Human	4-[3-METHYLSULFANYLANILINO]-6,7-DIMETHOXYQUINAZOLINE	MSQ	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	1pmu	A	-	Human	9-(4-HYDROXYPHENYL)-2,7-PHENANTHROLINE	9HP	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	5wjj	A	A	Human	N-{4-[2-(4-fluoro-3-methylphenyl)imidazo[1,2-b]pyridazin-3-yl]pyridin-2-yl}-2-methyl-1-oxo-1lambda~5~-pyridine-4-carboxamide	AQY	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6anl	A	A	Human	TAK-715	T75	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	6anl	A	B	Human	TAK-715	T75	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5wjj	A	B	Human	N-{4-[2-(4-fluoro-3-methylphenyl)imidazo[1,2-b]pyridazin-3-yl]pyridin-2-yl}-2-methyl-1-oxo-1lambda~5~-pyridine-4-carboxamide	AQY	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	5xyy	A	-	Human	3-(5-{[(2-chloro-6-fluorophenyl)methyl]amino}-4H-1,2,4-triazol-3-yl)phenol	P0F	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	5xyx	A	B	Human	N-(2-chloro-6-fluorobenzyl)-5-(furan-2-yl)-2H-1,2,4-triazol-3-amine	FTZ	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	5xyx	A	A	Human	N-(2-chloro-6-fluorobenzyl)-5-(furan-2-yl)-2H-1,2,4-triazol-3-amine	FTZ	-	-	in	in	p38
+MAPK8 (JNK1)	MAPK	CMGC	6f5e	B	-	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4z9l	A	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	5lw1	E	-	Human	ADENOSINE	ADN	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	5lw1	H	-	Human	ADENOSINE	ADN	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	5lw1	B	-	Human	ADENOSINE	ADN	-	-	in	in	JNK
+MAPK12 (p38g)	MAPK	CMGC	1cm8	B	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	5mtx	A	A	Human	3-[(3-benzamido-4-fluoranyl-phenyl)amino]-~{N}-(2-morpholin-4-ylethyl)-11-oxidanylidene-6~{H}-benzo[c][1]benzoxepine-9-carboxamide	FJI	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5mtx	A	B	Human	3-[(3-benzamido-4-fluoranyl-phenyl)amino]-~{N}-(2-morpholin-4-ylethyl)-11-oxidanylidene-6~{H}-benzo[c][1]benzoxepine-9-carboxamide	FJI	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	1pmv	A	-	Human	2,6-DIHYDROANTHRA/1,9-CD/PYRAZOL-6-ONE	537	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	5mty	A	-	Human	~{N}-[2,4-bis(fluoranyl)-5-[[14-(2-hydroxyethylcarbamoyl)-2-oxidanylidene-6-tricyclo[9.4.0.0^{3,8}]pentadeca-1(15),3(8),4,6,11,13-hexaenyl]amino]phenyl]thiophene-2-carboxamide	HB9	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1m7q	A	-	Human	1-(2,6-DICHLOROPHENYL)-5-(2,4-DIFLUOROPHENYL)-7-PIPERAZIN-1-YL-3,4-DIHYDROQUINAZOLIN-2(1H)-ONE	DQO	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	1r3c	A	B	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1r3c	A	A	Human	-	-	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	5nhh	A	-	Human	5-(2-methoxyethyl)-2-[2-(oxan-4-ylamino)pyrimidin-4-yl]-6,7-dihydro-1~{H}-pyrrolo[3,2-c]pyridin-4-one	8XH	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v62	A	A	Human	5-(2-PHENYLPYRAZOLO[1,5-A]PYRIDIN-3-YL)-1H-PYRAZOLO[3,4-C]PYRIDAZIN-3-AMINE	FRZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v60	A	B	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v61	A	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v61	A	B	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5nhf	A	-	Human	2-[2-(oxan-4-ylamino)pyrimidin-4-yl]-5-(phenylmethyl)-6,7-dihydro-1~{H}-pyrrolo[3,2-c]pyridin-4-one	8X5	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	5tco	A	-	Human	3-[(3-benzamido-4-fluoranyl-phenyl)amino]-~{N}-(2-morpholin-4-ylethyl)-11-oxidanylidene-5,6-dihydrodibenzo[1,2-~{d}:1',2'-~{f}][7]annulene-9-carboxamide	79Q	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5tbe	A	-	Human	~{N}-[2,4-bis(fluoranyl)-5-[[9-(2-morpholin-4-ylethylcarbamoyl)-11-oxidanylidene-5,6-dihydrodibenzo[1,2-~{d}:1',2'-~{f}][7]annulen-3-yl]amino]phenyl]thiophene-2-carboxamide	78L	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	5nhp	A	-	Human	5-(2-methoxyethyl)-1-methyl-2-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-6,7-dihydropyrrolo[3,2-c]pyridin-4-one	8XK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v62	A	B	Human	5-(2-PHENYLPYRAZOLO[1,5-A]PYRIDIN-3-YL)-1H-PYRAZOLO[3,4-C]PYRIDAZIN-3-AMINE	FRZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5v60	A	A	Human	PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	ACP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5ngu	A	-	Human	2-[2-[[4-(4-methylpiperazin-1-yl)phenyl]amino]pyrimidin-4-yl]-1,5,6,7-tetrahydropyrrolo[3,2-c]pyridin-4-one	8X2	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5nho	A	-	Human	(6~{S})-5-(2-methoxyethyl)-6-methyl-2-[5-methyl-2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-6,7-dihydro-1~{H}-pyrrolo[3,2-c]pyridin-4-one	8XN	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5nhj	A	-	Human	5-(2-methoxyethyl)-2-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-6,7-dihydro-1~{H}-pyrrolo[3,2-c]pyridin-4-one	8XE	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5nhl	A	-	Human	(6~{R})-5-(2-methoxyethyl)-6-methyl-2-[5-methyl-2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]-6,7-dihydro-1~{H}-pyrrolo[3,2-c]pyridin-4-one	8XB	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	6emh	D	B	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	B	B	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	A	B	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	C	B	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	B	A	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	C	A	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	6emh	A	A	Human	4-(4-methyl-1~{H}-imidazol-5-yl)-~{N}-(4-morpholin-4-ylphenyl)pyridin-2-amine	BGE	-	-	in	in	JNK
+MAPK7 (Erk5)	MAPK	CMGC	5o7i	A	B	Human	4-(2-bromanyl-6-fluoranyl-phenyl)carbonyl-~{N}-pyridin-3-yl-1~{H}-pyrrole-2-carboxamide	9N8	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	5o7i	A	A	Human	4-(2-bromanyl-6-fluoranyl-phenyl)carbonyl-~{N}-pyridin-3-yl-1~{H}-pyrrole-2-carboxamide	9N8	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	1pmn	A	-	Human	CYCLOPROPYL-{4-[5-(3,4-DICHLOROPHENYL)-2-[(1-METHYL)-PIPERIDIN]-4-YL-3-PROPYL-3H-IMIDAZOL-4-YL]-PYRIMIDIN-2-YL}AMINE	984	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	1ouy	A	-	Human	1-(2,6-DICHLOROPHENYL)-6-[(2,4-DIFLUOROPHENYL)SULFANYL]-7-(1,2,3,6-TETRAHYDRO-4-PYRIDINYL)-3,4-DIHYDROPYRIDO[3,2-D]PYRIMIDIN-2(1H)-ONE	94	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	1a9u	A	-	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5etf	A	B	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5etf	A	A	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcs	A	A	Human	4-{4-[({[4-CHLORO-3-(TRIFLUOROMETHYL)PHENYL]AMINO}CARBONYL)AMINO]PHENOXY}-N-METHYLPYRIDINE-2-CARBOXAMIDE	BAX	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3nww	A	-	Human	1-[2-(2-{[2-(dimethylamino)ethyl]amino}-6-{2-[(1-methylethyl)amino]-1,3-thiazol-5-yl}pyrimidin-4-yl)benzyl]-3-ethylurea	3NW	-	-	in	out-like	p38
+MAPK8 (JNK1)	MAPK	CMGC	2no3	B	-	Human	2-({2-[(3-HYDROXYPHENYL)AMINO]PYRIMIDIN-4-YL}AMINO)BENZAMIDE	859	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3v6s	B	B	Human	3-{[4-(dimethylamino)butanoyl]amino}-N-(4-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	0F0	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	3ds6	B	-	Human	N-cyclopropyl-4-methyl-3-[1-(2-methylphenyl)phthalazin-6-yl]benzamide	A17	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnw	A	A	Human	2-[3-(3-tert-butyl-5-{[(2,3-dichlorophenyl)carbamoyl]imino}-2,5-dihydro-1H-pyrazol-1-yl)phenyl]acetamide	EDD	-	-	out	out	p38
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	A	A	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	C	A	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	C	B	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	A	B	Human	-	-	-	-	in	out-like	JNK
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	5	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	9	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	8	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	3	Human	-	-	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	3v6r	A	B	Human	4-{[4-(dimethylamino)butanoyl]amino}-N-(3-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	CQQ	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	E	B	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	F	B	Human	-	-	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	A	A	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	E	A	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	F	A	Human	-	-	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	C	A	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2r9s	A	-	Human	N-(tert-butyl)-4-[5-(pyridin-2-ylamino)quinolin-3-yl]benzenesulfonamide	255	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2g01	B	-	Human	6-CHLORO-9-HYDROXY-1,3-DIMETHYL-1,9-DIHYDRO-4H-PYRAZOLO[3,4-B]QUINOLIN-4-ONE	73Q	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4whz	A	A	Human	3-(4-{[(2-chlorophenyl)carbamoyl]amino}-1H-pyrazol-1-yl)-N-{1-[(3S)-pyrrolidin-3-yl]-1H-pyrazol-4-yl}benzamide	3NL	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	3uvq	A	B	Human	N-{5-[(7-{[(2R)-2,3-dihydroxypropyl]oxy}-5-oxo-10,11-dihydro-5H-dibenzo[a,d][7]annulen-2-yl)amino]-2-fluorophenyl}benzamide	FS8	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	4iz5	B	-	Human	ADENOSINE-5'-DIPHOSPHATE	ADP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz5	C	-	Human	ADENOSINE-5'-DIPHOSPHATE	ADP	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	4kin	C	-	Human	5-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]thiophene-2-carboxamide	1M8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zya	A	A	Human	2-AMINO-PHENYLAMINO-DIBENZOSUBERONE	2A8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv6	A	-	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-[4-(2-morpholin-4-ylethoxy)phenyl]urea	R39	-	-	out	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	5buj	A	B	Human	4-[3-(pyridin-4-yl)-2,4,6,7-tetrahydro-5H-pyrazolo[4,3-c]pyridin-5-yl]pyridin-2(1H)-one	4VB	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	3gcq	A	A	Human	1-{4-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	1BU	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2yix	A	-	Human	1-ethyl-3-(2-{[3-(1-methylethyl)[1,2,4]triazolo[4,3-a]pyridin-6-yl]sulfanyl}benzyl)urea	YIX	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1zzl	A	-	Human	6-[4-(4-FLUOROPHENYL)-1,3-OXAZOL-5-YL]-3-ISOPROPYL[1,2,4]TRIAZOLO[4,3-A]PYRIDINE	TZY	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1kv1	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	out	out	p38
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	D	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	B	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	C	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	A	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	4fmq	A	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fmq	A	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	2bal	A	-	Human	[5-AMINO-1-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL][3-(PIPERIDIN-4-YLOXY)PHENYL]METHANONE	PQA	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1zyj	A	-	Human	4-PHENOXY-N-(PYRIDIN-2-YLMETHYL)BENZAMIDE	BI5	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	4iz7	C	B	Human	-	-	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	1ove	A	C	Human	1-(2,6-DICHLOROPHENYL)-5-(2,4-DIFLUOROPHENYL)-7-PIPERIDIN-4-YL-3,4-DIHYDROQUINOLIN-2(1H)-ONE	358	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3ocg	A	-	Human	5-amino-N-[5-(isoxazol-3-ylcarbamoyl)-2-methylphenyl]-1-phenyl-1H-pyrazole-4-carboxamide	OCG	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4kiq	D	-	Human	ethyl 6-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]carbamoyl}-1H-indole-1-carboxylate	1RA	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	4h36	A	B	Human	-	-	-	-	in	out-like	JNK
+MAPK14 (p38a)	MAPK	CMGC	3lhj	A	-	Human	N-cyclopropyl-3-[1-(2,4-difluorophenyl)-7-methyl-6-oxo-6,7-dihydro-1H-pyrazolo[3,4-b]pyridin-5-yl]-4-methylbenzamide	LHJ	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcv	A	A	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	SS6	-	-	out	out	p38
+MAPK7 (Erk5)	MAPK	CMGC	4zsj	A	A	Human	3-amino-5-[(4-chloro-3-methylphenyl)amino]-N-(propan-2-yl)-1H-1,2,4-triazole-1-carboxamide	4R0	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4zsj	A	B	Human	3-amino-5-[(4-chloro-3-methylphenyl)amino]-N-(propan-2-yl)-1H-1,2,4-triazole-1-carboxamide	4R0	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp8	A	-	Human	2-(1H-pyrazol-4-yl)-7-(pyridin-3-yl)-5H-pyrrolo[2,3-b]pyrazine	362	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp8	B	-	Human	2-(1H-pyrazol-4-yl)-7-(pyridin-3-yl)-5H-pyrrolo[2,3-b]pyrazine	362	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	3uvr	A	A	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(5-oxo-6,7,8,9-tetrahydro-5H-benzo[7]annulen-2-yl)amino]phenyl}urea	06F	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3uvr	A	B	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(5-oxo-6,7,8,9-tetrahydro-5H-benzo[7]annulen-2-yl)amino]phenyl}urea	06F	-	-	out	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	6g9h	A	B	Human	~{N}-~{tert}-butyl-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-methyl-ethanamide	ERW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9h	A	A	Human	~{N}-~{tert}-butyl-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-methyl-ethanamide	ERW	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	5ml5	A	-	Human	3-(2,5-dimethoxyphenyl)-~{N}-[4-[4-(4-fluorophenyl)-2-methylsulfanyl-1~{H}-imidazol-5-yl]pyridin-2-yl]propanamide	1VI	-	-	out-like	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	5lcj	A	B	Human	[(1~{R},4~{Z})-cyclooct-4-en-1-yl] ~{N}-[4-[4-[[5-chloranyl-4-[[2-(propanoylamino)phenyl]amino]pyrimidin-2-yl]amino]pyridin-2-yl]but-3-ynyl]carbamate	6TS	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5lcj	A	A	Human	[(1~{R},4~{Z})-cyclooct-4-en-1-yl] ~{N}-[4-[4-[[5-chloranyl-4-[[2-(propanoylamino)phenyl]amino]pyrimidin-2-yl]amino]pyridin-2-yl]but-3-ynyl]carbamate	6TS	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5lck	A	B	Human	~{N}-[2-[[2-[(5-methoxypyridin-3-yl)amino]-5-(trifluoromethyl)pyrimidin-4-yl]amino]phenyl]propanamide	6TT	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5lck	A	A	Human	~{N}-[2-[[2-[(5-methoxypyridin-3-yl)amino]-5-(trifluoromethyl)pyrimidin-4-yl]amino]phenyl]propanamide	6TT	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	3cgo	A	-	Human	2-{4-[(4-imidazo[1,2-a]pyridin-3-ylpyrimidin-2-yl)amino]piperidin-1-yl}-N-methylacetamide	JNO	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3cgf	A	-	Human	N-cyclohexyl-4-imidazo[1,2-a]pyridin-3-yl-N-methylpyrimidin-2-amine	JNF	-	-	in	in	JNK
+MAPK13 (p38d)	MAPK	CMGC	5eko	A	-	Human	3-(4-methyl-1H-imidazol-1-yl)-N-[4-(pyridin-4-yloxy)phenyl]benzamide	N17	-	-	in	out-like	p38
+MAPK13 (p38d)	MAPK	CMGC	5ekn	A	-	Human	1-(3-tert-butyl-1-methyl-1H-pyrazol-5-yl)-3-[4-(pyridin-4-ylsulfanyl)phenyl]urea	N58	-	-	out	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	5k4i	A	-	Human	1-[(1~{S})-1-(4-chloranyl-3-fluoranyl-phenyl)-2-oxidanyl-ethyl]-4-[2-[(2-methylpyrazol-3-yl)amino]pyrimidin-4-yl]pyridin-2-one	6QB	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zxt	A	A	Human	CATECHOL	CAQ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zxt	A	B	Human	CATECHOL	CAQ	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	5byz	A	B	Human	4-({5-fluoro-4-[2-methyl-1-(propan-2-yl)-1H-imidazol-5-yl]pyrimidin-2-yl}amino)-N-[2-(piperidin-1-yl)ethyl]benzamide	4WE	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4zsg	A	A	Human	3-amino-5-[(4-chlorophenyl)amino]-N-(propan-2-yl)-1H-1,2,4-triazole-1-carboxamide	4QX	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4zsg	A	B	Human	3-amino-5-[(4-chlorophenyl)amino]-N-(propan-2-yl)-1H-1,2,4-triazole-1-carboxamide	4QX	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	5byz	A	A	Human	4-({5-fluoro-4-[2-methyl-1-(propan-2-yl)-1H-imidazol-5-yl]pyrimidin-2-yl}amino)-N-[2-(piperidin-1-yl)ethyl]benzamide	4WE	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4zsl	A	-	Human	3-amino-5-[(4-chlorophenyl)amino]-N-[(1S)-1-phenylethyl]-1H-1,2,4-triazole-1-carboxamide	4QZ	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	5byy	A	A	Human	2-{[2-ethoxy-4-(4-hydroxypiperidin-1-yl)phenyl]amino}-5,11-dimethyl-5,11-dihydro-6H-pyrimido[4,5-b][1,4]benzodiazepin-6-one	4WG	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	5byy	A	B	Human	2-{[2-ethoxy-4-(4-hydroxypiperidin-1-yl)phenyl]amino}-5,11-dimethyl-5,11-dihydro-6H-pyrimido[4,5-b][1,4]benzodiazepin-6-one	4WG	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g91	A	B	Human	5-chloranyl-~{N}-(oxan-4-yl)pyrimidin-2-amine	EQW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g91	A	A	Human	5-chloranyl-~{N}-(oxan-4-yl)pyrimidin-2-amine	EQW	-	-	in	in	Erk
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	A	B	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4yr8	C	B	Human	-	-	-	-	in	out-like	JNK
+MAPK1 (Erk2)	MAPK	CMGC	5ax3	A	-	Human	(2R,3R,4S,5R)-2-(4-AMINO-5-IODO-7H-PYRROLO[2,3-D]PYRIMIDIN-7-YL)-5-(HYDROXYMETHYL)TETRAHYDROFURAN-3,4-DIOL	5ID	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	5eti	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5etc	A	-	Human	-	-	-	-	in	in	p38
+MAPK10 (JNK3)	MAPK	CMGC	4x21	A	-	Human	N-ethyl-4-{[4-(1H-indol-3-yl)-5-iodopyrimidin-2-yl]amino}piperidine-1-carboxamide	3WH	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4x21	B	-	Human	N-ethyl-4-{[4-(1H-indol-3-yl)-5-iodopyrimidin-2-yl]amino}piperidine-1-carboxamide	3WH	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	4qp4	B	A	Human	N-cyclohexyl-9H-purin-6-amine	36O	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4xj0	A	-	Human	1-[(1S)-1-(4-chloro-3-fluorophenyl)-2-hydroxyethyl]-4-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]pyridin-2(1H)-one	41B	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	3bv2	A	-	Human	5-methyl-4-[(2-methyl-5-{[(2-morpholin-4-ylpyridin-4-yl)carbonyl]amino}phenyl)amino]-N-(1-phenylethenyl)pyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	P38	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3qud	A	B	Human	{4-[(2-aminophenyl)amino]phenyl}(phenyl)methanone	N3F	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2i0h	A	A	Human	2-(3-{(2-CHLORO-4-FLUOROPHENYL)[1-(2-CHLOROPHENYL)-6-OXO-1,6-DIHYDROPYRIDAZIN-3-YL]AMINO}PROPYL)-1H-ISOINDOLE-1,3(2H)-DIONE	222	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4e5a	X	A	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	4	Human	-	-	-	-	in	out-like	p38
+MAPK8 (JNK1)	MAPK	CMGC	2xrw	A	C	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	2zb0	A	B	Human	N-(3-cyanophenyl)-2'-methyl-5'-(5-methyl-1,3,4-oxadiazol-2-yl)-4-biphenylcarboxamide	GK3	-	-	in	out-like	p38
+MAPK8 (JNK1)	MAPK	CMGC	2gmx	B	-	Human	N-(4-AMINO-5-CYANO-6-ETHOXYPYRIDIN-2-YL)-2-(4-BROMO-2,5-DIMETHOXYPHENYL)ACETAMIDE	877	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	4kiq	C	-	Human	ethyl 6-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]carbamoyl}-1H-indole-1-carboxylate	1RA	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	2waj	A	A	Human	1-(3-BROMOPHENYL)-7-CHLORO-6-METHOXY-3,4-DIHYDROISOQUINOLINE	SNB	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3v6r	A	A	Human	4-{[4-(dimethylamino)butanoyl]amino}-N-(3-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	CQQ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3tti	A	-	Human	trans-4-({9-[(3S)-tetrahydrofuran-3-yl]-8-[(2,4,6-trifluorophenyl)amino]-9H-purin-2-yl}amino)cyclohexanol	KBI	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	4o6e	A	B	Human	N-[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]-2-(tetrahydro-2H-pyran-4-ylamino)-5,8-dihydropyrido[3,4-d]pyrimidine-7(6H)-carboxamide	2SH	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qta	A	A	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iza	C	B	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iza	A	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp2	B	-	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp2	A	-	Human	5-chloro-1,3-benzoxazol-2-amine	36R	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp4	A	A	Human	N-cyclohexyl-9H-purin-6-amine	36O	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp4	B	B	Human	N-cyclohexyl-9H-purin-6-amine	36O	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp4	A	B	Human	N-cyclohexyl-9H-purin-6-amine	36O	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qpa	B	-	Human	7-(1-benzyl-1H-pyrazol-4-yl)-2-(pyridin-4-yl)-5H-pyrrolo[2,3-b]pyrazine	35W	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qpa	A	-	Human	7-(1-benzyl-1H-pyrazol-4-yl)-2-(pyridin-4-yl)-5H-pyrrolo[2,3-b]pyrazine	35W	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp1	A	-	Human	N-BENZYL-9H-PURIN-6-AMINE	EMU	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp1	B	-	Human	N-BENZYL-9H-PURIN-6-AMINE	EMU	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp6	B	-	Human	5H-pyrrolo[2,3-b]pyrazine	36N	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp6	A	-	Human	5H-pyrrolo[2,3-b]pyrazine	36N	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp7	B	-	Human	2-(1H-pyrazol-4-yl)-5H-pyrrolo[2,3-b]pyrazine	363	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp7	A	-	Human	2-(1H-pyrazol-4-yl)-5H-pyrrolo[2,3-b]pyrazine	363	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp3	A	-	Human	(2S)-3-phenyl-2-(9H-purin-6-ylamino)propan-1-ol	36Q	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp3	B	-	Human	(2S)-3-phenyl-2-(9H-purin-6-ylamino)propan-1-ol	36Q	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qp9	A	-	Human	7-(1-propyl-1H-pyrazol-4-yl)-2-(pyridin-4-yl)-5H-pyrrolo[2,3-b]pyrazine	35X	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bve	A	A	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-8-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]-2,3,4,5-tetrahydro-1H-pyrrolo[1,2-a][1,4]diazepin-1-one	4VG	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bve	A	B	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-8-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]-2,3,4,5-tetrahydro-1H-pyrrolo[1,2-a][1,4]diazepin-1-one	4VG	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4xj0	B	-	Human	1-[(1S)-1-(4-chloro-3-fluorophenyl)-2-hydroxyethyl]-4-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]pyridin-2(1H)-one	41B	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bvf	A	A	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-8-(2-{[(1S,3R)-3-hydroxycyclopentyl]amino}pyrimidin-4-yl)-2,3,4,5-tetrahydro-1H-pyrrolo[1,2-a][1,4]diazepin-1-one	4VJ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bvf	A	B	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-8-(2-{[(1S,3R)-3-hydroxycyclopentyl]amino}pyrimidin-4-yl)-2,3,4,5-tetrahydro-1H-pyrrolo[1,2-a][1,4]diazepin-1-one	4VJ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bvd	A	A	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-7-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]-3,4-dihydropyrrolo[1,2-a]pyrazin-1(2H)-one	4VF	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bvd	A	B	Human	2-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-7-[2-(tetrahydro-2H-pyran-4-ylamino)pyrimidin-4-yl]-3,4-dihydropyrrolo[1,2-a]pyrazin-1(2H)-one	4VF	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	1oz1	A	B	Human	3-(4-FLUOROPHENYL)-2-PYRIDIN-4-YL-1H-PYRROLO[3,2-B]PYRIDIN-1-OL	FPH	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv5	A	B	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(6-nitroquinolin-4-yl)amino]phenyl}urea	R24	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbs	A	-	Human	3-FLUORO-5-MORPHOLIN-4-YL-N-[3-(2-PYRIDIN-4-YLETHYL)-1H-INDOL-5-YL]BENZAMIDE	LI2	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv5	B	A	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(6-nitroquinolin-4-yl)amino]phenyl}urea	R24	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3l8x	A	-	Human	N,4-dimethyl-3-[(1-phenyl-1H-pyrazolo[3,4-d]pyrimidin-4-yl)amino]benzamide	N4D	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fkl	A	-	Human	N-cyclopropyl-4-methyl-3-[8-methyl-7-oxo-2-(tetrahydro-2H-pyran-4-ylamino)-7,8-dihydropyrido[2,3-d]pyrimidin-6-yl]benzamide	FKL	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mvl	A	-	Human	4-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]amino}-5-methyl-N-propylpyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	38P	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2zaz	A	B	Human	4-{4-[(5-hydroxy-2-methylphenyl)amino]quinolin-7-yl}-1,3-thiazole-2-carbaldehyde	GK1	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	2zb1	A	B	Human	N-(cyclopropylmethyl)-2'-methyl-5'-(5-methyl-1,3,4-oxadiazol-2-yl)biphenyl-4-carboxamide	GK4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4kin	D	-	Human	5-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]thiophene-2-carboxamide	1M8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2i0h	A	B	Human	2-(3-{(2-CHLORO-4-FLUOROPHENYL)[1-(2-CHLOROPHENYL)-6-OXO-1,6-DIHYDROPYRIDAZIN-3-YL]AMINO}PROPYL)-1H-ISOINDOLE-1,3(2H)-DIONE	222	-	-	in	out-like	p38
+MAPK8 (JNK1)	MAPK	CMGC	2no3	A	-	Human	2-({2-[(3-HYDROXYPHENYL)AMINO]PYRIMIDIN-4-YL}AMINO)BENZAMIDE	859	-	-	in	in	JNK
+MAPK14 (p38a)	MAPK	CMGC	3lfe	A	-	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{4-[2-(pyridin-4-ylmethoxy)ethyl]-1,3-thiazol-2-yl}urea	Z84	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmj	A	-	Human	4-(5-methyl-3-phenylisoxazol-4-yl)pyrimidin-2-amine	FMJ	-	-	in	out-like	p38
+MAPK10 (JNK3)	MAPK	CMGC	2p33	A	-	Human	4-{[5-chloro-4-(1H-indol-3-yl)pyrimidin-2-yl]amino}-N-ethylpiperidine-1-carboxamide	J07	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3v6s	A	B	Human	3-{[4-(dimethylamino)butanoyl]amino}-N-(4-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	0F0	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2zdt	A	A	Human	4-[(6-chloro-1-oxo-4-phenyl-3-propanoylisoquinolin-2(1H)-yl)methyl]benzoic acid	46C	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2zdu	A	-	Human	4-[(4-{[6-bromo-3-(methoxycarbonyl)-1-oxo-4-phenylisoquinolin-2(1H)-yl]methyl}phenyl)amino]-4-oxobutanoic acid	446	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fi2	A	B	Human	3-{4-[(phenylcarbamoyl)amino]-1H-pyrazol-1-yl}-N-(3,4,5-trimethoxyphenyl)benzamide	JK1	-	-	in	in	JNK
+MAPK11 (p38b)	MAPK	CMGC	3gc9	B	-	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	3i60	A	-	Human	4-{2-[(2-chlorophenyl)amino]-5-methylpyrimidin-4-yl}-N-[(1S)-2-hydroxy-1-phenylethyl]-1H-pyrrole-2-carboxamide	E86	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4o6e	A	A	Human	N-[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]-2-(tetrahydro-2H-pyran-4-ylamino)-5,8-dihydropyrido[3,4-d]pyrimidine-7(6H)-carboxamide	2SH	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz7	C	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv1	A	B	Human	N-[(1S)-2-hydroxy-1-phenylethyl]-4-{4-[3-(trifluoromethyl)phenyl]-1H-pyrazol-5-yl}-1H-pyrrole-2-carboxamide	EK4	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4g6n	A	A	Human	3-(4-chlorophenyl)-4,5,6,7-tetrahydro-1H-indazole	EK0	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gdm	A	B	Human	(3~{R})-1-[2-oxidanylidene-2-[4-(4-pyrimidin-2-ylphenyl)piperazin-1-yl]ethyl]-~{N}-(3-pyridin-4-yl-1~{H}-indazol-5-yl)pyrrolidine-3-carboxamide	F3Z	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gdm	A	A	Human	(3~{R})-1-[2-oxidanylidene-2-[4-(4-pyrimidin-2-ylphenyl)piperazin-1-yl]ethyl]-~{N}-(3-pyridin-4-yl-1~{H}-indazol-5-yl)pyrrolidine-3-carboxamide	F3Z	-	-	in	in	Erk
+MAPK9 (JNK2)	MAPK	CMGC	3e7o	A	-	Human	N-{3-[5-(1H-1,2,4-triazol-3-yl)-1H-indazol-3-yl]phenyl}furan-2-carboxamide	35F	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	6g93	A	A	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2,3-dihydroisoindol-1-one	EU2	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g93	A	B	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2,3-dihydroisoindol-1-one	EU2	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4ic7	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6ge0	A	A	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{R})-1-(3-methoxyphenyl)ethyl]ethanamide	EVQ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6ge0	A	B	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{R})-1-(3-methoxyphenyl)ethyl]ethanamide	EVQ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g97	A	A	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2-(2-methoxyethyl)-3~{H}-isoindol-1-one	EQZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g97	A	B	Human	6-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-2-(2-methoxyethyl)-3~{H}-isoindol-1-one	EQZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g8x	A	B	Human	4-chloranyl-1~{H}-indazol-3-amine	EQT	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	2fsl	X	-	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3ody	X	-	Human	-	-	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3rin	A	-	Human	N-cyclopropyl-4-methyl-3-(2'-oxo-1',2'-dihydrospiro[cyclopentane-1,3'-indol]-6'-yl)benzamide	I2O	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4e5a	X	B	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mpt	A	B	Human	N-(furan-2-ylmethyl)-4-[(2-methylphenyl)carbonyl]-1H-pyrrole-2-carboxamide	1GK	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1oz1	A	A	Human	3-(4-FLUOROPHENYL)-2-PYRIDIN-4-YL-1H-PYRROLO[3,2-B]PYRIDIN-1-OL	FPH	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	3o8u	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3heg	A	B	Human	4-{4-[({[4-CHLORO-3-(TRIFLUOROMETHYL)PHENYL]AMINO}CARBONYL)AMINO]PHENOXY}-N-METHYLPYRIDINE-2-CARBOXAMIDE	BAX	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gc7	A	B	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv7	A	-	Human	1-[1-(3-aminophenyl)-3-tert-butyl-1H-pyrazol-5-yl]-3-naphthalen-1-ylurea	1AU	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4kin	A	-	Human	5-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]thiophene-2-carboxamide	1M8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3ha8	A	A	Human	N~2~-{4-[6-(3,4-dihydroquinolin-1(2H)-ylcarbonyl)-1H-benzimidazol-1-yl]-6-ethoxy-1,3,5-triazin-2-yl}-3-(2,2-dimethyl-4H-1,3-benzodioxin-6-yl)-N-methyl-L-alaninamide	5JZ	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2gfs	A	A	Human	[5-AMINO-1-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL](3-{[(2R)-2,3-DIHYDROXYPROPYL]OXY}PHENYL)METHANONE	PQB	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv3	A	B	Human	1-{4-[(6-aminoquinolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	R49	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gi3	A	-	Human	N-{5-tert-butyl-2-methoxy-3-[({4-[6-(morpholin-4-ylmethyl)pyridin-3-yl]naphthalen-1-yl}carbamoyl)amino]phenyl}methanesulfonamide	B10	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbn	A	-	Human	N-(3-TERT-BUTYL-1H-PYRAZOL-5-YL)-N'-{4-CHLORO-3-[(PYRIDIN-3-YLOXY)METHYL]PHENYL}UREA	L09	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3d7z	A	A	Human	N~3~-cyclopropyl-N~4~'-(cyclopropylmethyl)-6-methylbiphenyl-3,4'-dicarboxamide	GK5	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	6	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1kv2	A	-	Human	1-(5-TERT-BUTYL-2-P-TOLYL-2H-PYRAZOL-3-YL)-3-[4-(2-MORPHOLIN-4-YL-ETHOXY)-NAPHTHALEN-1-YL]-UREA	B96	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3mpt	A	A	Human	N-(furan-2-ylmethyl)-4-[(2-methylphenyl)carbonyl]-1H-pyrrole-2-carboxamide	1GK	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4e5b	A	-	Human	-	-	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3ctq	A	-	Human	N-benzyl-1-[5-({5-tert-butyl-2-methoxy-3-[(methylsulfonyl)amino]phenyl}carbamoyl)-2-methylphenyl]-1H-1,2,3-triazole-4-carboxamide	337	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3oef	X	B	Human	-	-	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	2rg5	A	-	Human	N-ethyl-4-{[5-(methoxycarbamoyl)-2-methylphenyl]amino}-5-methylpyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	279	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2onl	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3obg	A	-	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	2fst	X	B	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4aa0	A	A	Human	N-[4-methyl-3-[6-(4-methylpiperazin-1-yl)-4-oxidanylidene-quinazolin-3-yl]phenyl]-2-morpholin-4-yl-pyridine-4-carboxamide	AA0	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3u8w	A	-	Human	3-[3-(2-chloro-6-fluorophenyl)-5-ethyl-6-oxo-5,6-dihydro[1,2,4]triazolo[4,3-b]pyridazin-7-yl]-N-cyclopropyl-4-methylbenzamide	09J	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmk	A	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-{[(1S)-1-methyl-2-(2H-tetrazol-2-yl)ethyl]amino}pyrido[2,3-d]pyrimidin-7(8H)-one	FMK	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1ove	A	A	Human	1-(2,6-DICHLOROPHENYL)-5-(2,4-DIFLUOROPHENYL)-7-PIPERIDIN-4-YL-3,4-DIHYDROQUINOLIN-2(1H)-ONE	358	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2baj	A	-	Human	1-(3-tert-butyl-1-phenyl-1H-pyrazol-5-yl)-3-(2,3-dichlorophenyl)urea	1PP	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv5	A	A	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(6-nitroquinolin-4-yl)amino]phenyl}urea	R24	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3flz	A	-	Human	8-methyl-6-phenoxy-2-(tetrahydro-2H-pyran-4-ylamino)pyrido[2,3-d]pyrimidin-7(8H)-one	FLZ	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2qd9	A	-	Human	1-[(3AR)-5-{[3-(2,4-DIFLUOROPHENYL)-5,6-DIHYDROIMIDAZO[1,5-A]PYRAZIN-7(8H)-YL]CARBONYL}-6-METHOXY-3AH-PYRROLO[2,3-B]PYRIDIN-3-YL]-2-[(3R)-3-HYDROXYPYRROLIDIN-1-YL]-2-OXOETHANONE	LGF	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3ds6	C	-	Human	N-cyclopropyl-4-methyl-3-[1-(2-methylphenyl)phthalazin-6-yl]benzamide	A17	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2npq	A	-	Human	-	-	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2baq	A	-	Human	[5-AMINO-1-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL](3-{[(2R)-2,3-DIHYDROXYPROPYL]OXY}PHENYL)METHANONE	PQB	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmn	A	A	Human	6-(2,4-difluorophenoxy)-N-(tetrahydro-2H-pyran-4-yl)-1H-pyrazolo[3,4-d]pyrimidin-3-amine	530	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3kf7	A	-	Human	3-{6-[2-(2,4-difluorophenyl)ethyl][1,2,4]triazolo[4,3-a]pyridin-3-yl}-4-methylbenzamide	L9G	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3uvq	A	A	Human	N-{5-[(7-{[(2R)-2,3-dihydroxypropyl]oxy}-5-oxo-10,11-dihydro-5H-dibenzo[a,d][7]annulen-2-yl)amino]-2-fluorophenyl}benzamide	FS8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3iw8	A	-	Human	1-{4-[(1S)-1-amino-2-(benzyloxy)ethyl]-1,3-thiazol-2-yl}-3-(3-chloro-4-fluorophenyl)urea	HIZ	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3ha8	A	B	Human	N~2~-{4-[6-(3,4-dihydroquinolin-1(2H)-ylcarbonyl)-1H-benzimidazol-1-yl]-6-ethoxy-1,3,5-triazin-2-yl}-3-(2,2-dimethyl-4H-1,3-benzodioxin-6-yl)-N-methyl-L-alaninamide	5JZ	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4geo	A	-	Human	-	-	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbw	A	-	Human	3-(1-NAPHTHYLMETHOXY)PYRIDIN-2-AMINE	LI4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4aa5	A	-	Human	N-CYCLOPROPYL-4-METHYL-3-[6-(4-METHYLPIPERAZIN-1-YL)-4-OXIDANYLIDENE-QUINAZOLIN-3-YL]BENZAMIDE	NQB	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mvm	B	-	Human	4-{[5-(isoxazol-3-ylcarbamoyl)-2-methylphenyl]amino}-5-methyl-N-propylpyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	39P	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmm	A	-	Human	6-(2,4-difluorophenoxy)-N-[(1R)-1-methyl-2-(methylsulfonyl)ethyl]-1H-pyrazolo[3,4-d]pyrimidin-3-amine	XI2	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsh	A	A	Human	2-(6-chloro-5-{[(2R,5S)-4-(4-fluorobenzyl)-2,5-dimethylpiperazin-1-yl]carbonyl}-1-methyl-1H-indol-3-yl)-N,N-dimethyl-2-oxoacetamide	469	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4kip	B	-	Human	2-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]-1,3-thiazole-5-carboxamide	1R9	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcu	B	A	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	R48	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3bv3	A	-	Human	5-methyl-4-[(2-methyl-5-{[(3-morpholin-4-ylphenyl)carbonyl]amino}phenyl)amino]-N-[(1S)-1-phenylethyl]pyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	P39	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hrb	A	-	Human	[3-amino-2-(2-methylphenyl)-1-oxidopyridin-4-yl](2,4-difluorophenyl)methanone	I39	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcp	A	A	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcv	A	B	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	SS6	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3s3i	A	-	Human	3-(3-tert-butyl[1,2,4]triazolo[4,3-a]pyridin-7-yl)-N-cyclopropyl-4-methylbenzamide	CQ0	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3flq	A	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-{[(1S)-1-methyl-2-(methylsulfonyl)ethyl]amino}pyrido[2,3-d]pyrimidin-7(8H)-one	891	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	3o8t	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcp	A	B	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4kiq	A	-	Human	ethyl 6-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]carbamoyl}-1H-indole-1-carboxylate	1RA	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3iw6	A	B	Human	ethyl 4-[(4-benzylpiperazin-1-yl)carbonyl]-1-ethyl-3,5-dimethyl-1H-pyrrole-2-carboxylate	PP0	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4aa0	A	B	Human	N-[4-methyl-3-[6-(4-methylpiperazin-1-yl)-4-oxidanylidene-quinazolin-3-yl]phenyl]-2-morpholin-4-yl-pyridine-4-carboxamide	AA0	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3lfc	A	-	Human	(4-{5-[({4-[2-(benzyloxy)ethyl]-1,3-thiazol-2-yl}carbamoyl)amino]-3-tert-butyl-1H-pyrazol-1-yl}phenyl)acetic acid	Z86	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3itz	A	-	Human	4-chloro-N-cyclopropyl-3-{[1-(2,6-difluorophenyl)-1H-pyrazolo[3,4-d]pyridazin-4-yl]amino}benzamide	P66	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2okr	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3iph	A	B	Human	6-[5-(cyclopropylcarbamoyl)-2-methylphenyl]-N-(cyclopropylmethyl)pyridine-3-carboxamide	G11	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnw	A	B	Human	2-[3-(3-tert-butyl-5-{[(2,3-dichlorophenyl)carbamoyl]imino}-2,5-dihydro-1H-pyrazol-1-yl)phenyl]acetamide	EDD	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4kin	B	-	Human	5-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]thiophene-2-carboxamide	1M8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4kip	A	-	Human	2-(2-chlorophenyl)-N-[5-(cyclopropylcarbamoyl)-2-methylphenyl]-1,3-thiazole-5-carboxamide	1R9	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3flw	A	-	Human	6-(2,4-difluorophenoxy)-2-{[3-hydroxy-1-(2-hydroxyethyl)propyl]amino}-8-methylpyrido[2,3-d]pyrimidin-7(8H)-one	FLW	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1zz2	A	-	Human	N-[3-(4-FLUOROPHENOXY)PHENYL]-4-[(2-HYDROXYBENZYL)AMINO]PIPERIDINE-1-SULFONAMIDE	B11	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fl4	A	-	Human	6-(2,4-difluorophenoxy)-3-(2-methylphenyl)-1H-pyrazolo[3,4-d]pyrimidine	FL4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	7	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3oef	X	A	Human	-	-	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	3hec	A	A	Human	4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE	STI	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv5	B	B	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{3-[(6-nitroquinolin-4-yl)amino]phenyl}urea	R24	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3uvp	A	B	Human	N-{2-fluoro-5-[(5-oxo-6,7,8,9-tetrahydro-5H-benzo[7]annulen-2-yl)amino]phenyl}benzamide	48	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1yqj	A	-	Human	6((S)-3-BENZYLPIPERAZIN-1-YL)-3-(NAPHTHALEN-2-YL)-4-(PYRIDIN-4-YL)PYRAZINE	6NP	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3lff	A	A	Human	(4-{3-tert-butyl-5-[(1,3-thiazol-2-ylcarbamoyl)amino]-1H-pyrazol-1-yl}phenyl)acetic acid	Z83	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcu	A	B	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	R48	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3s4q	A	-	Human	3-[(6-benzoyl-5-methylpyrrolo[2,1-f][1,2,4]triazin-4-yl)amino]-N-cyclopropyl-4-methylbenzamide	NK0	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	1ouk	A	-	Human	4-[5-[2-(1-PHENYL-ETHYLAMINO)-PYRIMIDIN-4-YL]-1-METHYL-4-(3-TRIFLUOROMETHYLPHENYL)-1H-IMIDAZOL-2-YL]-PIPERIDINE	84	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	3od6	X	-	Human	-	-	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbv	A	-	Human	3-FLUORO-N-1H-INDOL-5-YL-5-MORPHOLIN-4-YLBENZAMIDE	LI3	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3mgy	A	-	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	1w82	A	-	Human	N-[(3Z)-5-TERT-BUTYL-2-PHENYL-1,2-DIHYDRO-3H-PYRAZOL-3-YLIDENE]-N'-(4-CHLOROPHENYL)UREA	L10	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3mh0	A	-	Human	-	-	-	-	na	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mh3	A	-	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3ds6	D	-	Human	N-cyclopropyl-4-methyl-3-[1-(2-methylphenyl)phthalazin-6-yl]benzamide	A17	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3dt1	A	-	Human	N-cyclopropyl-4-methyl-3-{2-[(2-morpholin-4-ylethyl)amino]quinazolin-6-yl}benzamide	P40	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3pg3	A	A	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{4-[2-(pyridin-3-ylmethoxy)ethyl]-1,3-thiazol-2-yl}urea	DG7	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fls	A	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-{[(1R)-1-methyl-2-(methylsulfonyl)ethyl]amino}pyrido[2,3-d]pyrimidin-7(8H)-one	FLS	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3d7z	A	B	Human	N~3~-cyclopropyl-N~4~'-(cyclopropylmethyl)-6-methylbiphenyl-3,4'-dicarboxamide	GK5	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsg	A	B	Human	TAK-715	T75	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3lff	A	B	Human	(4-{3-tert-butyl-5-[(1,3-thiazol-2-ylcarbamoyl)amino]-1H-pyrazol-1-yl}phenyl)acetic acid	Z83	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	2	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3heg	A	A	Human	4-{4-[({[4-CHLORO-3-(TRIFLUOROMETHYL)PHENYL]AMINO}CARBONYL)AMINO]PHENOXY}-N-METHYLPYRIDINE-2-CARBOXAMIDE	BAX	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2okr	D	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fc1	X	-	Human	5-(2,6-dichlorophenyl)-2-[(2,4-difluorophenyl)sulfanyl]-6H-pyrimido[1,6-b]pyridazin-6-one	52P	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fly	A	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-[(1-methylethyl)amino]pyrido[2,3-d]pyrimidin-7(8H)-one	FLY	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsh	A	B	Human	2-(6-chloro-5-{[(2R,5S)-4-(4-fluorobenzyl)-2,5-dimethylpiperazin-1-yl]carbonyl}-1-methyl-1H-indol-3-yl)-N,N-dimethyl-2-oxoacetamide	469	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcu	B	B	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	R48	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3que	A	-	Human	2-[(2,4-difluorophenyl)amino]-7-{[(2R)-2,3-dihydroxypropyl]oxy}-10,11-dihydro-5H-dibenzo[a,d][7]annulen-5-one	3FF	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3lfd	A	-	Human	1-{4-[2-(benzyloxy)ethyl]-1,3-thiazol-2-yl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	Z85	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2fso	X	-	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv4	A	-	Human	1-{3-[(6-aminoquinolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	L51	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2zb0	A	A	Human	N-(3-cyanophenyl)-2'-methyl-5'-(5-methyl-1,3,4-oxadiazol-2-yl)-4-biphenylcarboxamide	GK3	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fsf	A	-	Human	3-(2,6-dichlorophenyl)-7-({4-[(diethylamino)methoxy]phenyl}amino)-1-methyl-3,4-dihydropyrimido[4,5-d]pyrimidin-2(1H)-one	FSS	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zya	A	B	Human	2-AMINO-PHENYLAMINO-DIBENZOSUBERONE	2A8	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3pg3	A	B	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-{4-[2-(pyridin-3-ylmethoxy)ethyl]-1,3-thiazol-2-yl}urea	DG7	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1ove	A	B	Human	1-(2,6-DICHLOROPHENYL)-5-(2,4-DIFLUOROPHENYL)-7-PIPERIDIN-4-YL-3,4-DIHYDROQUINOLIN-2(1H)-ONE	358	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3huc	A	B	Human	N-[2-phenyl-4-(1H-pyrazol-3-ylamino)quinazolin-7-yl]prop-2-enamide	G97	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnu	A	A	Human	2-{3-[(5E)-5-{[(2,3-dichlorophenyl)carbamoyl]imino}-3-thiophen-2-yl-2,5-dihydro-1H-pyrazol-1-yl]phenyl}acetamide	EDB	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fln	C	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-(tetrahydro-2H-pyran-4-ylamino)pyrido[2,3-d]pyrimidin-7(8H)-one	3FN	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mvl	B	-	Human	4-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]amino}-5-methyl-N-propylpyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	38P	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2bak	A	-	Human	N-(3-{[7-METHOXY-6-(2-PYRROLIDIN-1-YLETHOXY)QUINAZOLIN-4-YL]AMINO}-4-METHYLPHENYL)-2-MORPHOLIN-4-YLISONICOTINAMIDE	AQZ	-	-	out	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	6g8x	A	A	Human	4-chloranyl-1~{H}-indazol-3-amine	EQT	-	-	in	in	Erk
+MAPK14 (p38a)	MAPK	CMGC	1w84	A	-	Human	3-(2-PYRIDIN-4-YLETHYL)-1H-INDOLE	L12	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3iw5	A	-	Human	N-[2-(3-{[2-(2,3-dihydro-1,4-benzodioxin-6-ylamino)-2-oxoethyl]sulfanyl}-1H-indol-1-yl)ethyl]-3-(trifluoromethyl)benzamide	DF3	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3ds6	A	-	Human	N-cyclopropyl-4-methyl-3-[1-(2-methylphenyl)phthalazin-6-yl]benzamide	A17	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4a9y	A	-	Human	N-(3-{[7-METHOXY-6-(2-PYRROLIDIN-1-YLETHOXY)QUINAZOLIN-4-YL]AMINO}-4-METHYLPHENYL)-2-MORPHOLIN-4-YLISONICOTINAMIDE	AQZ	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbt	A	-	Human	3-FLUORO-5-MORPHOLIN-4-YL-N-[1-(2-PYRIDIN-4-YLETHYL)-1H-INDOL-6-YL]BENZAMIDE	WBT	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3kq7	A	A	Human	N-(2-methyl-5-{[(2-morpholin-4-ylpyridin-4-yl)carbonyl]amino}phenyl)-6-({2-[(2S)-1-methylpyrrolidin-2-yl]ethyl}amino)pyridine-3-carboxamide	KQ7	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2gfs	A	B	Human	[5-AMINO-1-(4-FLUOROPHENYL)-1H-PYRAZOL-4-YL](3-{[(2R)-2,3-DIHYDROXYPROPYL]OXY}PHENYL)METHANONE	PQB	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fko	A	-	Human	3-(2-chlorophenyl)-6-(2-fluorophenoxy)-2H-indazole	FKO	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mw1	A	-	Human	8-(2,6-dichlorophenyl)-4-(2,4-difluorophenyl)-2-piperidin-4-yl-1,7-naphthyridine 7-oxide	MIH	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gc7	A	A	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2fsm	X	-	Human	-	-	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcq	A	B	Human	1-{4-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	1BU	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3uvp	A	A	Human	N-{2-fluoro-5-[(5-oxo-6,7,8,9-tetrahydro-5H-benzo[7]annulen-2-yl)amino]phenyl}benzamide	48	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3o8p	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4aac	A	-	Human	N-isoxazol-3-yl-4-methyl-3-[6-(4-methylpiperazin-1-yl)-4-oxo-quinazolin-3-yl]benzamide	AAV	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	10	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4aa4	A	-	Human	N-[4-METHYL-3-[6-(4-METHYLPIPERAZIN-1-YL)-4-OXIDANYLIDENE-QUINAZOLIN-3-YL]PHENYL]FURAN-3-CARBOXAMIDE	QC0	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv4	B	-	Human	1-{3-[(6-aminoquinolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	L51	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3kq7	A	B	Human	N-(2-methyl-5-{[(2-morpholin-4-ylpyridin-4-yl)carbonyl]amino}phenyl)-6-({2-[(2S)-1-methylpyrrolidin-2-yl]ethyl}amino)pyridine-3-carboxamide	KQ7	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2y8o	A	A	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	2fst	X	A	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3fi4	A	-	Human	(2S)-1-{[3-(2-chlorophenyl)-6-(2,4-difluorophenoxy)-1H-pyrazolo[3,4-d]pyrimidin-4-yl]amino}propan-2-ol	FI4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3l8s	A	-	Human	3-[(4-bromo-2,6-difluorobenzyl)oxy]-5-{[(4-pyrrolidin-1-ylbutyl)carbamoyl]amino}isothiazole-4-carboxamide	BFF	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fkn	A	-	Human	3-[2-chloro-5-(methylsulfonyl)phenyl]-6-(2,4-difluorophenoxy)-1H-pyrazolo[3,4-d]pyrimidine	FKN	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcs	A	B	Human	4-{4-[({[4-CHLORO-3-(TRIFLUOROMETHYL)PHENYL]AMINO}CARBONYL)AMINO]PHENOXY}-N-METHYLPYRIDINE-2-CARBOXAMIDE	BAX	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsi	A	A	Human	5-(2,6-dichlorophenyl)-2-[(2,4-difluorophenyl)sulfanyl]-6H-pyrimido[1,6-b]pyridazin-6-one	52P	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3odz	X	-	Human	-	-	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnu	A	B	Human	2-{3-[(5E)-5-{[(2,3-dichlorophenyl)carbamoyl]imino}-3-thiophen-2-yl-2,5-dihydro-1H-pyrazol-1-yl]phenyl}acetamide	EDB	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnv	A	B	Human	1-{3-tert-butyl-1-[4-(hydroxymethyl)phenyl]-1H-pyrazol-5-yl}-3-naphthalen-1-ylurea	437	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3iw7	A	-	Human	2-({4-[(4-benzylpiperidin-1-yl)carbonyl]benzyl}sulfanyl)-3H-imidazo[4,5-c]pyridine	IPK	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3hub	A	-	Human	2-(6-chloro-5-{[(2R,5S)-4-(4-fluorobenzyl)-2,5-dimethylpiperazin-1-yl]carbonyl}-1-methyl-1H-indol-3-yl)-N,N-dimethyl-2-oxoacetamide	469	-	-	in	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2onl	B	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnx	A	-	Human	2-[3-(3-tert-butyl-5-{[(2,3-dichlorophenyl)carbamoyl]imino}-2,5-dihydro-1H-pyrazol-1-yl)phenyl]acetamide	EDD	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gcu	A	A	Human	1-{3-[(6-aminoquinazolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]urea	R48	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2zb1	A	A	Human	N-(cyclopropylmethyl)-2'-methyl-5'-(5-methyl-1,3,4-oxadiazol-2-yl)biphenyl-4-carboxamide	GK4	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3bx5	A	-	Human	N-[2-methyl-5-(methylcarbamoyl)phenyl]-2-{[(1R)-1-methylpropyl]amino}-1,3-thiazole-5-carboxamide	304	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3d83	A	-	Human	N-{4'-[(cyclopropylmethyl)carbamoyl]-6-methylbiphenyl-3-yl}-2-morpholin-4-ylpyridine-4-carboxamide	GK6	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3mpa	A	-	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	4l8m	A	A	Human	N-[2-fluoro-5-({9-[2-(morpholin-4-yl)ethoxy]-11-oxo-6,11-dihydrodibenzo[b,e]oxepin-3-yl}amino)phenyl]benzamide	F46	-	-	out	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hv3	A	A	Human	1-{4-[(6-aminoquinolin-4-yl)amino]phenyl}-3-[3-tert-butyl-1-(3-methylphenyl)-1H-pyrazol-5-yl]urea	R49	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1w7h	A	-	Human	3-(BENZYLOXY)PYRIDIN-2-AMINE	3IP	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmh	A	-	Human	6-(2,4-difluorophenoxy)-8-methyl-2-{[(1R)-1-methyl-2-(2H-tetrazol-2-yl)ethyl]amino}pyrido[2,3-d]pyrimidin-7(8H)-one	533	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3oc1	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3lfa	A	-	Human	N-(2-CHLORO-6-METHYLPHENYL)-2-({6-[4-(2-HYDROXYETHYL)PIPERAZIN-1-YL]-2-METHYLPYRIMIDIN-4-YL}AMINO)-1,3-THIAZOLE-5-CARBOXAMIDE	1N1	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	2y8o	A	B	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mh1	A	-	Human	-	-	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsg	A	A	Human	TAK-715	T75	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2lgc	A	1	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3huc	A	A	Human	N-[2-phenyl-4-(1H-pyrazol-3-ylamino)quinazolin-7-yl]prop-2-enamide	G97	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fml	A	-	Human	6-(2,4-difluorophenoxy)-N-[(1S)-1-methyl-2-(methylsulfonyl)ethyl]-1H-pyrazolo[3,4-d]pyrimidin-3-amine	FML	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3hec	A	B	Human	4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE	STI	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fsk	A	-	Human	3-(2-chlorophenyl)-7-[(trans-4-hydroxycyclohexyl)amino]-3,4-dihydropyrimido[4,5-d]pyrimidin-2(1H)-one	RO6	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	4kiq	B	-	Human	ethyl 6-{[5-(cyclopropylcarbamoyl)-2-methylphenyl]carbamoyl}-1H-indole-1-carboxylate	1RA	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3qud	A	A	Human	{4-[(2-aminophenyl)amino]phenyl}(phenyl)methanone	N3F	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	1wbo	A	-	Human	2-CHLOROPHENOL	2CH	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3nnv	A	A	Human	1-{3-tert-butyl-1-[4-(hydroxymethyl)phenyl]-1H-pyrazol-5-yl}-3-naphthalen-1-ylurea	437	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3lfb	A	B	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-(1,3-thiazol-2-yl)urea	Z87	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3iph	A	A	Human	6-[5-(cyclopropylcarbamoyl)-2-methylphenyl]-N-(cyclopropylmethyl)pyridine-3-carboxamide	G11	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3lfb	A	A	Human	1-[3-tert-butyl-1-(4-methylphenyl)-1H-pyrazol-5-yl]-3-(1,3-thiazol-2-yl)urea	Z87	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3fmn	A	B	Human	6-(2,4-difluorophenoxy)-N-(tetrahydro-2H-pyran-4-yl)-1H-pyrazolo[3,4-d]pyrimidin-3-amine	530	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3obj	A	-	Human	1-(5-TERT-BUTYL-2-METHYL-2H-PYRAZOL-3-YL)-3-(4-CHLORO-PHENYL)-UREA	BMU	-	-	na	na	p38
+MAPK14 (p38a)	MAPK	CMGC	3zsi	A	B	Human	5-(2,6-dichlorophenyl)-2-[(2,4-difluorophenyl)sulfanyl]-6H-pyrimido[1,6-b]pyridazin-6-one	52P	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3gfe	A	-	Human	N-cyclopropyl-3-{[1-(2,4-difluorophenyl)-7-methyl-6-oxo-6,7-dihydro-1H-pyrazolo[3,4-b]pyridin-4-yl]amino}-4-methylbenzamide	P37	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3iw6	A	A	Human	ethyl 4-[(4-benzylpiperazin-1-yl)carbonyl]-1-ethyl-3,5-dimethyl-1H-pyrrole-2-carboxylate	PP0	-	-	out	out	p38
+MAPK14 (p38a)	MAPK	CMGC	4l8m	A	B	Human	N-[2-fluoro-5-({9-[2-(morpholin-4-yl)ethoxy]-11-oxo-6,11-dihydrodibenzo[b,e]oxepin-3-yl}amino)phenyl]benzamide	F46	-	-	out	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zs5	A	A	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	3mh2	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3mvm	A	-	Human	4-{[5-(isoxazol-3-ylcarbamoyl)-2-methylphenyl]amino}-5-methyl-N-propylpyrrolo[2,1-f][1,2,4]triazine-6-carboxamide	39P	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	3zs5	A	B	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	out-like	out	p38
+MAPK14 (p38a)	MAPK	CMGC	2zaz	A	A	Human	4-{4-[(5-hydroxy-2-methylphenyl)amino]quinolin-7-yl}-1,3-thiazole-2-carbaldehyde	GK1	-	-	in	in	p38
+MAPK14 (p38a)	MAPK	CMGC	1w83	A	-	Human	N-[4-CHLORO-3-(PYRIDIN-3-YLOXYMETHYL)-PHENYL]-3-FLUORO-	L11	-	-	out	out	p38
+MAPK1 (Erk2)	MAPK	CMGC	6g9j	A	B	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{R})-1-phenylethyl]ethanamide	ERK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9j	A	A	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{R})-1-phenylethyl]ethanamide	ERK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9d	A	B	Human	~{N}-~{tert}-butyl-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]ethanamide	ER8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9d	A	A	Human	~{N}-~{tert}-butyl-2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]ethanamide	ER8	-	-	in	in	Erk
+MAPK8 (JNK1)	MAPK	CMGC	3pze	A	-	Human	3-(carbamoylamino)-5-phenylthiophene-2-carboxamide	CFK	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	C	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	A	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4izy	A	-	Human	trans-4-[(4-{4-[4-(methylsulfonyl)piperidin-1-yl]-1H-indol-1-yl}pyrimidin-2-yl)amino]cyclohexanol	1J2	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vud	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3o17	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4qtd	A	B	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4qtd	A	A	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3v3v	A	-	Human	3,5,6,7-TETRAHYDROXY-2-(3,4-DIHYDROXYPHENYL)-4H-CHROMEN-4-ONE	MYU	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3o17	B	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2g01	A	-	Human	6-CHLORO-9-HYDROXY-1,3-DIMETHYL-1,9-DIHYDRO-4H-PYRAZOLO[3,4-B]QUINOLIN-4-ONE	73Q	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3elj	A	A	Human	2-fluoro-6-{[2-({2-methoxy-4-[(methylsulfonyl)methyl]phenyl}amino)-7H-pyrrolo[2,3-d]pyrimidin-4-yl]amino}benzamide	GS7	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2xrw	A	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2xrw	A	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2h96	B	-	Human	5-CYANO-N-(2,5-DIMETHOXYBENZYL)-6-ETHOXYPYRIDINE-2-CARBOXAMIDE	893	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vum	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4awi	A	A	Human	N-(1,1-dioxidotetrahydro-2H-thiopyran-4-yl)-4-[2-(1-methylethyl)-1H-pyrrolo[2,3-b]pyridin-4-yl]benzenesulfonamide	AQ2	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4l7f	A	C	Human	N-[1-(4-fluorophenyl)cyclopropyl]-4-[(trans-4-hydroxycyclohexyl)amino]imidazo[1,2-a]quinoxaline-8-carboxamide	1V5	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vuh	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4hys	A	-	Human	trans-4-{[4-(1H-indazol-1-yl)pyrimidin-2-yl]amino}cyclohexanol	1BJ	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2h96	A	-	Human	5-CYANO-N-(2,5-DIMETHOXYBENZYL)-6-ETHOXYPYRIDINE-2-CARBOXAMIDE	893	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vui	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vug	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2gmx	A	-	Human	N-(4-AMINO-5-CYANO-6-ETHOXYPYRIDIN-2-YL)-2-(4-BROMO-2,5-DIMETHOXYPHENYL)ACETAMIDE	877	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vuk	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3vul	A	-	Human	-	-	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	2xs0	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4l7f	A	A	Human	N-[1-(4-fluorophenyl)cyclopropyl]-4-[(trans-4-hydroxycyclohexyl)amino]imidazo[1,2-a]quinoxaline-8-carboxamide	1V5	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4g1w	A	-	Human	methyl 7-fluoro-3-{4-[(2-hydroxyethyl)sulfonyl]benzyl}-4-oxo-1-phenyl-1,4-dihydroquinoline-2-carboxylate	G1W	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4l7f	A	B	Human	N-[1-(4-fluorophenyl)cyclopropyl]-4-[(trans-4-hydroxycyclohexyl)amino]imidazo[1,2-a]quinoxaline-8-carboxamide	1V5	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	1uki	A	-	Human	2,6-DIHYDROANTHRA/1,9-CD/PYRAZOL-6-ONE	537	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	B	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4ux9	D	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4hyu	A	-	Human	trans-4-[(4-{4-[3-(methylsulfonyl)propoxy]-1H-indazol-1-yl}pyrimidin-2-yl)amino]cyclohexanol	1BK	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	1ukh	A	-	Human	-	-	-	-	in	out-like	JNK
+MAPK8 (JNK1)	MAPK	CMGC	4awi	A	B	Human	N-(1,1-dioxidotetrahydro-2H-thiopyran-4-yl)-4-[2-(1-methylethyl)-1H-pyrrolo[2,3-b]pyridin-4-yl]benzenesulfonamide	AQ2	-	-	in	in	JNK
+MAPK8 (JNK1)	MAPK	CMGC	3elj	A	B	Human	2-fluoro-6-{[2-({2-methoxy-4-[(methylsulfonyl)methyl]phenyl}amino)-7H-pyrrolo[2,3-d]pyrimidin-4-yl]amino}benzamide	GS7	-	-	in	in	JNK
+MAPK1 (Erk2)	MAPK	CMGC	6gdq	A	A	Human	4-[5-chloranyl-2-(propan-2-ylamino)pyridin-4-yl]-~{N}-[(1~{S})-1-(3-chlorophenyl)-2-oxidanyl-ethyl]-1~{H}-pyrrole-2-carboxamide	EVK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6gdq	A	B	Human	4-[5-chloranyl-2-(propan-2-ylamino)pyridin-4-yl]-~{N}-[(1~{S})-1-(3-chlorophenyl)-2-oxidanyl-ethyl]-1~{H}-pyrrole-2-carboxamide	EVK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9m	A	B	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-(2-phenylpropan-2-yl)ethanamide	ESW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9m	A	A	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-(2-phenylpropan-2-yl)ethanamide	ESW	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9k	A	B	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{S})-2-oxidanyl-1-phenyl-ethyl]ethanamide	ESK	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	6g9k	A	A	Human	2-[5-[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]-3-oxidanylidene-1~{H}-isoindol-2-yl]-~{N}-[(1~{S})-2-oxidanyl-1-phenyl-ethyl]ethanamide	ESK	-	-	in	in	Erk
+MAPK10 (JNK3)	MAPK	CMGC	4h36	A	A	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3g90	X	-	Human	(3E)-5-fluoro-1-[(6-fluoro-4H-1,3-benzodioxin-8-yl)methyl]-1H-indole-2,3-dione 3-oxime	J72	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2ok1	A	B	Human	N-BENZYL-4-[4-(3-CHLOROPHENYL)-1H-PYRAZOL-3-YL]-1H-PYRROLE-2-CARBOXAMIDE	33A	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2waj	A	B	Human	1-(3-BROMOPHENYL)-7-CHLORO-6-METHOXY-3,4-DIHYDROISOQUINOLINE	SNB	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3rtp	A	-	Human	N-[4-cyano-3-(1H-1,2,4-triazol-5-yl)thiophen-2-yl]-2-(2-oxo-3,4-dihydroquinolin-1(2H)-yl)acetamide	34I	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2exc	X	-	Human	N-{2'-[(4-FLUOROPHENYL)AMINO]-4,4'-BIPYRIDIN-2-YL}-4-METHOXYCYCLOHEXANECARBOXAMIDE	JNK	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3ptg	A	-	Human	N-[4-methyl-3-(1H-1,2,4-triazol-5-yl)thiophen-2-yl]-2-(2-oxo-3,4-dihydroquinolin-1(2H)-yl)acetamide	932	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h39	A	B	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3ttj	A	A	Human	9-cyclopentyl-N~8~-(2-fluorophenyl)-N~2~-(4-methoxyphenyl)-9H-purine-2,8-diamine	JBI	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3oy1	A	-	Human	5-[2-(cyclohexylamino)pyridin-4-yl]-4-naphthalen-2-yl-2-(tetrahydro-2H-pyran-4-yl)-2,4-dihydro-3H-1,2,4-triazol-3-one	589	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h39	A	A	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2o2u	A	-	Human	N-(3-cyano-4,5,6,7-tetrahydro-1-benzothien-2-yl)-2-fluorobenzamide	738	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2b1p	A	-	Human	3-{6-[(2-CHLOROPHENYL)AMINO]-1H-INDAZOL-3-YL}-5-{[4-(DIMETHYLAMINO)BUTANOYL]AMINO}BENZOIC ACID	AIZ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	A	C	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fi2	A	A	Human	3-{4-[(phenylcarbamoyl)amino]-1H-pyrazol-1-yl}-N-(3,4,5-trimethoxyphenyl)benzamide	JK1	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4u79	A	-	Human	N-{4-[(3-{2-[(trans-4-aminocyclohexyl)amino]pyrimidin-4-yl}pyridin-2-yl)oxy]naphthalen-1-yl}benzenesulfonamide	3EL	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fv8	A	A	Human	5-bromo-N-(3-chloro-2-(4-(prop-2-ynyl)piperazin-1-yl)phenyl)furan-2-carboxamide	JK3	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3da6	A	-	Human	N-[3-methyl-4-({3-[2-(methylamino)pyrimidin-4-yl]pyridin-2-yl}oxy)naphthalen-1-yl]-1H-benzimidazol-2-amine	BZ9	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4w4y	A	-	Human	3-(4-{[(4-methylphenyl)carbamoyl]amino}-1H-pyrazol-1-yl)-N-(2-methylpyridin-4-yl)benzamide	3HQ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4kke	A	-	Human	ADENOSINE MONOPHOSPHATE	AMP	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2o0u	A	-	Human	N-{3-CYANO-6-[3-(1-PIPERIDINYL)PROPANOYL]-4,5,6,7-TETRAHYDROTHIENO[2,3-C]PYRIDIN-2-YL}1-NAPHTHALENECARBOXAMIDE	C0M	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4kkg	A	-	Human	-	-	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fi3	A	B	Human	3-{5-[(2-fluorophenyl)amino]-1H-indazol-1-yl}-N-(3,4,5-trimethoxyphenyl)benzamide	JK2	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4whz	A	B	Human	3-(4-{[(2-chlorophenyl)carbamoyl]amino}-1H-pyrazol-1-yl)-N-{1-[(3S)-pyrrolidin-3-yl]-1H-pyrazol-4-yl}benzamide	3NL	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3kvx	A	A	Human	N-[(2Z)-4-(3-fluoro-5-morpholin-4-ylphenyl)pyrimidin-2(1H)-ylidene]-4-(3-morpholin-4-yl-1H-1,2,4-triazol-1-yl)aniline	FMY	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3v6r	B	A	Human	4-{[4-(dimethylamino)butanoyl]amino}-N-(3-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	CQQ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fi3	A	A	Human	3-{5-[(2-fluorophenyl)amino]-1H-indazol-1-yl}-N-(3,4,5-trimethoxyphenyl)benzamide	JK2	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2ok1	A	A	Human	N-BENZYL-4-[4-(3-CHLOROPHENYL)-1H-PYRAZOL-3-YL]-1H-PYRROLE-2-CARBOXAMIDE	33A	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4w4w	A	-	Human	N-(2-methylpyridin-4-yl)-3-{4-[(phenylcarbamoyl)amino]-1H-pyrazol-1-yl}benzamide	3HJ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3kvx	A	B	Human	N-[(2Z)-4-(3-fluoro-5-morpholin-4-ylphenyl)pyrimidin-2(1H)-ylidene]-4-(3-morpholin-4-yl-1H-1,2,4-triazol-1-yl)aniline	FMY	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3fv8	A	B	Human	5-bromo-N-(3-chloro-2-(4-(prop-2-ynyl)piperazin-1-yl)phenyl)furan-2-carboxamide	JK3	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3g9l	X	-	Human	(3Z)-1-[(6-fluoro-4H-1,3-benzodioxin-8-yl)methyl]-4-[(E)-2-phenylethenyl]-1H-indole-2,3-dione 3-oxime	J67	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4y46	A	-	Human	1-{trans-4-[(8-cyclopentyl-7-oxo-7,8-dihydropyrido[2,3-d]pyrimidin-2-yl)amino]cyclohexyl}-3-propan-2-ylurea	4F2	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3g9n	A	-	Human	(3Z)-1-[(6-fluoro-4H-1,3-benzodioxin-8-yl)methyl]-4-phenyl-1H-indole-2,3-dione 3-oxime	J88	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4y5h	A	-	Human	1-(trans-4-{[7-oxo-8-(propan-2-yl)-7,8-dihydropyrido[2,3-d]pyrimidin-2-yl]amino}cyclohexyl)-3-propan-2-ylurea	519	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3oxi	A	-	Human	methyl 3-[(thiophen-2-ylacetyl)amino]thiophene-2-carboxylate	SYY	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3v6r	B	B	Human	4-{[4-(dimethylamino)butanoyl]amino}-N-(3-{[4-(pyridin-3-yl)pyrimidin-2-yl]amino}phenyl)benzamide	CQQ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4kkh	A	-	Human	cyclopropyl[(3R)-3-({4-[6-hydroxy-2-(naphthalen-2-yl)-1H-benzimidazol-1-yl]pyrimidin-2-yl}amino)piperidin-1-yl]methanone	1RQ	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2zdt	A	B	Human	4-[(6-chloro-1-oxo-4-phenyl-3-propanoylisoquinolin-2(1H)-yl)methyl]benzoic acid	46C	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4h3b	C	C	Human	-	-	-	-	in	out-like	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4w4v	A	-	Human	3-(4-{[(2-chlorophenyl)carbamoyl]amino}-1H-pyrazol-1-yl)-N-(2-methylpyridin-4-yl)benzamide	3H8	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	4w4x	A	-	Human	3-(4-{[(4-fluorophenyl)carbamoyl]amino}-1H-pyrazol-1-yl)-N-(2-methylpyridin-4-yl)benzamide	3HN	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	2r9s	B	-	Human	N-(tert-butyl)-4-[5-(pyridin-2-ylamino)quinolin-3-yl]benzenesulfonamide	255	-	-	in	in	JNK
+MAPK10 (JNK3)	MAPK	CMGC	3ttj	A	B	Human	9-cyclopentyl-N~8~-(2-fluorophenyl)-N~2~-(4-methoxyphenyl)-9H-purine-2,8-diamine	JBI	-	-	in	in	JNK
+MAPK13 (p38d)	MAPK	CMGC	4eym	A	-	Human	2-(morpholin-4-yl)-N-[4-(pyridin-4-yloxy)phenyl]pyridine-4-carboxamide	0RX	-	-	in	out-like	p38
+MAPK13 (p38d)	MAPK	CMGC	4myg	A	-	Human	-	-	-	-	in	in	p38
+MAPK13 (p38d)	MAPK	CMGC	4yno	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK13 (p38d)	MAPK	CMGC	3coi	A	A	Human	-	-	-	-	in	out-like	p38
+MAPK13 (p38d)	MAPK	CMGC	3coi	A	B	Human	-	-	-	-	in	out-like	p38
+MAPK13 (p38d)	MAPK	CMGC	4eyj	A	-	Human	1-(3-tert-butyl-1-methyl-1H-pyrazol-5-yl)-3-[4-(pyridin-4-yloxy)phenyl]urea	N61	-	-	out	out	p38
+MAPK13 (p38d)	MAPK	CMGC	4myg	B	-	Human	-	-	-	-	in	in	p38
+MAPK11 (p38b)	MAPK	CMGC	3gc9	A	-	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK11 (p38b)	MAPK	CMGC	3gp0	A	A	Human	Nilotinib	NIL	-	-	out	out	p38
+MAPK11 (p38b)	MAPK	CMGC	3gp0	A	B	Human	Nilotinib	NIL	-	-	out	out	p38
+MAPK11 (p38b)	MAPK	CMGC	3gc8	B	-	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK11 (p38b)	MAPK	CMGC	3gc8	A	-	Human	5-(2-chloro-4-fluorophenyl)-1-(2,6-dichlorophenyl)-7-[1-(1-methylethyl)piperidin-4-yl]-3,4-dihydroquinazolin-2(1H)-one	B45	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	4fv7	A	B	Human	4-(3-chlorophenyl)-5-{2-[(3-hydroxyphenyl)amino]pyrimidin-4-yl}-2-{[2-(piperidin-1-yl)ethyl]amino}thiophene-3-carbonitrile	E94	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zzm	A	-	Human	7-ethylsulfonyl-N-(oxan-4-yl)-6,8-dihydro-5H-pyrido[3,4-d]pyrimidin-2-amine	CQ6	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zzo	A	A	Human	N-[2-[[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]amino]phenyl]propanamide	CQ3	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2y9q	A	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	1wzy	A	-	Human	1-ALLYL-5-(2-PHENYLPYRAZOLO[1,5-A]PYRIDIN-3-YL)-1H-PYRAZOLO[3,4-C]PYRIDAZIN-3-AMINE	F29	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv8	A	A	Human	6-({4-[(3-cyclopropyl-1H-pyrazol-5-yl)amino]-5-(phenylamino)pyrimidin-2-yl}amino)-1,2-dihydro-3H-indazol-3-one	E63	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv4	A	A	Human	9-(dimethylamino)-2-[(3-hydroxyphenyl)amino]-5,6-dihydrothieno[3,4-h]quinazoline-7-carbonitrile	EK7	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fuy	A	A	Human	{4-[4-(3,5-dichlorophenyl)-1H-pyrazol-5-yl]-1H-pyrrol-2-yl}(morpholin-4-yl)methanone	EK2	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4h3p	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv3	A	A	Human	ethyl N-{2-chloro-4-[5-(5-{[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]carbamoyl}-1H-pyrrol-3-yl)-1H-pyrazol-4-yl]benzyl}glycinate	EK6	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz7	A	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4nif	E	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz7	A	B	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4nif	E	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4h3p	D	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zzn	A	B	Human	2-[[5-chloranyl-2-(oxan-4-ylamino)pyridin-4-yl]amino]-N-methyl-benzamide	CQ8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	1tvo	A	-	Human	5-(2-PHENYLPYRAZOLO[1,5-A]PYRIDIN-3-YL)-1H-PYRAZOLO[3,4-C]PYRIDAZIN-3-AMINE	FRZ	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4nif	B	A	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4h3q	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv8	A	B	Human	6-({4-[(3-cyclopropyl-1H-pyrazol-5-yl)amino]-5-(phenylamino)pyrimidin-2-yl}amino)-1,2-dihydro-3H-indazol-3-one	E63	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zzn	A	A	Human	2-[[5-chloranyl-2-(oxan-4-ylamino)pyridin-4-yl]amino]-N-methyl-benzamide	CQ8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv0	A	B	Human	N-cyclohexyl-4-[3-(4-fluorophenyl)-1H-pyrazol-4-yl]pyridin-2-amine	EK3	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv5	A	-	Human	N-[(1S)-2-hydroxy-1-phenylethyl]-4-(5-methyl-2-phenylpyrimidin-4-yl)-1H-pyrrole-2-carboxamide	EK9	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2ojj	A	-	Human	(S)-N-(1-(3-CHLORO-4-FLUOROPHENYL)-2-HYDROXYETHYL)-4-(4-(3-CHLOROPHENYL)-1H-PYRAZOL-3-YL)-1H-PYRROLE-2-CARBOXAMIDE	82A	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4zzo	A	B	Human	N-[2-[[5-chloranyl-2-(oxan-4-ylamino)pyrimidin-4-yl]amino]phenyl]propanamide	CQ3	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qta	A	B	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv1	A	A	Human	N-[(1S)-2-hydroxy-1-phenylethyl]-4-{4-[3-(trifluoromethyl)phenyl]-1H-pyrazol-5-yl}-1H-pyrrole-2-carboxamide	EK4	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4g6n	A	B	Human	3-(4-chlorophenyl)-4,5,6,7-tetrahydro-1H-indazole	EK0	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv2	A	A	Human	4-[4-(3-chlorophenyl)-1H-pyrazol-5-yl]-N-(2,3-dihydro-1-benzofuran-5-ylmethyl)-1H-pyrrole-2-carboxamide	EK5	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iza	A	B	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	3i5z	A	-	Human	N-[(1S)-2-hydroxy-1-phenylethyl]-4-[5-methyl-2-(phenylamino)pyrimidin-4-yl]-1H-pyrrole-2-carboxamide	Z48	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4n0s	A	A	Human	CAFFEIC ACID	DHC	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz5	D	-	Human	ADENOSINE-5'-DIPHOSPHATE	ADP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fuy	A	B	Human	{4-[4-(3,5-dichlorophenyl)-1H-pyrazol-5-yl]-1H-pyrrol-2-yl}(morpholin-4-yl)methanone	EK2	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	3tei	A	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qte	A	A	Human	4-{2-[(2-chloro-4-fluorophenyl)amino]-5-methylpyrimidin-4-yl}-N-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-1H-pyrrole-2-carboxamide	390	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv9	A	A	Human	3-[4-(2,3-difluorophenyl)-1,2-oxazol-5-yl]-5-(pyridin-4-yl)-1H-pyrrolo[2,3-b]pyridine	E71	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bue	A	-	Human	1-benzyl-4-[3-(pyridin-4-yl)-2,4,6,7-tetrahydro-5H-pyrazolo[4,3-c]pyridin-5-yl]pyridin-2(1H)-one	4V8	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv3	A	B	Human	ethyl N-{2-chloro-4-[5-(5-{[(1S)-1-(3-chloro-4-fluorophenyl)-2-hydroxyethyl]carbamoyl}-1H-pyrrol-3-yl)-1H-pyrazol-4-yl]benzyl}glycinate	EK6	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iza	C	A	Human	-	-	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	1pme	A	-	Human	4-[5-(4-FLUORO-PHENYL)-2-(4-METHANESULFINYL-PHENYL)-3H-IMIDAZOL-4-YL]-PYRIDINE	SB2	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2oji	A	-	Human	N-BENZYL-4-[4-(3-CHLOROPHENYL)-1H-PYRAZOL-3-YL]-1H-PYRROLE-2-CARBOXAMIDE	33A	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	3sa0	A	A	Human	norathyriol	NRA	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	3w55	A	-	Human	(3S,5Z,8S,9S,11E)-8,9,16-trihydroxy-14-methoxy-3-methyl-3,4,9,10-tetrahydro-1H-2-benzoxacyclotetradecine-1,7(8H)-dione	1FM	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2ojg	A	-	Human	N,N-DIMETHYL-4-(4-PHENYL-1H-PYRAZOL-3-YL)-1H-PYRROLE-2-CARBOXAMIDE	19A	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv7	A	A	Human	4-(3-chlorophenyl)-5-{2-[(3-hydroxyphenyl)amino]pyrimidin-4-yl}-2-{[2-(piperidin-1-yl)ethyl]amino}thiophene-3-carbonitrile	E94	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv2	A	B	Human	4-[4-(3-chlorophenyl)-1H-pyrazol-5-yl]-N-(2,3-dihydro-1-benzofuran-5-ylmethyl)-1H-pyrrole-2-carboxamide	EK5	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4g6o	A	-	Human	4-{4-[4-(aminomethyl)-3-(trifluoromethyl)phenyl]-1H-pyrazol-5-yl}-N-(2,3-dihydro-1-benzofuran-5-ylmethyl)-1H-pyrrole-2-carboxamide	E28	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fux	A	-	Human	trans-4-{[4-(5-methyl-3-phenyl-1,2-oxazol-4-yl)pyrimidin-2-yl]amino}cyclohexanol	E75	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2y9q	A	C	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	2y9q	A	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv0	A	A	Human	N-cyclohexyl-4-[3-(4-fluorophenyl)-1H-pyrazol-4-yl]pyridin-2-amine	EK3	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4nif	B	B	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv4	A	B	Human	9-(dimethylamino)-2-[(3-hydroxyphenyl)amino]-5,6-dihydrothieno[3,4-h]quinazoline-7-carbonitrile	EK7	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4iz5	A	-	Human	ADENOSINE-5'-DIPHOSPHATE	ADP	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4n0s	A	B	Human	CAFFEIC ACID	DHC	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv9	A	B	Human	3-[4-(2,3-difluorophenyl)-1,2-oxazol-5-yl]-5-(pyridin-4-yl)-1H-pyrrolo[2,3-b]pyridine	E71	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4fv6	A	-	Human	N-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-4-(2-{[(2S)-1-hydroxybutan-2-yl]amino}-5-methylpyrimidin-4-yl)-1H-pyrrole-2-carboxamide	E57	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	3sa0	A	B	Human	norathyriol	NRA	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	4qte	A	B	Human	4-{2-[(2-chloro-4-fluorophenyl)amino]-5-methylpyrimidin-4-yl}-N-[(1S)-1-(3-chlorophenyl)-2-hydroxyethyl]-1H-pyrrole-2-carboxamide	390	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5bui	A	-	Human	3-(4-fluorophenyl)-5-(pyridin-2-yl)-4,5,6,7-tetrahydro-2H-pyrazolo[4,3-c]pyridine	4V9	-	-	in	in	Erk
+MAPK1 (Erk2)	MAPK	CMGC	5buj	A	A	Human	4-[3-(pyridin-4-yl)-2,4,6,7-tetrahydro-5H-pyrazolo[4,3-c]pyridin-5-yl]pyridin-2(1H)-one	4VB	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	4qtb	B	A	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	2zoq	A	-	Human	(2R,3R,4S,5R)-2-(4-AMINO-5-IODO-7H-PYRROLO[2,3-D]PYRIMIDIN-7-YL)-5-(HYDROXYMETHYL)TETRAHYDROFURAN-3,4-DIOL	5ID	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	4qtb	B	B	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	4qtb	A	A	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	4qtb	A	B	Human	(3R)-1-(2-oxo-2-{4-[4-(pyrimidin-2-yl)phenyl]piperazin-1-yl}ethyl)-N-[3-(pyridin-4-yl)-2H-indazol-5-yl]pyrrolidine-3-carboxamide	38Z	-	-	in	in	Erk
+MAPK3 (Erk1)	MAPK	CMGC	2zoq	B	-	Human	(2R,3R,4S,5R)-2-(4-AMINO-5-IODO-7H-PYRROLO[2,3-D]PYRIMIDIN-7-YL)-5-(HYDROXYMETHYL)TETRAHYDROFURAN-3,4-DIOL	5ID	-	-	in	in	Erk
+MAPK6 (Erk3)	MAPK	CMGC	2i6l	B	-	Human	-	-	-	-	in	in	Erk
+MAPK6 (Erk3)	MAPK	CMGC	2i6l	A	-	Human	-	-	-	-	in	in	Erk
+MAPK9 (JNK2)	MAPK	CMGC	3npc	B	-	Human	1-(5-TERT-BUTYL-2-P-TOLYL-2H-PYRAZOL-3-YL)-3-[4-(2-MORPHOLIN-4-YL-ETHOXY)-NAPHTHALEN-1-YL]-UREA	B96	-	-	out	out	JNK
+MAPK9 (JNK2)	MAPK	CMGC	3npc	A	-	Human	1-(5-TERT-BUTYL-2-P-TOLYL-2H-PYRAZOL-3-YL)-3-[4-(2-MORPHOLIN-4-YL-ETHOXY)-NAPHTHALEN-1-YL]-UREA	B96	-	-	out	out	JNK
+MAPK9 (JNK2)	MAPK	CMGC	3e7o	B	-	Human	N-{3-[5-(1H-1,2,4-triazol-3-yl)-1H-indazol-3-yl]phenyl}furan-2-carboxamide	35F	-	-	in	in	JNK
+MAPK7 (Erk5)	MAPK	CMGC	4b99	A	-	Human	11-cyclopentyl-2-[[2-methoxy-4-[4-(4-methylpiperazin-1-yl)piperidin-1-yl]carbonyl-phenyl]amino]-5-methyl-pyrimido[4,5-b][1,4]benzodiazepin-6-one	R4L	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4ic8	A	-	Human	-	-	-	-	in	out-like	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4ic7	D	-	Human	PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	ANP	-	-	in	in	Erk
+MAPK7 (Erk5)	MAPK	CMGC	4ic8	B	-	Human	-	-	-	-	in	out-like	Erk
+MAPK14 (p38a)	MAPK	CMGC	5eta	B	-	Human	-	-	-	-	in	out-like	p38
+MAPK14 (p38a)	MAPK	CMGC	5eta	A	-	Human	-	-	-	-	in	out-like	p38
+MAPK1 (Erk2)	MAPK	CMGC	5nhv	A	-	Human	7-[2-(oxan-4-ylamino)pyrimidin-4-yl]-3,4-dihydro-2~{H}-pyrrolo[1,2-a]pyrazin-1-one	8QB	-	-	in	in	Erk

@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>geometricus.moment_utility &#8212; Geometricus 0.0.1-dev documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Geometricus</a></h1>
+
+
+
+<p class="blurb">Fast, structure-based, alignment-free protein embedding</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=TurtleTools&repo=geometricus&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing Geometricus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for geometricus.moment_utility</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numba</span> <span class="k">as</span> <span class="nn">nb</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">utility</span>
+
+<span class="n">NUM_MOMENTS</span> <span class="o">=</span> <span class="mi">4</span>
+
+
+<div class="viewcode-block" id="mu"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.moment_utility.mu">[docs]</a><span class="nd">@nb</span><span class="o">.</span><span class="n">njit</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mu</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Central moment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(((</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">**</span> <span class="n">r</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_second_order_moments"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.moment_utility.get_second_order_moments">[docs]</a><span class="nd">@nb</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">get_second_order_moments</span><span class="p">(</span><span class="n">coords</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">nb_mean_axis_0</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+    <span class="n">mu_200</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_020</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_002</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+
+    <span class="n">j1</span> <span class="o">=</span> <span class="n">mu_200</span> <span class="o">+</span> <span class="n">mu_020</span> <span class="o">+</span> <span class="n">mu_002</span>
+
+    <span class="n">mu_110</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_101</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_011</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+
+    <span class="n">mu_003</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_012</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_021</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_030</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_102</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_111</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_210</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_201</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_120</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+    <span class="n">mu_300</span> <span class="o">=</span> <span class="n">mu</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span>
+
+    <span class="n">j2</span> <span class="o">=</span> <span class="n">mu_200</span> <span class="o">*</span> <span class="n">mu_020</span> <span class="o">+</span> <span class="n">mu_200</span> <span class="o">*</span> <span class="n">mu_002</span> <span class="o">+</span> <span class="n">mu_020</span> <span class="o">*</span> <span class="n">mu_002</span> <span class="o">-</span> <span class="n">mu_110</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">mu_101</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">mu_011</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">j3</span> <span class="o">=</span> <span class="n">mu_200</span> <span class="o">*</span> <span class="n">mu_020</span> <span class="o">*</span> <span class="n">mu_002</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mu_110</span> <span class="o">*</span> <span class="n">mu_101</span> <span class="o">*</span> <span class="n">mu_011</span> <span class="o">-</span> <span class="n">mu_002</span> <span class="o">*</span> <span class="n">mu_110</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">mu_020</span> <span class="o">*</span> <span class="n">mu_101</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">mu_200</span> <span class="o">*</span> <span class="n">mu_011</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">j4</span> <span class="o">=</span> <span class="n">mu_003</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_012</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_021</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">mu_030</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_102</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">mu_111</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_102</span> <span class="o">*</span> <span class="n">mu_120</span> <span class="o">+</span> \
+         <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_120</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_021</span> <span class="o">*</span> <span class="n">mu_201</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_201</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_003</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_021</span> <span class="o">+</span> <span class="n">mu_201</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_030</span> <span class="o">*</span> <span class="n">mu_210</span> <span class="o">+</span> \
+         <span class="mi">6</span> <span class="o">*</span> <span class="n">mu_210</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_012</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_030</span> <span class="o">+</span> <span class="n">mu_210</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_102</span> <span class="o">*</span> <span class="n">mu_300</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mu_120</span> <span class="o">*</span> <span class="n">mu_300</span> <span class="o">+</span> <span class="n">mu_300</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">,</span> <span class="n">j4</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Janani Durairaj, Mehmet Akdel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/TurtleTools/geometricus" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
