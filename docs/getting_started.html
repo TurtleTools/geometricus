@@ -135,34 +135,15 @@ class</p>
 <div class="section" id="structural-fragmentation">
 <h2>Structural fragmentation<a class="headerlink" href="#structural-fragmentation" title="Permalink to this headline">¶</a></h2>
 <p>We consider two different ways of dividing a protein with <span class="math notranslate nohighlight">\(l\)</span>
-residues into structural fragments, using its <span class="math notranslate nohighlight">\(\alpha\)</span>-carbon
-coordinates,
-<span class="math notranslate nohighlight">\(\mathbf{\alpha} = \{ \mathbf{\alpha_i} | \mathbf{\alpha_i} = (\alpha_i^x, \alpha_i^y, \alpha_i^z), i : 1, ..., l \}\)</span>.</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbf{k}\)</span>-mer-based - for a given value of <span class="math notranslate nohighlight">\(k\)</span>, a
-protein is divided into <span class="math notranslate nohighlight">\(l\)</span> <span class="math notranslate nohighlight">\(k\)</span>-mer-based structural
-fragments, <span class="math notranslate nohighlight">\(\{ C^k_i, i : 1, ..., l \}\)</span> where</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[C^k_i = \{ \mathbf{\alpha_j} | j \in (\max(1, i-\lfloor{k/2}\rfloor), \min(l, i + \lfloor{k/2}\rfloor)) \}\]</div>
-<ol class="arabic simple" start="2">
-<li><p>radius-based - for a given radius <span class="math notranslate nohighlight">\(r\)</span>, a protein is divided
-into <span class="math notranslate nohighlight">\(l\)</span> radius-based structural fragments
-<span class="math notranslate nohighlight">\(\{ C^r_i, i : 1, ..., l \}\)</span> where</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[C^r_i = \{ \mathbf{\alpha_j} | d(\mathbf{\alpha_i}, \mathbf{\alpha_j}) &lt; r \}\]</div>
-<p>with <span class="math notranslate nohighlight">\(d(\mathbf{\alpha_i}, \mathbf{\alpha_j})\)</span> being the Euclidean
-distance between <span class="math notranslate nohighlight">\(\mathbf{\alpha_i}\)</span> and
-<span class="math notranslate nohighlight">\(\mathbf{\alpha_j}\)</span>.</p>
-<p>For each structural fragment, four rotation and translation-invariant
-moments are calculated, termed <span class="math notranslate nohighlight">\(O_1, O_2, O_3\)</span>, and <span class="math notranslate nohighlight">\(O_4\)</span>.</p>
-<p>While the <span class="math notranslate nohighlight">\(k\)</span>-mer based approach is effective in describing
-structural fragments that are sequential in nature, such as
-<span class="math notranslate nohighlight">\(\alpha\)</span>-helices and loops, the radius-based approach can capture
-long-range structural contacts as seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as well
-as distinct interaction patterns in space, as found in enzyme active
-sites.</p>
+residues into structural fragments, a <span class="math notranslate nohighlight">\(k\)</span>-mer-based approach and a
+radius-based approach. For each structural fragment, four rotation and
+translation-invariant moments are calculated, termed
+<span class="math notranslate nohighlight">\(O_1, O_2, O_3\)</span>, and <span class="math notranslate nohighlight">\(O_4\)</span>. While the <span class="math notranslate nohighlight">\(k\)</span>-mer based
+approach is effective in describing structural fragments that are
+sequential in nature, such as <span class="math notranslate nohighlight">\(\alpha\)</span>-helices and loops, the
+radius-based approach can capture long-range structural contacts as seen
+in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as well as distinct interaction patterns in
+space, as found in enzyme active sites.</p>
 <p>Below we load a pickle file containing pre-parsed proteins stored as
 ProDy AtomGroup objects. This can also be done directly from PDB files
 by replacing the <code class="docutils literal notranslate"><span class="pre">geometricus.MomentInvariants.from_prody_atomgroup</span></code>
@@ -203,25 +184,15 @@ downloading time and file parsing time).</p>
 </div>
 <div class="section" id="generating-an-embedding-from-structural-fragments">
 <h2>Generating an Embedding from Structural Fragments<a class="headerlink" href="#generating-an-embedding-from-structural-fragments" title="Permalink to this headline">¶</a></h2>
-<p>Moment invariants are discretized into shape-mers using the below
-formula, where <span class="math notranslate nohighlight">\(m\)</span> is the resolution parameter controlling how
-coarse or fine-grained this discretization is.</p>
-<div class="math notranslate nohighlight">
-\[(O_3', O_4', O_5', F') = (\lfloor{m \times\ln(O_3)}\rfloor,  \lfloor{m \times \ln(O_4)}\rfloor, \lfloor{m \times \ln(O_5)}\rfloor,  \lfloor{m \times \ln(F)}\rfloor)\]</div>
-<p>Given a set of <span class="math notranslate nohighlight">\(n\)</span> proteins, we generate a collection of
-shape-mers for each protein. The total number of shape-mers <span class="math notranslate nohighlight">\(s\)</span> is
-then the number of distinct shape-mers observed across all <span class="math notranslate nohighlight">\(n\)</span>
-proteins. A count vector of length <span class="math notranslate nohighlight">\(s\)</span> is calculated for each
+<p>Moment invariants are discretized into shape-mers, using a
+<strong>resolution</strong> parameter which controls how coarse or fine-grained this
+discretization is. A count vector of shape-mers is calculated for each
 protein with each element recording the number of times the
-corresponding shape-mer appears in that protein. This counting is done
-separately for the <span class="math notranslate nohighlight">\(k\)</span>-mer and radius based approaches, as they
-represent different types of structural fragments. The two resulting
-count vectors are concatenated to form the final protein embedding.</p>
-<p>The <strong>resolution</strong> parameter (<span class="math notranslate nohighlight">\(m\)</span>) can be optimized to the task at
-hand. Generally, more divergent proteins would require a lower
-resolution while highly similar proteins would need higher resolutions
-to differentiate them. For the MAP kinases, we use a relatively high
-resolution of 2.</p>
+corresponding shape-mer appears in that protein. The resolution
+parameter can be optimized to the task at hand. Generally, more
+divergent proteins would require a lower resolution while highly similar
+proteins would need higher resolutions to differentiate them. For the
+MAP kinases, we use a relatively high resolution of 2.</p>
 <p>Depending on the use-case you may want to embed all proteins at once, as
 demonstrated below, or separate train and test proteins as demonstrated
 in the Supervised Learning section.</p>
