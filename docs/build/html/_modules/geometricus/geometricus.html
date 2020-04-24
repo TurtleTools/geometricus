@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geometricus.geometricus &mdash; Geometricus 0.0.1-dev documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Geometricus
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1-dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing Geometricus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">geometricus</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Geometricus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>geometricus.geometricus</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for geometricus.geometricus</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">prody</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">moment_utility</span><span class="p">,</span> <span class="n">protein_utility</span><span class="p">,</span> <span class="n">utility</span>
+
+
+<div class="viewcode-block" id="GeometricusEmbedding"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.GeometricusEmbedding">[docs]</a><span class="k">class</span> <span class="nc">GeometricusEmbedding</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for storing embedding information</span>
+<span class="sd">    Embedding matrix of size (len(protein_keys), len(self.kmer_shape_keys) + len(self.radius_shape_keys))</span>
+<span class="sd">    is stored in self.embedding</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kmer_invariants</span>
+<span class="sd">        dict mapping protein_key: MomentInvariants class based on kmer fragmentation</span>
+<span class="sd">    radius_invariants</span>
+<span class="sd">        dict mapping protein_name: MomentInvariants class based on radius fragmentation</span>
+<span class="sd">    resolution</span>
+<span class="sd">        multiplier that determines how coarse/fine-grained each shape is</span>
+<span class="sd">        this can be a single number, multiplied to all four moment invariants</span>
+<span class="sd">        or a numpy array of four numbers, one for each invariant</span>
+<span class="sd">    protein_keys</span>
+<span class="sd">        list of protein names = rows of the output embedding</span>
+<span class="sd">    kmer_shape_keys</span>
+<span class="sd">        if given uses only these shape-mers for the embedding</span>
+<span class="sd">        if None, uses all shape-mers</span>
+<span class="sd">    radius_shape_keys</span>
+<span class="sd">        if given uses only these shape-mers for the embedding</span>
+<span class="sd">        if None, uses all shape-mers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kmer_invariants</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">radius_invariants</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">resolution</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">protein_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                 <span class="n">kmer_shape_keys</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">radius_shape_keys</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">protein_keys</span> <span class="o">=</span> <span class="n">protein_keys</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kmer_invariants</span> <span class="o">=</span> <span class="n">kmer_invariants</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius_invariants</span> <span class="o">=</span> <span class="n">radius_invariants</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">protein_to_kmer_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_to_proteins</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_embedding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_keys</span> <span class="o">=</span> <span class="n">moments_to_embedding</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kmer_invariants</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">protein_keys</span><span class="p">],</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">shape_keys</span><span class="o">=</span><span class="n">kmer_shape_keys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protein_to_radius_shapes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_shape_to_proteins</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_embedding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_shape_keys</span> <span class="o">=</span> <span class="n">moments_to_embedding</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">radius_invariants</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">protein_keys</span><span class="p">],</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">shape_keys</span><span class="o">=</span><span class="n">radius_shape_keys</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">kmer_embedding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_embedding</span><span class="p">))</span>
+
+<div class="viewcode-block" id="GeometricusEmbedding.map_shapemer_index_to_shapemer"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.GeometricusEmbedding.map_shapemer_index_to_shapemer">[docs]</a>    <span class="k">def</span> <span class="nf">map_shapemer_index_to_shapemer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shapemer_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets shape-mer at a particular index in self.embedding.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shapemer_index</span>
+<span class="sd">            index of the shape-mer in self.embedding</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        shape-mer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kmer_shapemer_nr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_keys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shapemer_index</span> <span class="o">&gt;=</span> <span class="n">kmer_shapemer_nr</span><span class="p">:</span>  <span class="c1"># this means the feature is a radius invariant</span>
+            <span class="n">shape_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_shape_keys</span><span class="p">[</span><span class="n">shapemer_index</span> <span class="o">-</span> <span class="n">kmer_shapemer_nr</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># this means the feature is a kmer invariant</span>
+            <span class="n">shape_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_keys</span><span class="p">[</span><span class="n">shapemer_index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">shape_key</span></div>
+
+<div class="viewcode-block" id="GeometricusEmbedding.map_shapemer_index_to_residues"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.GeometricusEmbedding.map_shapemer_index_to_residues">[docs]</a>    <span class="k">def</span> <span class="nf">map_shapemer_index_to_residues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shapemer_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets residues within a particular shape-mer across all proteins.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shapemer_index</span>
+<span class="sd">            index of the shape-mer in self.embedding</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict of protein_key: set(residues in shape-mer)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">protein_to_shapemer_residues</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+
+        <span class="n">kmer_shapemer_nr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_keys</span><span class="p">)</span>
+        <span class="n">shape_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_shapemer_index_to_shapemer</span><span class="p">(</span><span class="n">shapemer_index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shapemer_index</span> <span class="o">&gt;=</span> <span class="n">kmer_shapemer_nr</span><span class="p">:</span>  <span class="c1"># this means the feature is a radius invariant</span>
+            <span class="n">invariants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_invariants</span>
+            <span class="n">shape_to_proteins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_shape_to_proteins</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># this means the feature is a kmer invariant</span>
+            <span class="n">invariants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_invariants</span>
+            <span class="n">shape_to_proteins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kmer_shape_to_proteins</span>
+
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">shape_to_proteins</span><span class="p">[</span><span class="n">shape_key</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">protein_index</span><span class="p">,</span> <span class="n">residue_index</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">:</span>
+            <span class="n">protein_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">protein_keys</span><span class="p">[</span><span class="n">protein_index</span><span class="p">]</span>
+            <span class="n">moment_invariants</span> <span class="o">=</span> <span class="n">invariants</span><span class="p">[</span><span class="n">protein_name</span><span class="p">]</span>
+            <span class="n">shapemer_residues</span> <span class="o">=</span> <span class="n">moment_invariants</span><span class="o">.</span><span class="n">split_indices</span><span class="p">[</span><span class="n">residue_index</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">shapemer_residues</span><span class="p">:</span>
+                <span class="n">protein_to_shapemer_residues</span><span class="p">[</span><span class="n">protein_name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">residue</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">protein_to_shapemer_residues</span></div></div>
+
+
+<div class="viewcode-block" id="MomentInvariants"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.MomentInvariants">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MomentInvariants</span><span class="p">(</span><span class="n">protein_utility</span><span class="o">.</span><span class="n">Structure</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for storing moment invariants for a protein.</span>
+<span class="sd">    Use from_* constructors to make an instance of this.</span>
+<span class="sd">    Subclasses Structure so also has a name, length, and optional sequence.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    residue_splits</span>
+<span class="sd">        split a protein into residues using these atom indices, e.g</span>
+<span class="sd">        [[1, 2], [3, 4]] could represent both alpha and beta carbons being used in a residue.</span>
+<span class="sd">        Right now only the alpha carbons are used so this contains indices of alpha carbons for each residue if prody is used</span>
+<span class="sd">        or just indices in a range if coordinates are given directly</span>
+<span class="sd">    original_indices:</span>
+<span class="sd">        Also alpha indices (if prody) / range (if coordinates)</span>
+<span class="sd">    sequence</span>
+<span class="sd">        Amino acid sequence</span>
+<span class="sd">    split_type</span>
+<span class="sd">        One of &quot;kmer&quot;, &quot;kmer_cut&quot;, &quot;allmer&quot;, &quot;radius&quot; to generate structural fragments</span>
+<span class="sd">        - kmer - each residue is taken as the center of a kmer of length split_size, ends are included but shorter</span>
+<span class="sd">        - kmer_cut - same as kmer but ends are not included, only fragments of length split_size are kept</span>
+<span class="sd">        - allmer - adds kmers of different lengths (split_size - 5 to split_size + 5)</span>
+<span class="sd">                to take into account deletions/insertions that don&#39;t change the shape</span>
+<span class="sd">        - radius - overlapping spheres of radius split_size</span>
+<span class="sd">    split_size</span>
+<span class="sd">        kmer size or radius (depending on split_type)</span>
+<span class="sd">    split_indices</span>
+<span class="sd">        Filled with a list of residue indices for each structural fragment</span>
+<span class="sd">    moments</span>
+<span class="sd">        Filled with moment invariant values for each structural fragment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: make this more flexible</span>
+    <span class="n">residue_splits</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># TODO: doesn&#39;t seem to be needed anymore, remove</span>
+    <span class="n">original_indices</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">split_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;kmer&quot;</span>
+    <span class="n">split_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">split_indices</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">moments</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="MomentInvariants.from_coordinates"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.MomentInvariants.from_coordinates">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_coordinates</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">split_type</span><span class="o">=</span><span class="s2">&quot;kmer&quot;</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct MomentInvariants instance from a set of coordinates.</span>
+<span class="sd">        Assumes one coordinate per residue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">residue_splits</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coordinates</span><span class="p">,</span>
+                    <span class="n">residue_splits</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span>
+                    <span class="n">split_type</span><span class="o">=</span><span class="n">split_type</span><span class="p">,</span>
+                    <span class="n">split_size</span><span class="o">=</span><span class="n">split_size</span><span class="p">)</span>
+        <span class="n">shape</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span><span class="n">split_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shape</span></div>
+
+<div class="viewcode-block" id="MomentInvariants.from_prody_atomgroup"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.MomentInvariants.from_prody_atomgroup">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_prody_atomgroup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">protein</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">AtomGroup</span><span class="p">,</span> <span class="n">split_type</span><span class="o">=</span><span class="s2">&quot;kmer&quot;</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct MomentInvariants instance from a prody AtomGroup object.</span>
+<span class="sd">        Selects alpha carbons only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">protein</span> <span class="o">=</span> <span class="n">protein</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;protein&quot;</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">protein_utility</span><span class="o">.</span><span class="n">get_alpha_indices</span><span class="p">(</span><span class="n">protein</span><span class="p">)</span>
+        <span class="n">protein</span> <span class="o">=</span> <span class="n">protein</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">protein</span><span class="o">.</span><span class="n">getCoords</span><span class="p">()</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">protein</span><span class="o">.</span><span class="n">getSequence</span><span class="p">()</span>
+        <span class="n">residue_splits</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">group_indices</span><span class="p">(</span><span class="n">protein</span><span class="o">.</span><span class="n">getResindices</span><span class="p">())</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">residue_splits</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">),</span> <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">split_type</span><span class="o">=</span><span class="n">split_type</span><span class="p">,</span>
+                    <span class="n">split_size</span><span class="o">=</span><span class="n">split_size</span><span class="p">)</span>
+        <span class="n">shape</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span><span class="n">split_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shape</span></div>
+
+    <span class="k">def</span> <span class="nf">_split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split_type</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">split_type</span> <span class="o">==</span> <span class="s2">&quot;kmer&quot;</span><span class="p">:</span>
+            <span class="n">split_indices</span><span class="p">,</span> <span class="n">moments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kmerize</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">split_type</span> <span class="o">==</span> <span class="s2">&quot;allmer&quot;</span><span class="p">:</span>
+            <span class="n">split_indices</span><span class="p">,</span> <span class="n">moments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allmerize</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">split_type</span> <span class="o">==</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span>
+            <span class="n">split_indices</span><span class="p">,</span> <span class="n">moments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_radius</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">split_type</span> <span class="o">==</span> <span class="s2">&quot;kmer_cut&quot;</span><span class="p">:</span>
+            <span class="n">split_indices</span><span class="p">,</span> <span class="n">moments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kmerize_cut_ends</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;split_type must be one of kmer, kmer_cut, allmer, and radius&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split_indices</span> <span class="o">=</span> <span class="n">split_indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moments</span> <span class="o">=</span> <span class="n">moments</span>
+
+<div class="viewcode-block" id="MomentInvariants.from_pdb_file"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.MomentInvariants.from_pdb_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_pdb_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pdb_file</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">chain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">split_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;kmer&quot;</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct MomentInvariants instance from a PDB file and optional chain.</span>
+<span class="sd">        Selects alpha carbons only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pdb_name</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">get_file_parts</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">protein</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">parsePDB</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">chain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">protein</span> <span class="o">=</span> <span class="n">protein</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;chain </span><span class="si">{chain}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">pdb_name</span><span class="p">,</span> <span class="n">protein</span><span class="p">,</span> <span class="n">split_type</span><span class="p">,</span> <span class="n">split_size</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MomentInvariants.from_pdb_id"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.MomentInvariants.from_pdb_id">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_pdb_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pdb_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">split_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;kmer&quot;</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).</span>
+<span class="sd">        Selects alpha carbons only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">chain</span><span class="p">:</span>
+            <span class="n">protein</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">parsePDB</span><span class="p">(</span><span class="n">pdb_name</span><span class="p">,</span> <span class="n">chain</span><span class="o">=</span><span class="n">chain</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">protein</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">parsePDB</span><span class="p">(</span><span class="n">pdb_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">pdb_name</span><span class="p">,</span> <span class="n">protein</span><span class="p">,</span> <span class="n">split_type</span><span class="p">,</span> <span class="n">split_size</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_kmerize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">split_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+            <span class="n">kmer</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)):</span>
+                <span class="n">kmer</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">split_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_moments</span><span class="p">(</span><span class="n">split_indices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_kmerize_cut_ends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">split_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">overlap</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">overlap</span><span class="p">):</span>
+            <span class="n">kmer</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)):</span>
+                <span class="n">kmer</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">split_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_moments</span><span class="p">(</span><span class="n">split_indices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_allmerize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">split_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">split_size</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                <span class="n">kmer</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="n">split_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)):</span>
+                    <span class="n">kmer</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">split_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_moments</span><span class="p">(</span><span class="n">split_indices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split_indices</span><span class="p">):</span>
+        <span class="n">moments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">split_indices</span><span class="p">),</span> <span class="n">moment_utility</span><span class="o">.</span><span class="n">NUM_MOMENTS</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">split_indices</span><span class="p">)):</span>
+            <span class="n">moments</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">moment_utility</span><span class="o">.</span><span class="n">get_second_order_moments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">split_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">split_indices</span><span class="p">,</span> <span class="n">moments</span>
+
+    <span class="k">def</span> <span class="nf">_split_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">split_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+            <span class="n">kd_tree</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">residue_splits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">radius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">split_size</span><span class="p">)</span>
+            <span class="n">split_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kd_tree</span><span class="o">.</span><span class="n">getIndices</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_moments</span><span class="p">(</span><span class="n">split_indices</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="moments_to_embedding"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.moments_to_embedding">[docs]</a><span class="k">def</span> <span class="nf">moments_to_embedding</span><span class="p">(</span><span class="n">moments</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">MomentInvariants</span><span class="p">],</span> <span class="n">resolution</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">shape_keys</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> \
+        <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span>
+            <span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;list of MomentInvariants to</span>
+<span class="sd">        - shapemers - list of shape-mers per protein</span>
+<span class="sd">        - shapemer_to_indices - dict of shape-mer: list of (protein_index, residue_index)s in which it occurs</span>
+<span class="sd">        - embedding - Geometricus embedding matrix</span>
+<span class="sd">        - shape_keys - list of shape-mers in order of embedding matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shapemers</span> <span class="o">=</span> <span class="n">get_shapes</span><span class="p">(</span><span class="n">moments</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+    <span class="n">shapemer_to_indices</span> <span class="o">=</span> <span class="n">map_shapemers_to_indices</span><span class="p">(</span><span class="n">shapemers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shape_keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">shape_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">shapemer_to_indices</span><span class="p">))</span>
+    <span class="n">embedding</span> <span class="o">=</span> <span class="n">make_embedding</span><span class="p">(</span><span class="n">shapemers</span><span class="p">,</span> <span class="n">shape_keys</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">shapemers</span><span class="p">,</span> <span class="n">shapemer_to_indices</span><span class="p">,</span> <span class="n">embedding</span><span class="p">,</span> <span class="n">shape_keys</span></div>
+
+
+<div class="viewcode-block" id="get_shapes"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.get_shapes">[docs]</a><span class="k">def</span> <span class="nf">get_shapes</span><span class="p">(</span><span class="n">moments</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">MomentInvariants</span><span class="p">],</span> <span class="n">resolution</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    moment invariants -&gt; log transformation -&gt; multiply by resolution -&gt; floor = shape-mers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shapemers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">resolution</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">resolution</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">moment_utility</span><span class="o">.</span><span class="n">NUM_MOMENTS</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">moments</span><span class="p">:</span>
+        <span class="n">shapemers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">moments</span><span class="p">)</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">shapemers</span></div>
+
+
+<div class="viewcode-block" id="map_shapemers_to_indices"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.map_shapemers_to_indices">[docs]</a><span class="k">def</span> <span class="nf">map_shapemers_to_indices</span><span class="p">(</span><span class="n">binned_moments</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Maps shape-mer to (protein_index, residue_index)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shapemer_to_indices</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">moments</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">binned_moments</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">moments</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">shapemer_to_indices</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">moments</span><span class="p">[</span><span class="n">j</span><span class="p">])]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">shapemer_to_indices</span></div>
+
+
+<div class="viewcode-block" id="make_embedding"><a class="viewcode-back" href="../../api/geometricus.html#geometricus.geometricus.make_embedding">[docs]</a><span class="k">def</span> <span class="nf">make_embedding</span><span class="p">(</span><span class="n">binned_moments</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">shape_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Counts occurrences of each shape-mer across proteins</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shape_to_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">shape_keys</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape_keys</span><span class="p">))))</span>
+    <span class="n">embedding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">binned_moments</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape_keys</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">binned_moments</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">binned_moments</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="n">shape_to_index</span><span class="p">:</span>
+                <span class="n">embedding</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">shape_to_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">m</span><span class="p">)]]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">embedding</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Janani Durairaj, Mehmet Akdel
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
