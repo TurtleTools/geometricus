@@ -35,12 +35,3 @@ geometricus.utility module
    :members:
    :undoc-members:
    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: geometricus
-   :members:
-   :undoc-members:
-   :show-inheritance:

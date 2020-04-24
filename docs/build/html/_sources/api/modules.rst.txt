@@ -1,4 +1,4 @@
-geometricus
+API Reference
 ===========
 
 .. toctree::

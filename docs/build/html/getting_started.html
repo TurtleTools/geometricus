@@ -1,305 +1,133 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Getting Started &mdash; Geometricus 0.0.1-dev documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started &#8212; Geometricus 0.0.1-dev documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="geometricus" href="api/modules.html" />
-    <link rel="prev" title="Installing Geometricus" href="install.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
+    <link rel="next" title="API Reference" href="api/modules.html" />
+    <link rel="prev" title="Installing Geometricus" href="install.html" />
    
-  <div class="wy-grid-for-nav">
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Geometricus</a></h1>
 
-          
-            <a href="index.html" class="icon icon-home"> Geometricus
-          
 
-          
-          </a>
 
-          
-            
-            
-              <div class="version">
-                0.0.1-dev
-              </div>
-            
-          
+<p class="blurb">Fast, structure-based, alignment-free protein embedding</p>
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
 
-          
-        </div>
 
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=TurtleTools&repo=geometricus&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing Geometricus</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#structural-fragmentation">Structural fragmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#generating-an-embedding-from-structural-fragments">Generating an Embedding from Structural Fragments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#embedding-for-dimensionality-reduction">Embedding for Dimensionality Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#embedding-for-supervised-learning">Embedding for Supervised Learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interpretation-of-predictive-residues-shapes">Interpretation of predictive residues / shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-an-embedding-from-structural-fragments">Generating an Embedding from Structural Fragments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#embedding-for-dimensionality-reduction">Embedding for Dimensionality Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embedding-for-supervised-learning">Embedding for Supervised Learning</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">geometricus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finding-predictive-residues-and-structural-fragments">Finding predictive residues and structural fragments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">API Reference</a></li>
 </ul>
 
-            
-          
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="install.html" title="previous chapter">Installing Geometricus</a></li>
+      <li>Next: <a href="api/modules.html" title="next chapter">API Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Geometricus</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Getting Started</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
+          <div class="body" role="main">
             
-            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+  <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="getting-started">
+<div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>Let’s walk through an example application of Geometricus in machine
 learning using a dataset of human MAP kinases, divided into three
 classes - JNK, Erk, and p38 kinases. This dataset was generated from the
 <a class="reference external" href="https://klifs.vu-compmedchem.nl/index.php">Kinase-Ligand Interaction Fingerprints and Structures database
-(KLIFS)</a>.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pnd</span>
+(KLIFS)</a> (Raw table
+<a class="reference external" href="../../example_data/MAPK_KLIFS.tsv">here</a>).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pnd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../../example_data&quot;</span><span class="p">)</span>
 <span class="n">mapk_df</span> <span class="o">=</span> <span class="n">pnd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;MAPK_KLIFS.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">mapk_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>FAMILY</th>
-      <th>GROUPS</th>
-      <th>PDB</th>
-      <th>CHAIN</th>
-      <th>ALTERNATE_MODEL</th>
-      <th>SPECIES</th>
-      <th>LIGAND</th>
-      <th>PDB_IDENTIFIER</th>
-      <th>ALLOSTERIC_NAME</th>
-      <th>ALLOSTERIC_PDB</th>
-      <th>DFG</th>
-      <th>AC_HELIX</th>
-      <th>CLASS</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>MAPK8 (JNK1)</th>
-      <td>MAPK</td>
-      <td>CMGC</td>
-      <td>3o2m</td>
-      <td>A</td>
-      <td>-</td>
-      <td>Human</td>
-      <td>-</td>
-      <td>-</td>
-      <td>N-butyl-4,6-dimethyl-N-{[2&amp;apos;-(2H-tetrazol-...</td>
-      <td>46A</td>
-      <td>in</td>
-      <td>in</td>
-      <td>JNK</td>
-    </tr>
-    <tr>
-      <th>MAPK8 (JNK1)</th>
-      <td>MAPK</td>
-      <td>CMGC</td>
-      <td>3o2m</td>
-      <td>B</td>
-      <td>-</td>
-      <td>Human</td>
-      <td>-</td>
-      <td>-</td>
-      <td>N-butyl-4,6-dimethyl-N-{[2&amp;apos;-(2H-tetrazol-...</td>
-      <td>46A</td>
-      <td>in</td>
-      <td>in</td>
-      <td>JNK</td>
-    </tr>
-    <tr>
-      <th>MAPK14 (p38a)</th>
-      <td>MAPK</td>
-      <td>CMGC</td>
-      <td>4eh8</td>
-      <td>A</td>
-      <td>A</td>
-      <td>Human</td>
-      <td>[3-(benzyloxy)phenyl]methanol</td>
-      <td>0OP</td>
-      <td>N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine</td>
-      <td>IRG</td>
-      <td>in</td>
-      <td>out</td>
-      <td>p38</td>
-    </tr>
-    <tr>
-      <th>MAPK14 (p38a)</th>
-      <td>MAPK</td>
-      <td>CMGC</td>
-      <td>4eh2</td>
-      <td>A</td>
-      <td>-</td>
-      <td>Human</td>
-      <td>3-phenylquinazolin-4(3H)-one</td>
-      <td>0OK</td>
-      <td>N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine</td>
-      <td>IRG</td>
-      <td>in</td>
-      <td>out-like</td>
-      <td>p38</td>
-    </tr>
-    <tr>
-      <th>MAPK14 (p38a)</th>
-      <td>MAPK</td>
-      <td>CMGC</td>
-      <td>4eh7</td>
-      <td>A</td>
-      <td>A</td>
-      <td>Human</td>
-      <td>(3-phenoxyphenyl)methanol</td>
-      <td>0OO</td>
-      <td>N~4~-cyclopropyl-2-phenylquinazoline-4,7-diamine</td>
-      <td>IRG</td>
-      <td>na</td>
-      <td>na</td>
-      <td>p38</td>
-    </tr>
-  </tbody>
-</table>
-</div><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">mapk_pdb_to_class</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">mapk_pdb_to_class</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">pdb</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">mapk_df</span><span class="p">[</span><span class="s2">&quot;PDB&quot;</span><span class="p">],</span> <span class="n">mapk_df</span><span class="p">[</span><span class="s2">&quot;CHAIN&quot;</span><span class="p">],</span> <span class="n">mapk_df</span><span class="p">[</span><span class="s2">&quot;CLASS&quot;</span><span class="p">])):</span>
     <span class="n">mapk_pdb_to_class</span><span class="p">[(</span><span class="n">pdb</span><span class="p">,</span> <span class="n">chain</span><span class="p">)]</span> <span class="o">=</span> <span class="n">class_name</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">mapk_pdb_to_class</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">527</span>
 </pre></div>
 </div>
 <p>So now we have a list of (PDB ID, chain) pairs, each associated with a
 class</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">X_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapk_pdb_to_class</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapk_pdb_to_class</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 <span class="n">class_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;JNK&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Erk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;p38&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">class_mapping</span><span class="p">[</span><span class="n">mapk_pdb_to_class</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">X_names</span><span class="p">]</span>
 </pre></div>
@@ -310,9 +138,11 @@ class</p>
 residues into structural fragments, using its <span class="math notranslate nohighlight">\(\alpha\)</span>-carbon
 coordinates,
 <span class="math notranslate nohighlight">\(\mathbf{\alpha} = \{ \mathbf{\alpha_i} | \mathbf{\alpha_i} = (\alpha_i^x, \alpha_i^y, \alpha_i^z), i : 1, ..., l \}\)</span>.</p>
-<p>1. <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>-mer-based - for a given value of <span class="math notranslate nohighlight">\(k\)</span>, a
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{k}\)</span>-mer-based - for a given value of <span class="math notranslate nohighlight">\(k\)</span>, a
 protein is divided into <span class="math notranslate nohighlight">\(l\)</span> <span class="math notranslate nohighlight">\(k\)</span>-mer-based structural
-fragments, <span class="math notranslate nohighlight">\(\{ C^k_i, i : 1, ..., l \}\)</span> where</p>
+fragments, <span class="math notranslate nohighlight">\(\{ C^k_i, i : 1, ..., l \}\)</span> where</p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[C^k_i = \{ \mathbf{\alpha_j} | j \in (\max(1, i-\lfloor{k/2}\rfloor), \min(l, i + \lfloor{k/2}\rfloor)) \}\]</div>
 <ol class="arabic simple" start="2">
@@ -322,7 +152,8 @@ into <span class="math notranslate nohighlight">\(l\)</span> radius-based struct
 </ol>
 <div class="math notranslate nohighlight">
 \[C^r_i = \{ \mathbf{\alpha_j} | d(\mathbf{\alpha_i}, \mathbf{\alpha_j}) &lt; r \}\]</div>
-<p>with <span class="math notranslate nohighlight">\(d(\mathbf{\alpha_i}, \mathbf{\alpha_j})\)</span> being the Euclidean distance between <span class="math notranslate nohighlight">\(\mathbf{\alpha_i}\)</span> and
+<p>with <span class="math notranslate nohighlight">\(d(\mathbf{\alpha_i}, \mathbf{\alpha_j})\)</span> being the Euclidean
+distance between <span class="math notranslate nohighlight">\(\mathbf{\alpha_i}\)</span> and
 <span class="math notranslate nohighlight">\(\mathbf{\alpha_j}\)</span>.</p>
 <p>For each structural fragment, four rotation and translation-invariant
 moments are calculated, termed <span class="math notranslate nohighlight">\(O_1, O_2, O_3\)</span>, and <span class="math notranslate nohighlight">\(O_4\)</span>.</p>
@@ -338,8 +169,9 @@ by replacing the <code class="docutils literal notranslate"><span class="pre">ge
 call by
 <code class="docutils literal notranslate"><span class="pre">geometricus.MomentInvariants.from_pdb_file(pdb_file,</span> <span class="pre">chain=chain,</span> <span class="pre">...)</span></code>
 or even <code class="docutils literal notranslate"><span class="pre">from_pdb_id(pdb_id,</span> <span class="pre">chain=chain,</span> <span class="pre">...)</span></code> to download from RCSB
-via FTP.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">geometricus</span>
+via FTP (note that these two approaches will take longer due to FTP
+downloading time and file parsing time).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">geometricus</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 
@@ -356,16 +188,16 @@ via FTP.</p>
     <span class="n">invariants_radius</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key_to_atomgroup</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">split_type</span><span class="o">=</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">50</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">4.49</span> <span class="n">seconds</span>
-<span class="mi">100</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">7.85</span> <span class="n">seconds</span>
-<span class="mi">150</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">10.79</span> <span class="n">seconds</span>
-<span class="mi">200</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">15.11</span> <span class="n">seconds</span>
-<span class="mi">250</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">18.25</span> <span class="n">seconds</span>
-<span class="mi">300</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">21.33</span> <span class="n">seconds</span>
-<span class="mi">350</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">24.27</span> <span class="n">seconds</span>
-<span class="mi">400</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">27.33</span> <span class="n">seconds</span>
-<span class="mi">450</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">30.3</span> <span class="n">seconds</span>
-<span class="mi">500</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">33.29</span> <span class="n">seconds</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">50</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">2.76</span> <span class="n">seconds</span>
+<span class="mi">100</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">5.56</span> <span class="n">seconds</span>
+<span class="mi">150</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">8.67</span> <span class="n">seconds</span>
+<span class="mi">200</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">12.37</span> <span class="n">seconds</span>
+<span class="mi">250</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">15.4</span> <span class="n">seconds</span>
+<span class="mi">300</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">18.19</span> <span class="n">seconds</span>
+<span class="mi">350</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">21.05</span> <span class="n">seconds</span>
+<span class="mi">400</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">23.78</span> <span class="n">seconds</span>
+<span class="mi">450</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">27.09</span> <span class="n">seconds</span>
+<span class="mi">500</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">30.08</span> <span class="n">seconds</span>
 </pre></div>
 </div>
 </div>
@@ -374,19 +206,8 @@ via FTP.</p>
 <p>Moment invariants are discretized into shape-mers using the below
 formula, where <span class="math notranslate nohighlight">\(m\)</span> is the resolution parameter controlling how
 coarse or fine-grained this discretization is.</p>
-<dl class="class">
-<dt id="mathjax_process">
-<em class="property">class </em><code class="sig-name descname">mathjax_process</code><a class="headerlink" href="#mathjax_process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>\<span class="n">begin</span><span class="p">{</span><span class="n">equation</span><span class="o">*</span><span class="p">}</span>
-  \<span class="n">begin</span><span class="p">{</span><span class="n">aligned</span><span class="p">}</span>
-    <span class="p">(</span><span class="n">O_3</span><span class="s1">&#39;, O_4&#39;</span><span class="p">,</span> <span class="n">O_5</span><span class="s1">&#39;, F&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>\<span class="n">lfloor</span><span class="p">{</span><span class="n">m</span> \<span class="n">times</span>\<span class="n">ln</span><span class="p">(</span><span class="n">O_3</span><span class="p">)}</span>\<span class="n">rfloor</span><span class="p">,</span>  \<span class="n">lfloor</span><span class="p">{</span><span class="n">m</span> \<span class="n">times</span> \<span class="n">ln</span><span class="p">(</span><span class="n">O_4</span><span class="p">)}</span>\<span class="n">rfloor</span><span class="p">,</span>  \\
-    \<span class="n">lfloor</span><span class="p">{</span><span class="n">m</span> \<span class="n">times</span> \<span class="n">ln</span><span class="p">(</span><span class="n">O_5</span><span class="p">)}</span>\<span class="n">rfloor</span><span class="p">,</span>  \<span class="n">lfloor</span><span class="p">{</span><span class="n">m</span> \<span class="n">times</span> \<span class="n">ln</span><span class="p">(</span><span class="n">F</span><span class="p">)}</span>\<span class="n">rfloor</span><span class="p">)</span>
-  \<span class="n">end</span><span class="p">{</span><span class="n">aligned</span><span class="p">}</span>
-\<span class="n">end</span><span class="p">{</span><span class="n">equation</span><span class="o">*</span><span class="p">}</span>
-</pre></div>
-</div>
+<div class="math notranslate nohighlight">
+\[(O_3', O_4', O_5', F') = (\lfloor{m \times\ln(O_3)}\rfloor,  \lfloor{m \times \ln(O_4)}\rfloor, \lfloor{m \times \ln(O_5)}\rfloor,  \lfloor{m \times \ln(F)}\rfloor)\]</div>
 <p>Given a set of <span class="math notranslate nohighlight">\(n\)</span> proteins, we generate a collection of
 shape-mers for each protein. The total number of shape-mers <span class="math notranslate nohighlight">\(s\)</span> is
 then the number of distinct shape-mers observed across all <span class="math notranslate nohighlight">\(n\)</span>
@@ -396,12 +217,19 @@ corresponding shape-mer appears in that protein. This counting is done
 separately for the <span class="math notranslate nohighlight">\(k\)</span>-mer and radius based approaches, as they
 represent different types of structural fragments. The two resulting
 count vectors are concatenated to form the final protein embedding.</p>
-</div>
+<p>The <strong>resolution</strong> parameter (<span class="math notranslate nohighlight">\(m\)</span>) can be optimized to the task at
+hand. Generally, more divergent proteins would require a lower
+resolution while highly similar proteins would need higher resolutions
+to differentiate them. For the MAP kinases, we use a relatively high
+resolution of 2.</p>
+<p>Depending on the use-case you may want to embed all proteins at once, as
+demonstrated below, or separate train and test proteins as demonstrated
+in the Supervised Learning section.</p>
 <div class="section" id="embedding-for-dimensionality-reduction">
-<h2>Embedding for Dimensionality Reduction<a class="headerlink" href="#embedding-for-dimensionality-reduction" title="Permalink to this headline">¶</a></h2>
+<h3>Embedding for Dimensionality Reduction<a class="headerlink" href="#embedding-for-dimensionality-reduction" title="Permalink to this headline">¶</a></h3>
 <p>Embeddings across all proteins can be used for dimensionality reduction
 and visualization.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -419,38 +247,39 @@ and visualization.</p>
     <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                 <span class="n">reduced</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                <span class="n">label</span><span class="o">=</span><span class="n">class_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">class_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generated</span> <span class="n">embedding</span> <span class="ow">in</span> <span class="mf">2.57</span> <span class="n">seconds</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generated</span> <span class="n">embedding</span> <span class="ow">in</span> <span class="mf">2.02</span> <span class="n">seconds</span>
 </pre></div>
 </div>
 <img alt="_images/getting_started_8_1.png" src="_images/getting_started_8_1.png" />
 </div>
 <div class="section" id="embedding-for-supervised-learning">
-<h2>Embedding for Supervised Learning<a class="headerlink" href="#embedding-for-supervised-learning" title="Permalink to this headline">¶</a></h2>
+<h3>Embedding for Supervised Learning<a class="headerlink" href="#embedding-for-supervised-learning" title="Permalink to this headline">¶</a></h3>
 <p>Supervised learning, be it classification or regression, requires some
-form of training and test sets. The shape-mers used in embedding are
-calculated from the training set and only those shape-mers are counted
-in the test set.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+form of training and test set separation. Below, the shape-mers used for
+embedding are calculated from the training set and only those shape-mers
+are counted in the test proteins.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">X_train_names</span><span class="p">,</span> <span class="n">X_test_names</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="n">train_embedder</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">GeometricusEmbedding</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">invariants_radius</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span>
                                                   <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_train_names</span><span class="p">)</span>
+
 <span class="n">test_embedder</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">GeometricusEmbedding</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">invariants_radius</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span>
                                                  <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_test_names</span><span class="p">,</span>
                                                  <span class="n">kmer_shape_keys</span><span class="o">=</span><span class="n">train_embedder</span><span class="o">.</span><span class="n">kmer_shape_keys</span><span class="p">,</span>
-                                                 <span class="n">radius_shape_keys</span><span class="o">=</span><span class="n">train_embedder</span><span class="o">.</span><span class="n">radius_shape_keys</span><span class="p">,</span>
-<span class="p">)</span>
+                                                 <span class="n">radius_shape_keys</span><span class="o">=</span><span class="n">train_embedder</span><span class="o">.</span><span class="n">radius_shape_keys</span><span class="p">)</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">embedding</span><span class="p">,</span> <span class="n">test_embedder</span><span class="o">.</span><span class="n">embedding</span>
 </pre></div>
 </div>
 <p>For this simple problem, a decision tree classifier is more than enough
 to obtain good accuracy.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
 
 <span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -461,97 +290,100 @@ to obtain good accuracy.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              <span class="n">precision</span>    <span class="n">recall</span>  <span class="n">f1</span><span class="o">-</span><span class="n">score</span>   <span class="n">support</span>
 
-         <span class="n">JNK</span>       <span class="mf">0.82</span>      <span class="mf">0.97</span>      <span class="mf">0.89</span>        <span class="mi">29</span>
-         <span class="n">Erk</span>       <span class="mf">1.00</span>      <span class="mf">0.94</span>      <span class="mf">0.97</span>        <span class="mi">49</span>
-         <span class="n">p38</span>       <span class="mf">0.96</span>      <span class="mf">0.94</span>      <span class="mf">0.95</span>        <span class="mi">81</span>
+         <span class="n">JNK</span>       <span class="mf">0.91</span>      <span class="mf">0.83</span>      <span class="mf">0.87</span>        <span class="mi">35</span>
+         <span class="n">Erk</span>       <span class="mf">0.98</span>      <span class="mf">0.98</span>      <span class="mf">0.98</span>        <span class="mi">44</span>
+         <span class="n">p38</span>       <span class="mf">0.94</span>      <span class="mf">0.97</span>      <span class="mf">0.96</span>        <span class="mi">80</span>
 
     <span class="n">accuracy</span>                           <span class="mf">0.94</span>       <span class="mi">159</span>
-   <span class="n">macro</span> <span class="n">avg</span>       <span class="mf">0.93</span>      <span class="mf">0.95</span>      <span class="mf">0.94</span>       <span class="mi">159</span>
-<span class="n">weighted</span> <span class="n">avg</span>       <span class="mf">0.95</span>      <span class="mf">0.94</span>      <span class="mf">0.94</span>       <span class="mi">159</span>
+   <span class="n">macro</span> <span class="n">avg</span>       <span class="mf">0.94</span>      <span class="mf">0.93</span>      <span class="mf">0.93</span>       <span class="mi">159</span>
+<span class="n">weighted</span> <span class="n">avg</span>       <span class="mf">0.94</span>      <span class="mf">0.94</span>      <span class="mf">0.94</span>       <span class="mi">159</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="interpretation-of-predictive-residues-shapes">
-<h2>Interpretation of predictive residues / shapes<a class="headerlink" href="#interpretation-of-predictive-residues-shapes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="finding-predictive-residues-and-structural-fragments">
+<h2>Finding predictive residues and structural fragments<a class="headerlink" href="#finding-predictive-residues-and-structural-fragments" title="Permalink to this headline">¶</a></h2>
 <p>Since each shape-mer can be mapped back to the residues it describes, it
 is easy to use Geometricus to determine predictive or functionally
-relevant residues and structural regions. Such insights can be directly
-be applied to select candidate residues for mutational studies or used
-in directed evolution techniques to engineer proteins and enzymes with
-desired properties.</p>
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+relevant residues and structural regions from a trained predictor (or
+from loadings generated from a method such as PCA). Such insights can be
+directly be applied to select candidate residues for mutational studies
+or used in directed evolution techniques to engineer proteins and
+enzymes with desired properties.</p>
+<p>By inspecting the decision tree created above, it becomes clear that
+some shape-mers are present multiple times across a protein and the
+number of times differs across classes.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
 <span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">train_embedder</span><span class="o">.</span><span class="n">kmer_shape_keys</span> <span class="o">+</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">radius_shape_keys</span><span class="p">);</span>
 </pre></div>
 </div>
 <img alt="_images/getting_started_14_0.png" src="_images/getting_started_14_0.png" />
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
 <span class="n">predictive_feature_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">6</span><span class="p">]</span>
 </pre></div>
 </div>
 <img alt="_images/getting_started_15_0.png" src="_images/getting_started_15_0.png" />
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">map_shapemer_index_to_shapemer</span><span class="p">(</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<p>We can map back to the residues described by a shape-mer using the
+<code class="docutils literal notranslate"><span class="pre">map_shapemer_index_to_residues</span></code> function which returns a dictionary
+mapping each protein to the corresponding residue indices of the
+shape-mer within that protein, if it exists.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">map_shapemer_index_to_shapemer</span><span class="p">(</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">residue_indices_train</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">map_shapemer_index_to_residues</span><span class="p">(</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">shapemer</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_indices_train</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">residue_indices_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape-mer:&quot;</span><span class="p">,</span> <span class="n">shapemer</span><span class="p">,</span> <span class="s2">&quot;Number of proteins:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_indices_train</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Residue indices per protein:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">residue_indices_train</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">residue_indices_train</span><span class="p">[</span><span class="n">pdb</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(14, 24, 29, 30) 12
-defaultdict(&lt;class &#39;set&#39;&gt;, {(&#39;4ic7&#39;, &#39;D&#39;): {143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158}, (&#39;4ic7&#39;, &#39;A&#39;): {144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159}, (&#39;5byz&#39;, &#39;A&#39;): {142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157}, (&#39;5bve&#39;, &#39;A&#39;): {160, 161, 162, 163, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159}, (&#39;6hkm&#39;, &#39;A&#39;): {128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 125, 126, 127}, (&#39;4fmq&#39;, &#39;A&#39;): {160, 161, 162, 163, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159}, (&#39;4zsj&#39;, &#39;A&#39;): {140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155}, (&#39;4zsg&#39;, &#39;A&#39;): {143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158}, (&#39;4zsl&#39;, &#39;A&#39;): {137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152}, (&#39;5byy&#39;, &#39;A&#39;): {141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156}, (&#39;5v61&#39;, &#39;A&#39;): {160, 161, 162, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159}, (&#39;2zoq&#39;, &#39;B&#39;): {160, 161, 162, 163, 164, 165, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159}})
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shape</span><span class="o">-</span><span class="n">mer</span><span class="p">:</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">proteins</span><span class="p">:</span> <span class="mi">12</span>
+<span class="n">Residue</span> <span class="n">indices</span> <span class="n">per</span> <span class="n">protein</span><span class="p">:</span>
+<span class="p">(</span><span class="s1">&#39;5bvd&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;4myg&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;6hkm&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;6hkn&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;2zoq&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;4zsg&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;5v61&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;5byy&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;4zsj&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;4ic7&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;5bvf&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
+<span class="p">(</span><span class="s1">&#39;4ic7&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="p">{</span><span class="mi">143</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>The residue indices for each protein calculated above can then be
-visualized on the protein structure using software such as PyMol.</p>
+<p>These residue indices can then be visualized on a protein structure
+using molecule visualization software such as PyMol. Comparing the same
+location in proteins which don’t have this shape-mer can also be
+informative.</p>
 </div>
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api/modules.html" class="btn btn-neutral float-right" title="geometricus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="install.html" class="btn btn-neutral float-left" title="Installing Geometricus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2020, Janani Durairaj, Mehmet Akdel
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
+          
         </div>
       </div>
-
-    </section>
-
+    <div class="clearer"></div>
   </div>
-  
+    <div class="footer">
+      &copy;2020, Janani Durairaj, Mehmet Akdel.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/getting_started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
     
-   
+    <a href="https://github.com/TurtleTools/geometricus" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
 
-</body>
+    
+  </body>
 </html>

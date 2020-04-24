@@ -57,12 +57,9 @@ exclude_patterns = ['_build', '.DS_Store']
 #
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-pygments_style = 'sphinx'
+html_theme = 'alabaster'
+# pygments_style = 'sphinx'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -76,6 +73,18 @@ html_sidebars = {
         'donate.html',
     ]
 }
+
+html_theme_options = {
+    #  'logo': 'logo.png',
+    'description': 'Fast, structure-based, alignment-free protein embedding',
+    'github_user': 'TurtleTools',
+    'github_repo': 'geometricus',
+    'fixed_sidebar': True,
+    'github_banner': True,
+    'github_button': True
+
+}
+
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
