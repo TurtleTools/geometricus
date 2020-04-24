@@ -7,11 +7,7 @@ See the [documentation](https://turtletools.github.io/geometricus/)
 TODO: Add link to paper
 
 ## Installation
-Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies. It can be installed from source using pip as follows:
-
-```bash
-pip install git+https://github.com/TurtleTools/geometricus
-```
+Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies. Install from source using `git clone` and `pip install .` inside the cloned repository
 
 TODO: Package with PyPI and anaconda.
 
