@@ -139,18 +139,16 @@ class MomentInvariants(protein_utility.Structure):
     moments
         Filled with moment invariant values for each structural fragment
     """
-    # TODO: make this more flexible
     residue_splits: list = field(repr=False)
-    # TODO: doesn't seem to be needed anymore, remove
     original_indices: np.ndarray = field(repr=False)
-    sequence: str = None
+    sequence: str = typing.Union[str, None]
     split_type: str = "kmer"
     split_size: int = 16
     split_indices: typing.Union[typing.List, None] = None
     moments: np.ndarray = None
 
     @classmethod
-    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: str, split_type="kmer", split_size=16):
+    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: typing.Union[str, None] = None, split_type="kmer", split_size=16):
         """
         Construct MomentInvariants instance from a set of coordinates.
         Assumes one coordinate per residue.
@@ -166,18 +164,18 @@ class MomentInvariants(protein_utility.Structure):
         return shape
 
     @classmethod
-    def from_prody_atomgroup(cls, name, protein: pd.AtomGroup, split_type="kmer", split_size=16):
+    def from_prody_atomgroup(cls, name, protein: pd.AtomGroup, split_type="kmer", split_size=16, selection: str = "calpha"):
         """
-        Construct MomentInvariants instance from a prody AtomGroup object.
-        Selects alpha carbons only.
+        Construct MomentInvariants instance from a ProDy AtomGroup object.
+        Selects according to `selection` string, (default = alpha carbons)
         """
-        protein = protein.select("protein")
-        indices = protein_utility.get_alpha_indices(protein)
-        protein = protein[indices]
+        protein = protein.select("protein").select(selection)
         coordinates = protein.getCoords()
-        sequence = protein.getSequence()
         residue_splits = utility.group_indices(protein.getResindices())
-        shape = cls(name, coordinates.shape[0], coordinates, residue_splits, np.array(indices), sequence=sequence, split_type=split_type,
+        shape = cls(name, coordinates.shape[0], coordinates, residue_splits,
+                    protein.getIndices(),
+                    sequence=protein.getSequence(),
+                    split_type=split_type,
                     split_size=split_size)
         shape._split(split_type)
         return shape

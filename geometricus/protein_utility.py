@@ -15,11 +15,11 @@ class Structure:
     coordinates: np.ndarray = field(repr=False)
 
 
-def parse_pdb_files(input_pdb):
+def parse_pdb_files(input_pdb, extension=".pdb"):
     if type(input_pdb) == str or type(input_pdb) == Path:
         input_pdb = Path(input_pdb)
         if input_pdb.is_dir():
-            pdb_files = list(input_pdb.glob("*.pdb"))
+            pdb_files = list(input_pdb.glob(f"*{extension}"))
         elif input_pdb.is_file():
             with open(input_pdb) as f:
                 pdb_files = f.read().strip().split('\n')
@@ -33,10 +33,10 @@ def parse_pdb_files(input_pdb):
     return pdb_files
 
 
-def parse_pdb_files_and_clean(input_pdb: str, output_pdb: typing.Union[str, Path] = "./cleaned_pdb") -> typing.List[typing.Union[str, Path]]:
+def parse_pdb_files_and_clean(input_pdb: str, extension=".pdb", output_pdb: typing.Union[str, Path] = "./cleaned_pdb") -> typing.List[typing.Union[str, Path]]:
     if not Path(output_pdb).exists():
         Path(output_pdb).mkdir()
-    pdb_files = parse_pdb_files(input_pdb)
+    pdb_files = parse_pdb_files(input_pdb, extension)
     output_pdb_files = []
     for pdb_file in pdb_files:
         pdb = pd.parsePDB(pdb_file).select("protein")
