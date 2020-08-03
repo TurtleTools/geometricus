@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import prody as pd
+from scipy.signal import resample
 
 from geometricus import moment_utility, protein_utility, utility
 
@@ -126,31 +127,34 @@ class MomentInvariants(protein_utility.Structure):
     sequence
         Amino acid sequence
     split_type
-        One of "kmer", "kmer_cut", "allmer", "radius" to generate structural fragments
+        One of "kmer", "kmer_cut", "allmer", "radius", "radius_upsample" to generate structural fragments
         - kmer - each residue is taken as the center of a kmer of length split_size, ends are included but shorter
         - kmer_cut - same as kmer but ends are not included, only fragments of length split_size are kept
         - allmer - adds kmers of different lengths (split_size - 5 to split_size + 5)
                 to take into account deletions/insertions that don't change the shape
         - radius - overlapping spheres of radius split_size
+        - radius_upsample - overlapping spheres of radius split_size on coordinates upsampled by upsample rate.
+            Only works if there's one atom selected per residue
     split_size
         kmer size or radius (depending on split_type)
+    upsample_rate
+        ignored unless split_type = "radius_upsample"
     split_indices
         Filled with a list of residue indices for each structural fragment
     moments
         Filled with moment invariant values for each structural fragment
     """
-    # TODO: make this more flexible
     residue_splits: list = field(repr=False)
-    # TODO: doesn't seem to be needed anymore, remove
     original_indices: np.ndarray = field(repr=False)
-    sequence: str = None
+    sequence: str = typing.Union[str, None]
     split_type: str = "kmer"
     split_size: int = 16
+    upsample_rate: int = 50
     split_indices: typing.Union[typing.List, None] = None
     moments: np.ndarray = None
 
     @classmethod
-    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: str, split_type="kmer", split_size=16):
+    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: typing.Union[str, None] = None, split_type="kmer", split_size=16, upsample_rate=50):
         """
         Construct MomentInvariants instance from a set of coordinates.
         Assumes one coordinate per residue.
@@ -161,24 +165,26 @@ class MomentInvariants(protein_utility.Structure):
                     np.arange(coordinates.shape[0]),
                     sequence=sequence,
                     split_type=split_type,
-                    split_size=split_size)
+                    split_size=split_size,
+                    upsample_rate=upsample_rate)
         shape._split(split_type)
         return shape
 
     @classmethod
-    def from_prody_atomgroup(cls, name, protein: pd.AtomGroup, split_type="kmer", split_size=16):
+    def from_prody_atomgroup(cls, name, protein: pd.AtomGroup, split_type="kmer", split_size=16, selection: str = "calpha", upsample_rate=50):
         """
-        Construct MomentInvariants instance from a prody AtomGroup object.
-        Selects alpha carbons only.
+        Construct MomentInvariants instance from a ProDy AtomGroup object.
+        Selects according to `selection` string, (default = alpha carbons)
         """
-        protein = protein.select("protein")
-        indices = protein_utility.get_alpha_indices(protein)
-        protein = protein[indices]
+        protein = protein.select("protein").select(selection)
         coordinates = protein.getCoords()
-        sequence = protein.getSequence()
         residue_splits = utility.group_indices(protein.getResindices())
-        shape = cls(name, coordinates.shape[0], coordinates, residue_splits, np.array(indices), sequence=sequence, split_type=split_type,
-                    split_size=split_size)
+        shape = cls(name, len(residue_splits), coordinates, residue_splits,
+                    protein.getIndices(),
+                    sequence=protein.getSequence(),
+                    split_type=split_type,
+                    split_size=split_size,
+                    upsample_rate=upsample_rate)
         shape._split(split_type)
         return shape
 
@@ -189,6 +195,9 @@ class MomentInvariants(protein_utility.Structure):
             split_indices, moments = self._allmerize()
         elif split_type == "radius":
             split_indices, moments = self._split_radius()
+        elif split_type == "radius_upsample":
+            assert all(len(r) == 1 for r in self.residue_splits)
+            split_indices, moments = self._split_radius_upsample()
         elif split_type == "kmer_cut":
             split_indices, moments = self._kmerize_cut_ends()
         else:
@@ -197,7 +206,7 @@ class MomentInvariants(protein_utility.Structure):
         self.moments = moments
 
     @classmethod
-    def from_pdb_file(cls, pdb_file: typing.Union[str, Path], chain: str = None, split_type: str = "kmer", split_size=16):
+    def from_pdb_file(cls, pdb_file: typing.Union[str, Path], chain: str = None, split_type: str = "kmer", split_size=16, upsample_rate=50):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
         Selects alpha carbons only.
@@ -206,10 +215,10 @@ class MomentInvariants(protein_utility.Structure):
         protein = pd.parsePDB(str(pdb_file))
         if chain is not None:
             protein = protein.select(f"chain {chain}")
-        return cls.from_prody_atomgroup(pdb_name, protein, split_type, split_size)
+        return cls.from_prody_atomgroup(pdb_name, protein, split_type, split_size, upsample_rate=upsample_rate)
 
     @classmethod
-    def from_pdb_id(cls, pdb_name: str, chain: str = None, split_type: str = "kmer", split_size=16):
+    def from_pdb_id(cls, pdb_name: str, chain: str = None, split_type: str = "kmer", split_size=16, upsample_rate=50):
         """
         Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
         Selects alpha carbons only.
@@ -218,7 +227,7 @@ class MomentInvariants(protein_utility.Structure):
             protein = pd.parsePDB(pdb_name, chain=chain)
         else:
             protein = pd.parsePDB(pdb_name)
-        return cls.from_prody_atomgroup(pdb_name, protein, split_type, split_size)
+        return cls.from_prody_atomgroup(pdb_name, protein, split_type, split_size, upsample_rate=upsample_rate)
 
     def _kmerize(self):
         split_indices = []
@@ -263,6 +272,24 @@ class MomentInvariants(protein_utility.Structure):
             split_indices.append(kd_tree.getIndices())
         return self._get_moments(split_indices)
 
+    def _split_radius_upsample(self):
+        split_indices = []
+        kd_tree = pd.KDTree(self.coordinates)
+
+        split_indices_upsample = []
+        coordinates_upsample = resample(self.coordinates, self.upsample_rate * self.coordinates.shape[0])
+        kd_tree_upsample = pd.KDTree(coordinates_upsample)
+
+        for i in range(self.length):
+            kd_tree_upsample.search(center=self.coordinates[self.residue_splits[i][0]], radius=self.split_size)
+            split_indices_upsample.append(kd_tree_upsample.getIndices())
+            kd_tree.search(center=self.coordinates[self.residue_splits[i][0]], radius=self.split_size)
+            split_indices.append(kd_tree.getIndices())
+        moments = np.zeros((len(split_indices), moment_utility.NUM_MOMENTS))
+        for i in range(len(split_indices_upsample)):
+            moments[i] = moment_utility.get_second_order_moments(coordinates_upsample[split_indices_upsample[i]])
+        return split_indices, moments
+
 
 def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: typing.Union[float, np.ndarray], shape_keys: list = None) -> \
         typing.Tuple[
@@ -287,7 +314,7 @@ def get_shapes(moments: typing.List[MomentInvariants], resolution: typing.Union[
     """
     shapemers = []
     if type(resolution) == np.ndarray:
-        assert resolution.shape[0] == moment_utility.NUM_MOMENTS
+        assert resolution.shape[0] == moments[0].moments.shape[1]
     for shape in moments:
         shapemers.append((np.log1p(shape.moments) * resolution).astype(int))
     return shapemers
