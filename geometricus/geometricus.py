@@ -290,11 +290,12 @@ class MomentInvariants(Structure):
         chain: str = None,
         split_type: str = "kmer",
         split_size=16,
+        selection: str = "calpha",
         upsample_rate=50,
     ):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
-        Selects alpha carbons only.
+        Selects according to `selection` string, (default = alpha carbons)
         """
         pdb_name = Path(pdb_file).stem
         protein = pd.parsePDB(str(pdb_file))
@@ -302,7 +303,7 @@ class MomentInvariants(Structure):
             protein = protein.select(f"chain {chain}")
             pdb_name = (pdb_name, chain)
         return cls.from_prody_atomgroup(
-            pdb_name, protein, split_type, split_size, upsample_rate=upsample_rate
+            pdb_name, protein, split_type, split_size, selection=selection, upsample_rate=upsample_rate
         )
 
     @classmethod
@@ -312,11 +313,12 @@ class MomentInvariants(Structure):
         chain: str = None,
         split_type: str = "kmer",
         split_size=16,
+        selection: str = "calpha",
         upsample_rate=50,
     ):
         """
         Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
-        Selects alpha carbons only.
+        Selects according to `selection` string, (default = alpha carbons)
         """
         if chain:
             protein = pd.parsePDB(pdb_name, chain=chain)
@@ -324,7 +326,7 @@ class MomentInvariants(Structure):
         else:
             protein = pd.parsePDB(pdb_name)
         return cls.from_prody_atomgroup(
-            pdb_name, protein, split_type, split_size, upsample_rate=upsample_rate
+            pdb_name, protein, split_type, split_size, selection=selection, upsample_rate=upsample_rate
         )
 
     def _kmerize(self):
@@ -423,10 +425,10 @@ def moments_to_embedding(
     ty.List[Shapemer],
 ]:
     """list of MomentInvariants to
-        - shapemers - list of shape-mers per protein
-        - shapemer_to_indices - dict of shape-mer: list of (protein_index, residue_index)s in which it occurs
+        - protein_to_shapemers - dict of protein_key: list of shape-mers in protein
+        - shapemer_to_protein_indices - dict of shape-mer: list of (protein_key, residue_index)s in which it occurs
         - embedding - Geometricus embedding matrix
-        - shape_keys - list of shape-mers in order of embedding matrix
+        - shapemer_keys - list of shape-mers in order of embedding matrix
     """
     protein_to_shapemers: ty.Dict[ProteinKey, Shapemers] = get_shapes(
         invariants, resolution
