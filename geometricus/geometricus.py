@@ -1,4 +1,4 @@
-import typing
+import typing as ty
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -9,7 +9,11 @@ from scipy.signal import resample
 
 from geometricus import moment_utility, protein_utility, utility
 
+Moment = ty.Tuple[int, int, int, int]
+Shapemer = ty.List[Moment]
 
+
+@dataclass
 class GeometricusEmbedding:
     """
     Class for storing embedding information
@@ -18,9 +22,8 @@ class GeometricusEmbedding:
 
     Parameters
     ----------
-    kmer_invariants
+    invariants
         dict mapping protein_key: MomentInvariants class based on kmer fragmentation
-    radius_invariants
         dict mapping protein_name: MomentInvariants class based on radius fragmentation
     resolution
         multiplier that determines how coarse/fine-grained each shape is
@@ -35,20 +38,46 @@ class GeometricusEmbedding:
         if given uses only these shape-mers for the embedding
         if None, uses all shape-mers
     """
-    def __init__(self, kmer_invariants: dict, radius_invariants: dict, resolution: typing.Union[float, np.ndarray], protein_keys: list,
-                 kmer_shape_keys: list = None, radius_shape_keys: list = None):
 
-        self.protein_keys = protein_keys
+    invariants: ty.Dict[str, 'MomentInvariants']
+    resolution: ty.Union[float, np.ndarray]
+    protein_keys: ty.List[str]
+    shapemers: ty.List[Shapemer]
+    embedding: np.ndarray
+    shapemer_to_indices: ty.Dict[Moment, ty.List[ty.Tuple[int, int]]]
 
-        self.kmer_invariants = kmer_invariants
-        self.radius_invariants = radius_invariants
+    @classmethod
+    def from_invariants(cls,
+                        invariants: ty.List['MomentInvariants'],
+                        resolution: ty.Union[float, np.ndarray] = 1.,
+                        protein_keys: ty.Union[None, ty.List[str]] = None,
+                        shapemer_keys: ty.Union[None, ty.List[Moment]] = None):
+        """
 
-        self.protein_to_kmer_shapes, self.kmer_shape_to_proteins, self.kmer_embedding, self.kmer_shape_keys = moments_to_embedding(
-            [self.kmer_invariants[name] for name in protein_keys], resolution=resolution, shape_keys=kmer_shape_keys)
-        self.protein_to_radius_shapes, self.radius_shape_to_proteins, self.radius_embedding, self.radius_shape_keys = moments_to_embedding(
-            [self.radius_invariants[name] for name in protein_keys], resolution=resolution, shape_keys=radius_shape_keys)
+        Parameters
+        ----------
+        invariants
+            List of MomentInvariant objects.
+        resolution
 
-        self.embedding = np.hstack((self.kmer_embedding, self.radius_embedding))
+        protein_keys
+
+        shapemer_keys
+
+        Returns
+        -------
+
+        """
+        if type(resolution) == np.ndarray:
+            assert resolution.shape[0] == moment_utility.NUM_MOMENTS
+        invariants: ty.Dict[str, 'MomentInvariants'] = {x.name: x for x in invariants}
+        if protein_keys is None:
+            protein_keys: ty.List[str] = [k for k in invariants.keys()]
+        assert all(k in invariants for k in protein_keys)
+
+        shapemers, shapemer_to_indices, embedding, restrict_to = moments_to_embedding(
+                [invariants[name] for name in protein_keys], resolution=resolution, restrict_to=shapemer_keys)
+        return cls(invariants, resolution, restrict_to, shapemers, embedding, shapemer_to_indices)
 
     def map_shapemer_index_to_shapemer(self, shapemer_index: int) -> tuple:
         """
@@ -146,15 +175,15 @@ class MomentInvariants(protein_utility.Structure):
     """
     residue_splits: list = field(repr=False)
     original_indices: np.ndarray = field(repr=False)
-    sequence: str = typing.Union[str, None]
+    sequence: str = ty.Union[str, None]
     split_type: str = "kmer"
     split_size: int = 16
     upsample_rate: int = 50
-    split_indices: typing.Union[typing.List, None] = None
+    split_indices: ty.Union[ty.List, None] = None
     moments: np.ndarray = None
 
     @classmethod
-    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: typing.Union[str, None] = None, split_type="kmer", split_size=16, upsample_rate=50):
+    def from_coordinates(cls, name, coordinates: np.ndarray, sequence: ty.Union[str, None] = None, split_type="kmer", split_size=16, upsample_rate=50):
         """
         Construct MomentInvariants instance from a set of coordinates.
         Assumes one coordinate per residue.
@@ -206,7 +235,7 @@ class MomentInvariants(protein_utility.Structure):
         self.moments = moments
 
     @classmethod
-    def from_pdb_file(cls, pdb_file: typing.Union[str, Path], chain: str = None, split_type: str = "kmer", split_size=16, upsample_rate=50):
+    def from_pdb_file(cls, pdb_file: ty.Union[str, Path], chain: str = None, split_type: str = "kmer", split_size=16, upsample_rate=50):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
         Selects alpha carbons only.
@@ -291,54 +320,58 @@ class MomentInvariants(protein_utility.Structure):
         return split_indices, moments
 
 
-def moments_to_embedding(moments: typing.List[MomentInvariants], resolution: typing.Union[float, np.ndarray], shape_keys: list = None) -> \
-        typing.Tuple[
-            list, dict, np.ndarray, list]:
+def moments_to_embedding(moments: ty.List[MomentInvariants],
+                         resolution: ty.Union[float, np.ndarray], restrict_to: list = None) -> \
+        ty.Tuple[
+            ty.List[Shapemer], ty.Dict[Moment, ty.List[ty.Tuple[int, int]]], np.ndarray, ty.List[str]]:
     """list of MomentInvariants to
         - shapemers - list of shape-mers per protein
         - shapemer_to_indices - dict of shape-mer: list of (protein_index, residue_index)s in which it occurs
         - embedding - Geometricus embedding matrix
         - shape_keys - list of shape-mers in order of embedding matrix
     """
-    shapemers = get_shapes(moments, resolution)
+    shapemers: ty.List[Shapemer] = get_shapes(moments, resolution)
     shapemer_to_indices = map_shapemers_to_indices(shapemers)
-    if shape_keys is None:
-        shape_keys = sorted(list(shapemer_to_indices))
-    embedding = make_embedding(shapemers, shape_keys)
-    return shapemers, shapemer_to_indices, embedding, shape_keys
+    if restrict_to is None:
+        restrict_to = sorted(list(shapemer_to_indices))
+    embedding = make_embedding(shapemers, restrict_to)
+    return shapemers, shapemer_to_indices, embedding, restrict_to
 
 
-def get_shapes(moments: typing.List[MomentInvariants], resolution: typing.Union[float, np.ndarray] = 2.) -> list:
+def get_shapes(moment_invariants_list: ty.List[MomentInvariants],
+               resolution: ty.Union[float, np.ndarray] = 2.) -> ty.List[ty.List[ty.Tuple[int, int, int, int]]]:
     """
-    moment invariants -> log transformation -> multiply by resolution -> floor = shape-mers
+    moment invariants -> log transformation -> multiply by resolution -> floor = moment_invariants-mers
     """
-    shapemers = []
+    shapemers: ty.List[ty.List[ty.Tuple[int, int, int, int]]] = []
     if type(resolution) == np.ndarray:
-        assert resolution.shape[0] == moments[0].moments.shape[1]
-    for shape in moments:
-        shapemers.append((np.log1p(shape.moments) * resolution).astype(int))
+        assert resolution.shape[0] == moment_invariants_list[0].moments.shape[1]
+    for moment_invariants in moment_invariants_list:
+        shapemers.append([tuple(x) for x in (np.log1p(moment_invariants.moments) * resolution).astype(int)])
     return shapemers
 
 
-def map_shapemers_to_indices(binned_moments: list) -> dict:
+def map_shapemers_to_indices(shapemers_list: ty.List[ty.List[ty.Tuple[int, int, int, int]]]) -> ty.Dict[ty.Tuple[int, int, int, int],
+                                                                                               ty.List[ty.Tuple[int, int]]]:
     """
     Maps shape-mer to (protein_index, residue_index)
     """
-    shapemer_to_indices = defaultdict(list)
-    for i, moments in enumerate(binned_moments):
-        for j in range(moments.shape[0]):
-            shapemer_to_indices[tuple(moments[j])].append((i, j))
+    shapemer_to_indices: ty.Dict[ty.Tuple[int, int, int, int], ty.List[ty.Tuple[int, int]]] = defaultdict(list)
+    for i, shapemers in enumerate(shapemers_list):
+        for j in range(len(shapemers)):
+            shapemer_to_indices[shapemers[j]].append((i, j))
     return shapemer_to_indices
 
 
-def make_embedding(binned_moments: list, shape_keys: list) -> np.ndarray:
+def make_embedding(shapemers: ty.List[ty.List[ty.Tuple[int, int, int, int]]],
+                   restrict_to: ty.List[ty.Tuple[int, int, int, int]]) -> np.ndarray:
     """
     Counts occurrences of each shape-mer across proteins
     """
-    shape_to_index = dict(zip(shape_keys, range(len(shape_keys))))
-    embedding = np.zeros((len(binned_moments), len(shape_keys)))
-    for i in range(len(binned_moments)):
-        for m in binned_moments[i]:
-            if tuple(m) in shape_to_index:
-                embedding[i, shape_to_index[tuple(m)]] += 1
+    shape_to_index = dict(zip(restrict_to, range(len(restrict_to))))
+    embedding = np.zeros((len(shapemers), len(restrict_to)))
+    for i in range(len(shapemers)):
+        for m in shapemers[i]:
+            if m in shape_to_index:
+                embedding[i, shape_to_index[m]] += 1
     return embedding
