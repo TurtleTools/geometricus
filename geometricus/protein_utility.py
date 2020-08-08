@@ -5,7 +5,7 @@ import numpy as np
 import prody as pd
 
 # Protein key is either PDB ID or (PDB ID, chain)
-ProteinKey = ty.Union[str, (str, str)]
+ProteinKey = ty.Union[str, ty.Tuple[str, str]]
 
 
 @dataclass(eq=False)
