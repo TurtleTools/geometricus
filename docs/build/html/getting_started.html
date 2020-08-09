@@ -196,7 +196,7 @@ don’t change the shape</p></li>
 <p>Below we use <code class="docutils literal notranslate"><span class="pre">SplitType.KMER</span></code> with a <code class="docutils literal notranslate"><span class="pre">split_size</span></code> (i.e. kmer size)
 of 16 and <code class="docutils literal notranslate"><span class="pre">SplitType.RADIUS</span></code> with a <code class="docutils literal notranslate"><span class="pre">split_size</span></code> (i.e. radius) of
 10.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">geometricus</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">MomentInvariants</span><span class="p">,</span> <span class="n">SplitType</span>
 
 <span class="n">invariants_kmer</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">invariants_radius</span> <span class="o">=</span> <span class="p">[]</span>
@@ -205,20 +205,20 @@ of 16 and <code class="docutils literal notranslate"><span class="pre">SplitType
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X_names</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> proteins in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
-    <span class="n">invariants_kmer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometricus</span><span class="o">.</span><span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pdbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">split_type</span><span class="o">=</span><span class="n">geometricus</span><span class="o">.</span><span class="n">SplitType</span><span class="o">.</span><span class="n">KMER</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
-    <span class="n">invariants_radius</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometricus</span><span class="o">.</span><span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pdbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">split_type</span><span class="o">=</span><span class="n">geometricus</span><span class="o">.</span><span class="n">SplitType</span><span class="o">.</span><span class="n">RADIUS</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">invariants_kmer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pdbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">split_type</span><span class="o">=</span><span class="n">SplitType</span><span class="o">.</span><span class="n">KMER</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+    <span class="n">invariants_radius</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pdbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">split_type</span><span class="o">=</span><span class="n">SplitType</span><span class="o">.</span><span class="n">RADIUS</span><span class="p">,</span> <span class="n">split_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">50</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">1.96</span> <span class="n">seconds</span>
-<span class="mi">100</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">4.05</span> <span class="n">seconds</span>
-<span class="mi">150</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">6.44</span> <span class="n">seconds</span>
-<span class="mi">200</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">8.33</span> <span class="n">seconds</span>
-<span class="mi">250</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">10.31</span> <span class="n">seconds</span>
-<span class="mi">300</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">12.50</span> <span class="n">seconds</span>
-<span class="mi">350</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">15.08</span> <span class="n">seconds</span>
-<span class="mi">400</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">17.03</span> <span class="n">seconds</span>
-<span class="mi">450</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">19.43</span> <span class="n">seconds</span>
-<span class="mi">500</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">21.97</span> <span class="n">seconds</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">50</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">3.42</span> <span class="n">seconds</span>
+<span class="mi">100</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">8.67</span> <span class="n">seconds</span>
+<span class="mi">150</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">15.67</span> <span class="n">seconds</span>
+<span class="mi">200</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">20.08</span> <span class="n">seconds</span>
+<span class="mi">250</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">25.12</span> <span class="n">seconds</span>
+<span class="mi">300</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">29.88</span> <span class="n">seconds</span>
+<span class="mi">350</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">33.77</span> <span class="n">seconds</span>
+<span class="mi">400</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">38.55</span> <span class="n">seconds</span>
+<span class="mi">450</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">43.29</span> <span class="n">seconds</span>
+<span class="mi">500</span> <span class="n">proteins</span> <span class="ow">in</span> <span class="mf">45.82</span> <span class="n">seconds</span>
 </pre></div>
 </div>
 </div>
@@ -243,10 +243,11 @@ and visualization.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">GeometricusEmbedding</span>
 
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">kmer_embedder</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">radius_embedder</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_radius</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">kmer_embedder</span> <span class="o">=</span> <span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">radius_embedder</span> <span class="o">=</span> <span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_radius</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated embeddings in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
 
 <span class="n">reducer</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -264,7 +265,7 @@ and visualization.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generated</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="mf">1.67</span> <span class="n">seconds</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generated</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="mf">1.19</span> <span class="n">seconds</span>
 </pre></div>
 </div>
 <img alt="_images/getting_started_11_1.png" src="_images/getting_started_11_1.png" />
@@ -279,7 +280,7 @@ and only those shape-mers are counted in the test proteins.</p>
 
 <span class="n">X_train_names</span><span class="p">,</span> <span class="n">X_test_names</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-<span class="n">train_embedder</span> <span class="o">=</span> <span class="n">geometricus</span><span class="o">.</span><span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_train_names</span><span class="p">)</span>
+<span class="n">train_embedder</span> <span class="o">=</span> <span class="n">GeometricusEmbedding</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_train_names</span><span class="p">)</span>
 <span class="n">test_embedder</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">invariants_kmer</span><span class="p">,</span> <span class="n">X_test_names</span><span class="p">)</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">embedding</span><span class="p">,</span> <span class="n">test_embedder</span><span class="o">.</span><span class="n">embedding</span>
@@ -298,13 +299,13 @@ to obtain good accuracy.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              <span class="n">precision</span>    <span class="n">recall</span>  <span class="n">f1</span><span class="o">-</span><span class="n">score</span>   <span class="n">support</span>
 
-         <span class="n">JNK</span>       <span class="mf">0.97</span>      <span class="mf">0.91</span>      <span class="mf">0.94</span>        <span class="mi">33</span>
-         <span class="n">Erk</span>       <span class="mf">0.96</span>      <span class="mf">0.94</span>      <span class="mf">0.95</span>        <span class="mi">47</span>
-         <span class="n">p38</span>       <span class="mf">0.94</span>      <span class="mf">0.97</span>      <span class="mf">0.96</span>        <span class="mi">79</span>
+         <span class="n">JNK</span>       <span class="mf">0.84</span>      <span class="mf">0.93</span>      <span class="mf">0.89</span>        <span class="mi">29</span>
+         <span class="n">Erk</span>       <span class="mf">0.93</span>      <span class="mf">0.89</span>      <span class="mf">0.91</span>        <span class="mi">46</span>
+         <span class="n">p38</span>       <span class="mf">0.95</span>      <span class="mf">0.94</span>      <span class="mf">0.95</span>        <span class="mi">84</span>
 
-    <span class="n">accuracy</span>                           <span class="mf">0.95</span>       <span class="mi">159</span>
-   <span class="n">macro</span> <span class="n">avg</span>       <span class="mf">0.95</span>      <span class="mf">0.94</span>      <span class="mf">0.95</span>       <span class="mi">159</span>
-<span class="n">weighted</span> <span class="n">avg</span>       <span class="mf">0.95</span>      <span class="mf">0.95</span>      <span class="mf">0.95</span>       <span class="mi">159</span>
+    <span class="n">accuracy</span>                           <span class="mf">0.92</span>       <span class="mi">159</span>
+   <span class="n">macro</span> <span class="n">avg</span>       <span class="mf">0.91</span>      <span class="mf">0.92</span>      <span class="mf">0.91</span>       <span class="mi">159</span>
+<span class="n">weighted</span> <span class="n">avg</span>       <span class="mf">0.93</span>      <span class="mf">0.92</span>      <span class="mf">0.92</span>       <span class="mi">159</span>
 </pre></div>
 </div>
 </div>
