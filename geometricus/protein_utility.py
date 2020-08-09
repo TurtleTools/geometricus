@@ -1,30 +1,32 @@
-import typing as ty
+from __future__ import annotations
+from typing import Union, Tuple, List
 from dataclasses import dataclass, field
 
 import numpy as np
 import prody as pd
 
-# Protein key is either PDB ID or (PDB ID, chain)
-ProteinKey = ty.Union[str, ty.Tuple[str, str]]
+ProteinKey = Union[str, Tuple[str, str]]
+"""
+A protein key is either its PDB ID (str) or a tuple of (PDB ID, chain)
+"""
 
 
 @dataclass(eq=False)
 class Structure:
-    name: ProteinKey
-    length: int
-    coordinates: np.ndarray = field(repr=False)
-
-
-def group_indices(input_list: list) -> list:
     """
-    [1, 1, 1, 2, 2, 3, 3, 3, 4] -> [[0, 1, 2], [3, 4], [5, 6, 7], [8]]
-    Parameters
-    ----------
-    input_list
+    Class to store basic protein structure information
+    """
+    name: ProteinKey
+    """PDB ID or (PDB ID, chain)"""
+    length: int
+    """Number of residues"""
+    coordinates: np.ndarray = field(repr=False)
+    """Coordinates"""
 
-    Returns
-    -------
-    list of lists
+
+def group_indices(input_list: List[int]) -> List[List[int]]:
+    """
+    e.g [1, 1, 1, 2, 2, 3, 3, 3, 4] -> [[0, 1, 2], [3, 4], [5, 6, 7], [8]]
     """
     output_list = []
     current_list = []
@@ -42,14 +44,14 @@ def group_indices(input_list: list) -> list:
     return output_list
 
 
-def get_alpha_indices(protein: pd.AtomGroup) -> ty.List[int]:
+def get_alpha_indices(protein: pd.AtomGroup) -> List[int]:
     """
     Get indices of alpha carbons of pd AtomGroup object
     """
     return [i for i, a in enumerate(protein.iterAtoms()) if a.getName() == "CA"]
 
 
-def get_beta_indices(protein: pd.AtomGroup) -> ty.List[int]:
+def get_beta_indices(protein: pd.AtomGroup) -> List[int]:
     """
     Get indices of beta carbons of pd AtomGroup object
     (If beta carbon doesn't exist, alpha carbon index is returned)

@@ -1,4 +1,5 @@
-import typing as ty
+from __future__ import annotations
+from typing import List, Tuple, Dict, Set, Union
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import IntEnum
@@ -11,55 +12,78 @@ from scipy.signal import resample
 from geometricus.protein_utility import ProteinKey, Structure, group_indices
 from geometricus.moment_utility import NUM_MOMENTS, get_second_order_moments
 
-Shapemer = ty.Tuple[int, int, int, int]
-Shapemers = ty.List[Shapemer]
-SplitType: IntEnum = IntEnum(
-    "SplitType", ("kmer", "radius", "radius_upsample", "allmer", "kmer_cut")
-)
+Shapemer = Tuple[int, int, int, int]
+"""
+A tuple of four integers, each derived from one of the four moments
+"""
+Shapemers = List[Shapemer]
+"""
+A list of Shapemer types
+"""
+
+
+class SplitType(IntEnum):
+    """
+    Different approaches to structural fragmentation
+    """
+
+    KMER = (1,)
+    """each residue is taken as the center of a kmer of length split_size, ends are included but shorter"""
+    RADIUS = 2
+    """overlapping spheres of radius split_size"""
+    RADIUS_UPSAMPLE = 3
+    """overlapping spheres of radius split_size on coordinates upsampled by upsample rate. Only works if there's one atom selected per residue"""
+    ALLMER = 4
+    """adds kmers of different lengths (split_size - 5 to split_size + 5) to take into account deletions/insertions that don't change the shape"""
+    KMER_CUT = 5
+    """same as kmer but ends are not included, only fragments of length split_size are kept"""
 
 
 @dataclass
 class GeometricusEmbedding:
     """
     Class for storing embedding information
-    Embedding matrix of size (len(protein_keys), len(self.shapemer_keys)) is stored in self.embedding
-
-    Parameters
-    ----------
-    invariants
-        dict of protein_key: MomentInvariant
-    resolution
-        multiplier that determines how coarse/fine-grained each shape is
-        this can be a single number, multiplied to all four moment invariants
-        or a numpy array of four numbers, one for each invariant
-    protein_keys
-        list of protein names = rows of the output embedding
-    shapemer_keys
-        if given uses only these shapemers for the embedding
-        if None, uses all shapemers
-    embedding
-        Embedding matrix of size (len(protein_keys), len(self.shapemer_keys))
-    shapemer_to_protein_indices
-        Maps each shapemer to the proteins which have it and to the corresponding residue indices within these proteins
-    protein_to_shapemers
-        Maps each protein to a list of shapemers in order of its residues
     """
 
-    invariants: ty.Dict[ProteinKey, "MomentInvariants"]
-    resolution: ty.Union[float, np.ndarray]
-    protein_keys: ty.List[ProteinKey]
+    invariants: Dict[ProteinKey, "MomentInvariants"]
+    """
+    Dictionary mapping protein_keys to MomentInvariant objects
+    """
+    resolution: Union[float, np.ndarray]
+    """
+    Multiplier that determines how coarse/fine-grained each shape is. 
+    This can be a single number, multiplied to all four moment invariants 
+    or a numpy array of four numbers, one for each invariant
+    """
+    protein_keys: List[ProteinKey]
+    """
+    List of protein names = rows of the output embedding
+    """
     shapemer_keys: Shapemers
+    """
+    If given uses only these shapemers for the embedding.
+    If None, uses all shapemers
+    """
     embedding: np.ndarray
-    shapemer_to_protein_indices: ty.Dict[Shapemer, ty.List[ty.Tuple[ProteinKey, int]]]
-    proteins_to_shapemers: ty.Dict[ProteinKey, Shapemers]
+    """
+    Embedding matrix of size (len(protein_keys), len(self.shapemer_keys))
+    """
+    shapemer_to_protein_indices: Dict[Shapemer, List[Tuple[ProteinKey, int]]]
+    """
+    Maps each shapemer to the proteins which have it and to the corresponding residue indices within these proteins
+    """
+    proteins_to_shapemers: Dict[ProteinKey, Shapemers]
+    """
+    Maps each protein to a list of shapemers in order of its residues\n\n
+    """
 
     @classmethod
     def from_invariants(
         cls,
-        invariants: ty.List["MomentInvariants"],
-        resolution: ty.Union[float, np.ndarray] = 1.0,
-        protein_keys: ty.Union[None, ty.List[ProteinKey]] = None,
-        shapemer_keys: ty.Union[None, ty.List[Shapemer]] = None,
+        invariants: List["MomentInvariants"],
+        resolution: Union[float, np.ndarray] = 1.0,
+        protein_keys: Union[None, List[ProteinKey]] = None,
+        shapemer_keys: Union[None, List[Shapemer]] = None,
     ):
         """
         Make a GeometricusEmbedding object from a list of MomentInvariant objects
@@ -67,34 +91,34 @@ class GeometricusEmbedding:
         Parameters
         ----------
         invariants
-            List of MomentInvariant objects.
+            List of MomentInvariant objects
         resolution
             multiplier that determines how coarse/fine-grained each shape is
             this can be a single number, multiplied to all four moment invariants
             or a numpy array of four numbers, one for each invariant
         protein_keys
-            list of protein names = rows of the output embedding
+            list of protein names = rows of the output embedding.
             if None, takes all keys in `invariants`
         shapemer_keys
-            if given uses only these shapemers for the embedding
+            if given uses only these shapemers for the embedding.
             if None, uses all shapemers
         """
         if isinstance(resolution, np.ndarray):
             assert resolution.shape[0] == NUM_MOMENTS
-        invariants: ty.Dict[ProteinKey, "MomentInvariants"] = {
+        invariants: Dict[ProteinKey, "MomentInvariants"] = {
             x.name: x for x in invariants
         }
         if protein_keys is None:
-            protein_keys: ty.List[ProteinKey] = list(invariants.keys())
+            protein_keys: List[ProteinKey] = list(invariants.keys())
         assert all(k in invariants for k in protein_keys)
-        (
-            proteins_to_shapemers,
-            shapemers_to_protein_indices,
-            embedding,
-            shapemer_keys,
-        ) = moments_to_embedding(
-            protein_keys, invariants, resolution=resolution, shapemer_keys=shapemer_keys
+
+        proteins_to_shapemers: Dict[ProteinKey, Shapemers] = get_shapes(
+            invariants, resolution
         )
+        shapemers_to_protein_indices = map_shapemers_to_indices(proteins_to_shapemers)
+        if shapemer_keys is None:
+            shapemer_keys = sorted(list(shapemers_to_protein_indices))
+        embedding = make_embedding(protein_keys, proteins_to_shapemers, shapemer_keys)
         return cls(
             invariants,
             resolution,
@@ -107,8 +131,8 @@ class GeometricusEmbedding:
 
     def embed(
         self,
-        invariants: ty.List["MomentInvariants"],
-        protein_keys: ty.Union[None, ty.List[ProteinKey]] = None,
+        invariants: List["MomentInvariants"],
+        protein_keys: Union[None, List[ProteinKey]] = None,
     ) -> "GeometricusEmbedding":
         """
         Embed a new set of proteins using an existing embedding's shapemers
@@ -128,28 +152,15 @@ class GeometricusEmbedding:
             invariants, self.resolution, protein_keys, self.shapemer_keys
         )
 
-    def map_shapemer_index_to_residues(
-        self, shapemer_index: int
-    ) -> ty.Dict[ProteinKey, ty.Set[int]]:
+    def map_shapemer_to_residues(
+        self, shapemer: Shapemer
+    ) -> Dict[ProteinKey, Set[int]]:
         """
         Gets residues within a particular shapemer across all proteins.
-
-        Parameters
-        ----------
-        shapemer_index
-            index of the shapemer in self.embedding
-
-        Returns
-        -------
-        dict of protein_key: set(residues in shapemer)
         """
-        protein_to_shapemer_residues: ty.Dict[ProteinKey, ty.Set[int]] = defaultdict(
-            set
-        )
+        protein_to_shapemer_residues: Dict[ProteinKey, Set[int]] = defaultdict(set)
 
-        for protein_key, residue_index in self.shapemer_to_protein_indices[
-            self.shapemer_keys[shapemer_index]
-        ]:
+        for protein_key, residue_index in self.shapemer_to_protein_indices[shapemer]:
             moment_invariants = self.invariants[protein_key]
             shapemer_residues = moment_invariants.split_indices[residue_index]
             for residue in shapemer_residues:
@@ -162,55 +173,37 @@ class GeometricusEmbedding:
 class MomentInvariants(Structure):
     """
     Class for storing moment invariants for a protein.
-    Use from_* constructors to make an instance of this.
-    Subclasses Structure so also has a name, length, and optional sequence.
-
-    Parameters
-    ----------
-    residue_splits
-        split a protein into residues using these atom indices, e.g
-        [[1, 2], [3, 4]] could represent both alpha and beta carbons being used in a residue.
-        Right now only the alpha carbons are used so this contains indices of alpha carbons for each residue if prody is used
-        or just indices in a range if coordinates are given directly
-    original_indices:
-        Also alpha indices (if prody) / range (if coordinates)
-    sequence
-        Amino acid sequence
-    split_type
-        One of "kmer", "kmer_cut", "allmer", "radius", "radius_upsample" to generate structural fragments
-        - kmer - each residue is taken as the center of a kmer of length split_size, ends are included but shorter
-        - kmer_cut - same as kmer but ends are not included, only fragments of length split_size are kept
-        - allmer - adds kmers of different lengths (split_size - 5 to split_size + 5)
-                to take into account deletions/insertions that don't change the shape
-        - radius - overlapping spheres of radius split_size
-        - radius_upsample - overlapping spheres of radius split_size on coordinates upsampled by upsample rate.
-            Only works if there's one atom selected per residue
-    split_size
-        kmer size or radius (depending on split_type)
-    upsample_rate
-        ignored unless split_type = "radius_upsample"
-    split_indices
-        Filled with a list of residue indices for each structural fragment
-    moments
-        Filled with moment invariant values for each structural fragment
+    Use `from_*` constructors to make an instance of this.
+    Subclasses Structure so also has `name`, `length`, and `coordinates` attributes.
     """
 
-    residue_splits: list = field(repr=False)
+    residue_splits: List[List[int]] = field(repr=False)
+    """split a protein into residues using these atom indices, e.g
+        [[1, 2], [3, 4]] could represent both alpha and beta carbons being used in a residue.
+        Right now only the alpha carbons are used so this contains indices of alpha carbons for each residue if prody is used
+        or just indices in a range if coordinates are given directly"""
     original_indices: np.ndarray = field(repr=False)
-    sequence: str = ty.Union[str, None]
-    split_type: SplitType = SplitType.kmer
+    """Also alpha indices (if prody) / range (if coordinates)"""
+    sequence: str = Union[str, None]
+    """Amino acid sequence"""
+    split_type: SplitType = SplitType.KMER
+    """How to fragment structure, see SplitType's documentation for options"""
     split_size: int = 16
+    """kmer size or radius (depending on split_type)"""
     upsample_rate: int = 50
-    split_indices: ty.Union[ty.List, None] = None
+    """ignored unless split_type = "radius_upsample"""
+    split_indices: Union[List, None] = None
+    """Filled with a list of residue indices for each structural fragment"""
     moments: np.ndarray = None
+    """Filled with moment invariant values for each structural fragment"""
 
     @classmethod
     def from_coordinates(
         cls,
         name: ProteinKey,
         coordinates: np.ndarray,
-        sequence: ty.Union[str, None] = None,
-        split_type: SplitType = SplitType.kmer,
+        sequence: Union[str, None] = None,
+        split_type: SplitType = SplitType.KMER,
         split_size: int = 16,
         upsample_rate: int = 50,
     ):
@@ -238,7 +231,7 @@ class MomentInvariants(Structure):
         cls,
         name: ProteinKey,
         protein: pd.AtomGroup,
-        split_type: SplitType = SplitType.kmer,
+        split_type: SplitType = SplitType.KMER,
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
@@ -246,6 +239,10 @@ class MomentInvariants(Structure):
         """
         Construct MomentInvariants instance from a ProDy AtomGroup object.
         Selects according to `selection` string, (default = alpha carbons)
+
+        Example
+        --------
+        >>> invariants = MomentInvariants.from_prody_atomgroup(atom_group, split_type=SplitType.RADIUS)
         """
         protein: pd.AtomGroup = protein.select("protein").select(selection)
         coordinates: np.ndarray = protein.getCoords()
@@ -265,37 +262,39 @@ class MomentInvariants(Structure):
         return shape
 
     def _split(self, split_type: SplitType):
-        if split_type == SplitType.kmer:
+        if split_type == SplitType.KMER:
             split_indices, moments = self._kmerize()
-        elif split_type == SplitType.allmer:
+        elif split_type == SplitType.ALLMER:
             split_indices, moments = self._allmerize()
-        elif split_type == SplitType.radius:
+        elif split_type == SplitType.RADIUS:
             split_indices, moments = self._split_radius()
-        elif split_type == SplitType.radius_upsample:
+        elif split_type == SplitType.RADIUS_UPSAMPLE:
             assert all(len(r) == 1 for r in self.residue_splits)
             split_indices, moments = self._split_radius_upsample()
-        elif split_type == SplitType.kmer_cut:
+        elif split_type == SplitType.KMER_CUT:
             split_indices, moments = self._kmerize_cut_ends()
         else:
-            raise Exception(
-                "split_type must be one of kmer, kmer_cut, allmer, and radius"
-            )
+            raise Exception("split_type must a SplitType object")
         self.split_indices = split_indices
         self.moments = moments
 
     @classmethod
     def from_pdb_file(
         cls,
-        pdb_file: ty.Union[str, Path],
+        pdb_file: Union[str, Path],
         chain: str = None,
-        split_type: str = "kmer",
-        split_size=16,
+        split_type: SplitType = SplitType.KMER,
+        split_size: int = 16,
         selection: str = "calpha",
-        upsample_rate=50,
+        upsample_rate: int = 50,
     ):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
         Selects according to `selection` string, (default = alpha carbons)
+
+        Example
+        --------
+        >>> invariants = MomentInvariants.from_pdb_file("5EAU.pdb", chain="A", split_type=SplitType.RADIUS)
         """
         pdb_name = Path(pdb_file).stem
         protein = pd.parsePDB(str(pdb_file))
@@ -303,7 +302,12 @@ class MomentInvariants(Structure):
             protein = protein.select(f"chain {chain}")
             pdb_name = (pdb_name, chain)
         return cls.from_prody_atomgroup(
-            pdb_name, protein, split_type, split_size, selection=selection, upsample_rate=upsample_rate
+            pdb_name,
+            protein,
+            split_type,
+            split_size,
+            selection=selection,
+            upsample_rate=upsample_rate,
         )
 
     @classmethod
@@ -311,14 +315,18 @@ class MomentInvariants(Structure):
         cls,
         pdb_name: str,
         chain: str = None,
-        split_type: str = "kmer",
-        split_size=16,
+        split_type: SplitType = SplitType.KMER,
+        split_size: int = 16,
         selection: str = "calpha",
-        upsample_rate=50,
+        upsample_rate: int = 50,
     ):
         """
         Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
         Selects according to `selection` string, (default = alpha carbons)
+
+        Example
+        --------
+        >>> invariants = MomentInvariants.from_pdb_id("5EAU", chain="A", split_type=SplitType.RADIUS)
         """
         if chain:
             protein = pd.parsePDB(pdb_name, chain=chain)
@@ -326,7 +334,12 @@ class MomentInvariants(Structure):
         else:
             protein = pd.parsePDB(pdb_name)
         return cls.from_prody_atomgroup(
-            pdb_name, protein, split_type, split_size, selection=selection, upsample_rate=upsample_rate
+            pdb_name,
+            protein,
+            split_type,
+            split_size,
+            selection=selection,
+            upsample_rate=upsample_rate,
         )
 
     def _kmerize(self):
@@ -413,41 +426,14 @@ class MomentInvariants(Structure):
         return split_indices, moments
 
 
-def moments_to_embedding(
-    protein_keys: ty.List[ProteinKey],
-    invariants: ty.Dict[ProteinKey, MomentInvariants],
-    resolution: ty.Union[float, np.ndarray],
-    shapemer_keys: ty.List[Shapemer] = None,
-) -> ty.Tuple[
-    ty.Dict[ProteinKey, Shapemers],
-    ty.Dict[Shapemer, ty.List[ty.Tuple[ProteinKey, int]]],
-    np.ndarray,
-    ty.List[Shapemer],
-]:
-    """list of MomentInvariants to
-        - protein_to_shapemers - dict of protein_key: list of shape-mers in protein
-        - shapemer_to_protein_indices - dict of shape-mer: list of (protein_key, residue_index)s in which it occurs
-        - embedding - Geometricus embedding matrix
-        - shapemer_keys - list of shape-mers in order of embedding matrix
-    """
-    protein_to_shapemers: ty.Dict[ProteinKey, Shapemers] = get_shapes(
-        invariants, resolution
-    )
-    shapemer_to_protein_indices = map_shapemers_to_indices(protein_to_shapemers)
-    if shapemer_keys is None:
-        shapemer_keys = sorted(list(shapemer_to_protein_indices))
-    embedding = make_embedding(protein_keys, protein_to_shapemers, shapemer_keys)
-    return protein_to_shapemers, shapemer_to_protein_indices, embedding, shapemer_keys
-
-
 def get_shapes(
-    invariants: ty.Dict[ProteinKey, MomentInvariants],
-    resolution: ty.Union[float, np.ndarray] = 2.0,
-) -> ty.Dict[ProteinKey, Shapemers]:
+    invariants: Dict[ProteinKey, MomentInvariants],
+    resolution: Union[float, np.ndarray] = 2.0,
+) -> Dict[ProteinKey, Shapemers]:
     """
     moment invariants -> log transformation -> multiply by resolution -> floor = shapemers
     """
-    proteins_to_shapemers: ty.Dict[ProteinKey, Shapemers] = dict()
+    proteins_to_shapemers: Dict[ProteinKey, Shapemers] = dict()
     if isinstance(resolution, np.ndarray):
         assert resolution.shape[0] == NUM_MOMENTS
     for key in invariants:
@@ -459,13 +445,13 @@ def get_shapes(
 
 
 def map_shapemers_to_indices(
-    protein_to_shapemers: ty.Dict[ProteinKey, Shapemers]
-) -> ty.Dict[Shapemer, ty.List[ty.Tuple[ProteinKey, int]]]:
+    protein_to_shapemers: Dict[ProteinKey, Shapemers]
+) -> Dict[Shapemer, List[Tuple[ProteinKey, int]]]:
     """
     Maps shapemer to (protein_key, residue_index)
     """
-    shapemer_to_protein_indices: ty.Dict[
-        Shapemer, ty.List[ty.Tuple[ProteinKey, int]]
+    shapemer_to_protein_indices: Dict[
+        Shapemer, List[Tuple[ProteinKey, int]]
     ] = defaultdict(list)
     for key in protein_to_shapemers:
         for j, shapemer in enumerate(protein_to_shapemers[key]):
@@ -474,9 +460,9 @@ def map_shapemers_to_indices(
 
 
 def make_embedding(
-    protein_keys: ty.List[ProteinKey],
-    protein_to_shapemers: ty.Dict[ProteinKey, Shapemers],
-    restrict_to: ty.List[Shapemer],
+    protein_keys: List[ProteinKey],
+    protein_to_shapemers: Dict[ProteinKey, Shapemers],
+    restrict_to: List[Shapemer],
 ) -> np.ndarray:
     """
     Counts occurrences of each shapemer across proteins

@@ -27,11 +27,3 @@ geometricus.protein\_utility module
    :members:
    :undoc-members:
    :show-inheritance:
-
-geometricus.utility module
---------------------------
-
-.. automodule:: geometricus.utility
-   :members:
-   :undoc-members:
-   :show-inheritance:

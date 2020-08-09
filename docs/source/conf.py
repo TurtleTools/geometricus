@@ -34,16 +34,18 @@ release = geometricus.__version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ["sphinx.ext.autodoc",
+              "sphinx.ext.doctest",
               'sphinx.ext.mathjax',
               'sphinx.ext.viewcode',
               'sphinx.ext.githubpages',
-              "sphinx.ext.napoleon"]
+              "sphinx.ext.napoleon",
+              ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
-
+autodoc_member_order = 'bysource'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
