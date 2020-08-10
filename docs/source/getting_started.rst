@@ -119,7 +119,7 @@ of 16 and ``SplitType.RADIUS`` with a ``split_size`` (i.e. radius) of
 
 .. code:: ipython3
 
-    from geometricus import geometricus
+    from geometricus import MomentInvariants, SplitType
     
     invariants_kmer = []
     invariants_radius = []
@@ -128,22 +128,22 @@ of 16 and ``SplitType.RADIUS`` with a ``split_size`` (i.e. radius) of
     for i, key in enumerate(X_names):
         if i > 0 and i % 50 == 0:
             print(f"{i} proteins in {(time() - start_time):.2f} seconds")
-        invariants_kmer.append(geometricus.MomentInvariants.from_prody_atomgroup(key, pdbs[i], split_type=geometricus.SplitType.KMER, split_size=16))
-        invariants_radius.append(geometricus.MomentInvariants.from_prody_atomgroup(key, pdbs[i], split_type=geometricus.SplitType.RADIUS, split_size=10))
+        invariants_kmer.append(MomentInvariants.from_prody_atomgroup(key, pdbs[i], split_type=SplitType.KMER, split_size=16))
+        invariants_radius.append(MomentInvariants.from_prody_atomgroup(key, pdbs[i], split_type=SplitType.RADIUS, split_size=10))
 
 
 .. parsed-literal::
 
-    50 proteins in 1.96 seconds
-    100 proteins in 4.05 seconds
-    150 proteins in 6.44 seconds
-    200 proteins in 8.33 seconds
-    250 proteins in 10.31 seconds
-    300 proteins in 12.50 seconds
-    350 proteins in 15.08 seconds
-    400 proteins in 17.03 seconds
-    450 proteins in 19.43 seconds
-    500 proteins in 21.97 seconds
+    50 proteins in 3.42 seconds
+    100 proteins in 8.67 seconds
+    150 proteins in 15.67 seconds
+    200 proteins in 20.08 seconds
+    250 proteins in 25.12 seconds
+    300 proteins in 29.88 seconds
+    350 proteins in 33.77 seconds
+    400 proteins in 38.55 seconds
+    450 proteins in 43.29 seconds
+    500 proteins in 45.82 seconds
 
 
 Generating an Embedding from Structural Fragments
@@ -174,10 +174,11 @@ and visualization.
     import umap
     import numpy as np
     import matplotlib.pyplot as plt
+    from geometricus import GeometricusEmbedding
     
     start_time = time()
-    kmer_embedder = geometricus.GeometricusEmbedding.from_invariants(invariants_kmer, resolution=2.)
-    radius_embedder = geometricus.GeometricusEmbedding.from_invariants(invariants_radius, resolution=2.)
+    kmer_embedder = GeometricusEmbedding.from_invariants(invariants_kmer, resolution=2.)
+    radius_embedder = GeometricusEmbedding.from_invariants(invariants_radius, resolution=2.)
     print(f"Generated embeddings in {(time() - start_time):.2f} seconds")
     
     reducer = umap.UMAP(metric="cosine", n_components=2)
@@ -197,7 +198,7 @@ and visualization.
 
 .. parsed-literal::
 
-    Generated embeddings in 1.67 seconds
+    Generated embeddings in 1.19 seconds
 
 
 
@@ -218,7 +219,7 @@ and only those shape-mers are counted in the test proteins.
     
     X_train_names, X_test_names, y_train, y_test = train_test_split(X_names, y, test_size=0.3)
     
-    train_embedder = geometricus.GeometricusEmbedding.from_invariants(invariants_kmer, resolution=2., protein_keys=X_train_names)
+    train_embedder = GeometricusEmbedding.from_invariants(invariants_kmer, resolution=2., protein_keys=X_train_names)
     test_embedder = train_embedder.embed(invariants_kmer, X_test_names)
     
     X_train, X_test = train_embedder.embedding, test_embedder.embedding
@@ -241,13 +242,13 @@ to obtain good accuracy.
 
                   precision    recall  f1-score   support
     
-             JNK       0.97      0.91      0.94        33
-             Erk       0.96      0.94      0.95        47
-             p38       0.94      0.97      0.96        79
+             JNK       0.84      0.93      0.89        29
+             Erk       0.93      0.89      0.91        46
+             p38       0.95      0.94      0.95        84
     
-        accuracy                           0.95       159
-       macro avg       0.95      0.94      0.95       159
-    weighted avg       0.95      0.95      0.95       159
+        accuracy                           0.92       159
+       macro avg       0.91      0.92      0.91       159
+    weighted avg       0.93      0.92      0.92       159
     
 
 

@@ -1,5 +1,6 @@
-__version__ = '0.0.1-dev'
+__version__ = "0.0.1-dev"
 
-__all__ = ['geometricus',
-           'moment_utility',
-           'protein_utility']
+from .geometricus import GeometricusEmbedding, MomentInvariants, SplitType
+from .protein_utility import Structure
+
+__all__ = ["GeometricusEmbedding", "MomentInvariants", "SplitType", "Structure"]

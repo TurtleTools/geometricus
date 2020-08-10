@@ -16,6 +16,7 @@ class Structure:
     """
     Class to store basic protein structure information
     """
+
     name: ProteinKey
     """PDB ID or (PDB ID, chain)"""
     length: int
