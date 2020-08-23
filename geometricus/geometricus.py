@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Tuple, Dict, Set, Union
+from typing import List, Tuple, Dict, Set, Union, Generator
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import IntEnum
@@ -80,7 +80,7 @@ class GeometricusEmbedding:
     @classmethod
     def from_invariants(
         cls,
-        invariants: List["MomentInvariants"],
+        invariants: Union[Generator["MomentInvariants"], List["MomentInvariants"]],
         resolution: Union[float, np.ndarray] = 1.0,
         protein_keys: Union[None, List[ProteinKey]] = None,
         shapemer_keys: Union[None, List[Shapemer]] = None,
@@ -131,7 +131,7 @@ class GeometricusEmbedding:
 
     def embed(
         self,
-        invariants: List["MomentInvariants"],
+        invariants: Union[Generator["MomentInvariants"], List["MomentInvariants"]],
         protein_keys: Union[None, List[ProteinKey]] = None,
     ) -> "GeometricusEmbedding":
         """

@@ -77,7 +77,7 @@ html_sidebars = {
 }
 
 html_theme_options = {
-    #  'logo': 'logo.png',
+    'logo': 'geometricus_logo.png',
     'description': 'Fast, structure-based, alignment-free protein embedding',
     'github_user': 'TurtleTools',
     'github_repo': 'geometricus',
