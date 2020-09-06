@@ -1,10 +1,9 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>geometricus package &#8212; Geometricus 0.0.1-dev documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +12,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="API Reference" href="modules.html" />
@@ -111,110 +110,108 @@
 </div>
 <div class="section" id="module-geometricus.geometricus">
 <span id="geometricus-geometricus-module"></span><h2>geometricus.geometricus module<a class="headerlink" href="#module-geometricus.geometricus" title="Permalink to this headline">¶</a></h2>
-<dl class="py data">
+<dl class="data">
 <dt id="geometricus.geometricus.Shapemer">
-<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">Shapemer</code><a class="headerlink" href="#geometricus.geometricus.Shapemer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">Shapemer</code><em class="property"> = typing.Tuple[int, int, int, int]</em><a class="headerlink" href="#geometricus.geometricus.Shapemer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tuple of four integers, each derived from one of the four moments</p>
-<p>alias of Tuple[int, int, int, int]</p>
 </dd></dl>
 
-<dl class="py data">
+<dl class="data">
 <dt id="geometricus.geometricus.Shapemers">
-<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">Shapemers</code><a class="headerlink" href="#geometricus.geometricus.Shapemers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">Shapemers</code><em class="property"> = typing.List[typing.Tuple[int, int, int, int]]</em><a class="headerlink" href="#geometricus.geometricus.Shapemers" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of Shapemer types</p>
-<p>alias of List[Tuple[int, int, int, int]]</p>
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="geometricus.geometricus.SplitType">
-<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">SplitType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#SplitType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.SplitType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">SplitType</code><a class="reference internal" href="../_modules/geometricus/geometricus.html#SplitType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.SplitType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></p>
 <p>Different approaches to structural fragmentation</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.SplitType.KMER">
-<code class="sig-name descname">KMER</code><a class="headerlink" href="#geometricus.geometricus.SplitType.KMER" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">KMER</code><em class="property"> = 1</em><a class="headerlink" href="#geometricus.geometricus.SplitType.KMER" title="Permalink to this definition">¶</a></dt>
 <dd><p>each residue is taken as the center of a kmer of length split_size, ends are included but shorter</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.SplitType.RADIUS">
-<code class="sig-name descname">RADIUS</code><a class="headerlink" href="#geometricus.geometricus.SplitType.RADIUS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">RADIUS</code><em class="property"> = 2</em><a class="headerlink" href="#geometricus.geometricus.SplitType.RADIUS" title="Permalink to this definition">¶</a></dt>
 <dd><p>overlapping spheres of radius split_size</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.SplitType.RADIUS_UPSAMPLE">
-<code class="sig-name descname">RADIUS_UPSAMPLE</code><a class="headerlink" href="#geometricus.geometricus.SplitType.RADIUS_UPSAMPLE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">RADIUS_UPSAMPLE</code><em class="property"> = 3</em><a class="headerlink" href="#geometricus.geometricus.SplitType.RADIUS_UPSAMPLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>overlapping spheres of radius split_size on coordinates upsampled by upsample rate. Only works if there’s one atom selected per residue</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.SplitType.ALLMER">
-<code class="sig-name descname">ALLMER</code><a class="headerlink" href="#geometricus.geometricus.SplitType.ALLMER" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ALLMER</code><em class="property"> = 4</em><a class="headerlink" href="#geometricus.geometricus.SplitType.ALLMER" title="Permalink to this definition">¶</a></dt>
 <dd><p>adds kmers of different lengths (split_size - 5 to split_size + 5) to take into account deletions/insertions that don’t change the shape</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.SplitType.KMER_CUT">
-<code class="sig-name descname">KMER_CUT</code><a class="headerlink" href="#geometricus.geometricus.SplitType.KMER_CUT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">KMER_CUT</code><em class="property"> = 5</em><a class="headerlink" href="#geometricus.geometricus.SplitType.KMER_CUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>same as kmer but ends are not included, only fragments of length split_size are kept</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="geometricus.geometricus.GeometricusEmbedding">
-<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">GeometricusEmbedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invariants</span><span class="p">:</span> <span class="n">Dict[ProteinKey, ‘MomentInvariants’]</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>float<span class="p">, </span>np.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">protein_keys</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ProteinKey<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">shapemer_keys</span><span class="p">:</span> <span class="n">Shapemers</span></em>, <em class="sig-param"><span class="n">embedding</span><span class="p">:</span> <span class="n">np.ndarray</span></em>, <em class="sig-param"><span class="n">shapemer_to_protein_indices</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Shapemer<span class="p">, </span>List<span class="p">[</span>Tuple<span class="p">[</span>ProteinKey<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proteins_to_shapemers</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>ProteinKey<span class="p">, </span>Shapemers<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">GeometricusEmbedding</code><span class="sig-paren">(</span><em class="sig-param">invariants: Dict[ProteinKey, 'MomentInvariants'], resolution: Union[float, np.ndarray], protein_keys: List[ProteinKey], shapemer_keys: Shapemers, embedding: np.ndarray, shapemer_to_protein_indices: Dict[Shapemer, List[Tuple[ProteinKey, int]]], proteins_to_shapemers: Dict[ProteinKey, Shapemers]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for storing embedding information</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.invariants">
-<code class="sig-name descname">invariants</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.invariants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">invariants</code><em class="property">: Dict[ProteinKey, 'MomentInvariants']</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.invariants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary mapping protein_keys to MomentInvariant objects</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.resolution">
-<code class="sig-name descname">resolution</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.resolution" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resolution</code><em class="property">: Union[float, np.ndarray]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.resolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multiplier that determines how coarse/fine-grained each shape is.
 This can be a single number, multiplied to all four moment invariants
 or a numpy array of four numbers, one for each invariant</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.protein_keys">
-<code class="sig-name descname">protein_keys</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.protein_keys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">protein_keys</code><em class="property">: List[ProteinKey]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.protein_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of protein names = rows of the output embedding</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.shapemer_keys">
-<code class="sig-name descname">shapemer_keys</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.shapemer_keys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shapemer_keys</code><em class="property">: Shapemers</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.shapemer_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>If given uses only these shapemers for the embedding.
 If None, uses all shapemers</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.embedding">
-<code class="sig-name descname">embedding</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.embedding" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">embedding</code><em class="property">: np.ndarray</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.embedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Embedding matrix of size (len(protein_keys), len(self.shapemer_keys))</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.shapemer_to_protein_indices">
-<code class="sig-name descname">shapemer_to_protein_indices</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.shapemer_to_protein_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shapemer_to_protein_indices</code><em class="property">: Dict[Shapemer, List[Tuple[ProteinKey, int]]]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.shapemer_to_protein_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps each shapemer to the proteins which have it and to the corresponding residue indices within these proteins</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.GeometricusEmbedding.proteins_to_shapemers">
-<code class="sig-name descname">proteins_to_shapemers</code><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.proteins_to_shapemers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">proteins_to_shapemers</code><em class="property">: Dict[ProteinKey, Shapemers]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.proteins_to_shapemers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps each protein to a list of shapemers in order of its residues</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.GeometricusEmbedding.from_invariants">
-<em class="property">classmethod </em><code class="sig-name descname">from_invariants</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invariants</span><span class="p">:</span> <span class="n">List<span class="p">[</span>MomentInvariants<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>float<span class="p">, </span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">protein_keys</span><span class="p">:</span> <span class="n">Union[None, List[Union[str, Tuple[str, str]]]]</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shapemer_keys</span><span class="p">:</span> <span class="n">Union[None, List[Tuple[int, int, int, int]]]</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.from_invariants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.from_invariants" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_invariants</code><span class="sig-paren">(</span><em class="sig-param">invariants: Union[Generator['MomentInvariants'], List['MomentInvariants']], resolution: Union[float, np.ndarray] = 1.0, protein_keys: Union[None, List[ProteinKey]] = None, shapemer_keys: Union[None, List[Shapemer]] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.from_invariants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.from_invariants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a GeometricusEmbedding object from a list of MomentInvariant objects</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -232,9 +229,9 @@ if None, uses all shapemers</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.GeometricusEmbedding.embed">
-<code class="sig-name descname">embed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invariants</span><span class="p">:</span> <span class="n">List<span class="p">[</span>MomentInvariants<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">protein_keys</span><span class="p">:</span> <span class="n">Union[None, List[Union[str, Tuple[str, str]]]]</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; GeometricusEmbedding<a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.embed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.embed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">embed</code><span class="sig-paren">(</span><em class="sig-param">invariants: Union[Generator['MomentInvariants'], List['MomentInvariants']], protein_keys: Union[None, List[ProteinKey]] = None</em><span class="sig-paren">)</span> &#x2192; 'GeometricusEmbedding'<a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.embed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.embed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Embed a new set of proteins using an existing embedding’s shapemers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -252,80 +249,95 @@ if None, uses all shapemers</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.GeometricusEmbedding.map_shapemer_to_residues">
-<code class="sig-name descname">map_shapemer_to_residues</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">shapemer</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>Set<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.map_shapemer_to_residues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.map_shapemer_to_residues" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">map_shapemer_to_residues</code><span class="sig-paren">(</span><em class="sig-param">shapemer: Tuple[int, int, int, int]</em><span class="sig-paren">)</span> &#x2192; Dict[Union[str, Tuple[str, str]], Set[int]]<a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.map_shapemer_to_residues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.map_shapemer_to_residues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets residues within a particular shapemer across all proteins.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="geometricus.geometricus.GeometricusEmbedding.plot_shapemers">
+<code class="sig-name descname">plot_shapemers</code><span class="sig-paren">(</span><em class="sig-param">shapemer: Tuple[int, int, int, int], subsample_upto: Optional[int] = None, distance_between: int = 0, opacity=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.plot_shapemers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.plot_shapemers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geometricus.geometricus.GeometricusEmbedding.plot_shapemer_on_protein">
+<code class="sig-name descname">plot_shapemer_on_protein</code><span class="sig-paren">(</span><em class="sig-param">shapemer: Tuple[int, int, int, int], protein_key: Union[str, Tuple[str, str]], opacity=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.plot_shapemer_on_protein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.plot_shapemer_on_protein" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geometricus.geometricus.GeometricusEmbedding.plot_shapemer_heatmap_on_protein">
+<code class="sig-name descname">plot_shapemer_heatmap_on_protein</code><span class="sig-paren">(</span><em class="sig-param">shapemers: List[Tuple[int, int, int, int]], protein_key, cmap='Greys'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#GeometricusEmbedding.plot_shapemer_heatmap_on_protein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.GeometricusEmbedding.plot_shapemer_heatmap_on_protein" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="geometricus.geometricus.MomentInvariants">
 <em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">MomentInvariants</code><span class="sig-paren">(</span><em class="sig-param">name: ProteinKey, length: int, coordinates: np.ndarray, residue_splits: List[List[int]], original_indices: np.ndarray, sequence: str = typing.Union[str, NoneType], split_type: SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50, split_indices: Union[List, None] = None, moments: np.ndarray = None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#geometricus.protein_utility.Structure" title="geometricus.protein_utility.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">geometricus.protein_utility.Structure</span></code></a></p>
 <p>Class for storing moment invariants for a protein.
 Use <cite>from_*</cite> constructors to make an instance of this.
 Subclasses Structure so also has <cite>name</cite>, <cite>length</cite>, and <cite>coordinates</cite> attributes.</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.residue_splits">
-<code class="sig-name descname">residue_splits</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.residue_splits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">residue_splits</code><em class="property">: List[List[int]]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.residue_splits" title="Permalink to this definition">¶</a></dt>
 <dd><p>split a protein into residues using these atom indices, e.g
 [[1, 2], [3, 4]] could represent both alpha and beta carbons being used in a residue.
 Right now only the alpha carbons are used so this contains indices of alpha carbons for each residue if prody is used
 or just indices in a range if coordinates are given directly</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.original_indices">
-<code class="sig-name descname">original_indices</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.original_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">original_indices</code><em class="property">: np.ndarray</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.original_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Also alpha indices (if prody) / range (if coordinates)</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.sequence">
-<code class="sig-name descname">sequence</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.sequence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sequence</code><em class="property">: str</em><em class="property"> = typing.Union[str, NoneType]</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Amino acid sequence</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.split_type">
-<code class="sig-name descname">split_type</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">split_type</code><em class="property">: SplitType</em><em class="property"> = 1</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>How to fragment structure, see SplitType’s documentation for options</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.split_size">
-<code class="sig-name descname">split_size</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">split_size</code><em class="property">: int</em><em class="property"> = 16</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>kmer size or radius (depending on split_type)</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.upsample_rate">
-<code class="sig-name descname">upsample_rate</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.upsample_rate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">upsample_rate</code><em class="property">: int</em><em class="property"> = 50</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.upsample_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>ignored unless split_type = “radius_upsample</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.split_indices">
-<code class="sig-name descname">split_indices</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">split_indices</code><em class="property">: Union[List, None]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.split_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filled with a list of residue indices for each structural fragment</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.geometricus.MomentInvariants.moments">
-<code class="sig-name descname">moments</code><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.moments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">moments</code><em class="property">: np.ndarray</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.moments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filled with moment invariant values for each structural fragment</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_coordinates">
 <em class="property">classmethod </em><code class="sig-name descname">from_coordinates</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], coordinates: numpy.ndarray, sequence: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a set of coordinates.
 Assumes one coordinate per residue.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_prody_atomgroup">
 <em class="property">classmethod </em><code class="sig-name descname">from_prody_atomgroup</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], protein: prody.atomic.atomgroup.AtomGroup, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_prody_atomgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_prody_atomgroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a ProDy AtomGroup object.
@@ -336,7 +348,7 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_pdb_file">
 <em class="property">classmethod </em><code class="sig-name descname">from_pdb_file</code><span class="sig-paren">(</span><em class="sig-param">pdb_file: Union[str, pathlib.Path], chain: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a PDB file and optional chain.
@@ -347,7 +359,7 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_pdb_id">
 <em class="property">classmethod </em><code class="sig-name descname">from_pdb_id</code><span class="sig-paren">(</span><em class="sig-param">pdb_name: str</em>, <em class="sig-param">chain: Optional[str] = None</em>, <em class="sig-param">split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;</em>, <em class="sig-param">split_size: int = 16</em>, <em class="sig-param">selection: str = 'calpha'</em>, <em class="sig-param">upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
@@ -360,94 +372,93 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.geometricus.get_shapes">
-<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">get_shapes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">invariants</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span><a class="reference internal" href="#geometricus.geometricus.MomentInvariants" title="geometricus.geometricus.MomentInvariants">geometricus.geometricus.MomentInvariants</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>float<span class="p">, </span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">2.0</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#get_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.get_shapes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">get_shapes</code><span class="sig-paren">(</span><em class="sig-param">invariants: Dict[Union[str, Tuple[str, str]], geometricus.geometricus.MomentInvariants], resolution: Union[float, numpy.ndarray] = 2.0</em><span class="sig-paren">)</span> &#x2192; Dict[Union[str, Tuple[str, str]], List[Tuple[int, int, int, int]]]<a class="reference internal" href="../_modules/geometricus/geometricus.html#get_shapes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.get_shapes" title="Permalink to this definition">¶</a></dt>
 <dd><p>moment invariants -&gt; log transformation -&gt; multiply by resolution -&gt; floor = shapemers</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.geometricus.map_shapemers_to_indices">
-<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">map_shapemers_to_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_to_shapemers</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Tuple<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#map_shapemers_to_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.map_shapemers_to_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">map_shapemers_to_indices</code><span class="sig-paren">(</span><em class="sig-param">protein_to_shapemers: Dict[Union[str, Tuple[str, str]], List[Tuple[int, int, int, int]]]</em><span class="sig-paren">)</span> &#x2192; Dict[Tuple[int, int, int, int], List[Tuple[Union[str, Tuple[str, str]], int]]]<a class="reference internal" href="../_modules/geometricus/geometricus.html#map_shapemers_to_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.map_shapemers_to_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps shapemer to (protein_key, residue_index)</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.geometricus.make_embedding">
-<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">make_embedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_keys</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">protein_to_shapemers</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">restrict_to</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/geometricus/geometricus.html#make_embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.make_embedding" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">make_embedding</code><span class="sig-paren">(</span><em class="sig-param">protein_keys: List[Union[str, Tuple[str, str]]], protein_to_shapemers: Dict[Union[str, Tuple[str, str]], List[Tuple[int, int, int, int]]], restrict_to: List[Tuple[int, int, int, int]]</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/geometricus/geometricus.html#make_embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.make_embedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts occurrences of each shapemer across proteins</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-geometricus.moment_utility">
 <span id="geometricus-moment-utility-module"></span><h2>geometricus.moment_utility module<a class="headerlink" href="#module-geometricus.moment_utility" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<dl class="attribute">
 <dt id="geometricus.moment_utility.nb_mean_axis_0">
-<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">nb_mean_axis_0</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../_modules/geometricus/moment_utility.html#nb_mean_axis_0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.nb_mean_axis_0" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">nb_mean_axis_0</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#nb_mean_axis_0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.nb_mean_axis_0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same as np.mean(array, axis=0) but njitted</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="attribute">
 <dt id="geometricus.moment_utility.mu">
-<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">mu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em>, <em class="sig-param"><span class="n">q</span></em>, <em class="sig-param"><span class="n">r</span></em>, <em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">centroid</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/moment_utility.html#mu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.mu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">mu</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#mu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.mu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central moment</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="attribute">
 <dt id="geometricus.moment_utility.get_second_order_moments">
-<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">get_second_order_moments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/moment_utility.html#get_second_order_moments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.get_second_order_moments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">get_second_order_moments</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#get_second_order_moments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.get_second_order_moments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="section" id="module-geometricus.protein_utility">
 <span id="geometricus-protein-utility-module"></span><h2>geometricus.protein_utility module<a class="headerlink" href="#module-geometricus.protein_utility" title="Permalink to this headline">¶</a></h2>
-<dl class="py data">
+<dl class="data">
 <dt id="geometricus.protein_utility.ProteinKey">
-<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">ProteinKey</code><a class="headerlink" href="#geometricus.protein_utility.ProteinKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">ProteinKey</code><em class="property"> = typing.Union[str, typing.Tuple[str, str]]</em><a class="headerlink" href="#geometricus.protein_utility.ProteinKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>A protein key is either its PDB ID (str) or a tuple of (PDB ID, chain)</p>
-<p>alias of Union[str, Tuple[str, str]]</p>
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="geometricus.protein_utility.Structure">
-<em class="property">class </em><code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">Structure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">ProteinKey</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">coordinates</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/protein_utility.html#Structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.Structure" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">Structure</code><span class="sig-paren">(</span><em class="sig-param">name: ProteinKey</em>, <em class="sig-param">length: int</em>, <em class="sig-param">coordinates: np.ndarray</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/protein_utility.html#Structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.Structure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to store basic protein structure information</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.protein_utility.Structure.name">
-<code class="sig-name descname">name</code><a class="headerlink" href="#geometricus.protein_utility.Structure.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">name</code><em class="property">: ProteinKey</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.protein_utility.Structure.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>PDB ID or (PDB ID, chain)</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.protein_utility.Structure.length">
-<code class="sig-name descname">length</code><a class="headerlink" href="#geometricus.protein_utility.Structure.length" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">length</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.protein_utility.Structure.length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of residues</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="geometricus.protein_utility.Structure.coordinates">
-<code class="sig-name descname">coordinates</code><a class="headerlink" href="#geometricus.protein_utility.Structure.coordinates" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">coordinates</code><em class="property">: np.ndarray</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.protein_utility.Structure.coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coordinates</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.protein_utility.group_indices">
-<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">group_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/geometricus/protein_utility.html#group_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.group_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">group_indices</code><span class="sig-paren">(</span><em class="sig-param">input_list: List[int]</em><span class="sig-paren">)</span> &#x2192; List[List[int]]<a class="reference internal" href="../_modules/geometricus/protein_utility.html#group_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.group_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>e.g [1, 1, 1, 2, 2, 3, 3, 3, 4] -&gt; [[0, 1, 2], [3, 4], [5, 6, 7], [8]]</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.protein_utility.get_alpha_indices">
-<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">get_alpha_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein</span><span class="p">:</span> <span class="n">prody.atomic.atomgroup.AtomGroup</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="reference internal" href="../_modules/geometricus/protein_utility.html#get_alpha_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.get_alpha_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">get_alpha_indices</code><span class="sig-paren">(</span><em class="sig-param">protein: prody.atomic.atomgroup.AtomGroup</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="reference internal" href="../_modules/geometricus/protein_utility.html#get_alpha_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.get_alpha_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get indices of alpha carbons of pd AtomGroup object</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="geometricus.protein_utility.get_beta_indices">
-<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">get_beta_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein</span><span class="p">:</span> <span class="n">prody.atomic.atomgroup.AtomGroup</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="reference internal" href="../_modules/geometricus/protein_utility.html#get_beta_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.get_beta_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">geometricus.protein_utility.</code><code class="sig-name descname">get_beta_indices</code><span class="sig-paren">(</span><em class="sig-param">protein: prody.atomic.atomgroup.AtomGroup</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="reference internal" href="../_modules/geometricus/protein_utility.html#get_beta_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.protein_utility.get_beta_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get indices of beta carbons of pd AtomGroup object
 (If beta carbon doesn’t exist, alpha carbon index is returned)</p>
 </dd></dl>
@@ -466,7 +477,7 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
       &copy;2020, Janani Durairaj, Mehmet Akdel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
