@@ -43,4 +43,5 @@ if __name__ == "__main__":
         packages=["geometricus"],
         package_data={},
         install_requires=INST_DEPENDENCIES,
+        long_description_content_type='text/markdown',
     )
