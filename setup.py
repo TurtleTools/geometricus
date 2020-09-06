@@ -1,16 +1,20 @@
 from setuptools import setup
 
-descr = """geometricus: Rotation and translation invariant alignment-free fingerprints for protein structures."""
-
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+    
+    
 DISTNAME = "geometricus"
 DESCRIPTION = "Fast, structure-based, alignment-free protein embedding"
-LONG_DESCRIPTION = descr
+LONG_DESCRIPTION = long_description
 MAINTAINER = "Janani Durairaj, Mehmet Akdel"
 MAINTAINER_EMAIL = "janani.durairaj@wur.nl"
 URL = "https://github.com/TurtleTools/geometricus"
 LICENSE = "MIT License"
 DOWNLOAD_URL = "https://github.com/TurtleTools/geometricus"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 PYTHON_VERSION = (3, 7)
 INST_DEPENDENCIES = ["scipy", "numba", "prody"]
 
