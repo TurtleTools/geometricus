@@ -1,5 +1,7 @@
 <p align="center"><img src="geometricus_logo.png" width="300" title="Geometricus Logo"></p>
 
+[![PyPI version](https://badge.fury.io/py/geometricus.svg)](https://badge.fury.io/py/geometricus)
+
 # Geometricus Represents Protein Structures as Shape-mers derived from Moment Invariants
 
 A structure-based, alignment-free embedding approach for proteins. Can be used as input to machine learning algorithms.
