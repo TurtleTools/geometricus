@@ -10,7 +10,7 @@ import prody as pd
 from scipy.signal import resample
 
 from geometricus.protein_utility import ProteinKey, Structure, group_indices
-from geometricus.moment_utility import NUM_MOMENTS, get_second_order_moments
+from geometricus.moment_utility import get_moments_from_coordinates
 
 Shapemer = Tuple[int, int, int, int]
 """
@@ -104,7 +104,7 @@ class GeometricusEmbedding:
             if None, uses all shapemers
         """
         if isinstance(resolution, np.ndarray):
-            assert resolution.shape[0] == NUM_MOMENTS
+            assert resolution.shape[0] == invariants[0].moments.shape[1]
         invariants: Dict[ProteinKey, "MomentInvariants"] = {
             x.name: x for x in invariants
         }
@@ -167,118 +167,230 @@ class GeometricusEmbedding:
                 protein_to_shapemer_residues[protein_key].add(residue)
 
         return protein_to_shapemer_residues
-    
-    def plot_shapemers(self, shapemer: Shapemer, subsample_upto: Union[int, None] = None, distance_between: int = 0, opacity = 0.2):
+
+    def plot_shapemers(
+        self,
+        shapemer: Shapemer,
+        subsample_upto: Union[int, None] = None,
+        distance_between: int = 0,
+        opacity=0.2,
+    ):
         from plotly import graph_objects as go
         from caretta import superposition_functions, score_functions
-        
-        sizes, counts = np.unique([len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]]) for p, r in self.shapemer_to_protein_indices[shapemer]], return_counts=True)
+
+        sizes, counts = np.unique(
+            [
+                len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]])
+                for p, r in self.shapemer_to_protein_indices[shapemer]
+            ],
+            return_counts=True,
+        )
         size = sizes[np.argmax(counts)]
-        protein_indices = [(p, r) for p, r in self.shapemer_to_protein_indices[shapemer] if len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]]) == size]
-        
+        protein_indices = [
+            (p, r)
+            for p, r in self.shapemer_to_protein_indices[shapemer]
+            if len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]])
+            == size
+        ]
+
         if subsample_upto is not None:
-            chosen = np.random.choice(range(len(protein_indices)), min(subsample_upto, len(protein_indices)), replace=False)
+            chosen = np.random.choice(
+                range(len(protein_indices)),
+                min(subsample_upto, len(protein_indices)),
+                replace=False,
+            )
         else:
             chosen = np.arange(len(protein_indices))
-        
+
         protein_key, residue_index = protein_indices[chosen[0]]
-        
-        first = self.invariants[protein_key].coordinates[self.invariants[protein_key].split_indices[residue_index]] 
+
+        first = self.invariants[protein_key].coordinates[
+            self.invariants[protein_key].split_indices[residue_index]
+        ]
         first -= np.mean(first, axis=0)
-        
-        data = [go.Scatter3d(x = first[:, 0], y=first[:, 1], z=first[:, 2], 
-                             name = f"{protein_key} residue index {residue_index}",
-                             mode="lines", line=dict(color="gray", width=3), opacity=opacity)]
-        
+
+        data = [
+            go.Scatter3d(
+                x=first[:, 0],
+                y=first[:, 1],
+                z=first[:, 2],
+                name=f"{protein_key} residue index {residue_index}",
+                mode="lines",
+                line=dict(color="gray", width=3),
+                opacity=opacity,
+            )
+        ]
+
         average_coords = [np.array(first)]
         for i, x in enumerate(chosen[1:]):
             protein_key, residue_index = protein_indices[x]
-            second = self.invariants[protein_key].coordinates[self.invariants[protein_key].split_indices[residue_index]]
+            second = self.invariants[protein_key].coordinates[
+                self.invariants[protein_key].split_indices[residue_index]
+            ]
             rot, tran = superposition_functions.paired_svd_superpose(first, second)
             second = superposition_functions.apply_rotran(second, rot, tran)
             rmsd = score_functions.get_rmsd(first, second)
 
             second_reversed = second[::-1]
-            rot, tran = superposition_functions.paired_svd_superpose(first, second_reversed)
-            second_reversed = superposition_functions.apply_rotran(second_reversed, rot, tran)
+            rot, tran = superposition_functions.paired_svd_superpose(
+                first, second_reversed
+            )
+            second_reversed = superposition_functions.apply_rotran(
+                second_reversed, rot, tran
+            )
             rmsd_reversed = score_functions.get_rmsd(first, second_reversed)
 
-            add = (i+1) * distance_between
+            add = (i + 1) * distance_between
             if rmsd < rmsd_reversed:
-                data.append(go.Scatter3d(x = second[:, 0], 
-                                         y = second[:, 1], 
-                                         z = second[:, 2], 
-                                         name = f"{protein_key} residue index {residue_index}",
-                                         mode="lines", line=dict(color="gray", width=3), opacity=opacity))
+                data.append(
+                    go.Scatter3d(
+                        x=second[:, 0],
+                        y=second[:, 1],
+                        z=second[:, 2],
+                        name=f"{protein_key} residue index {residue_index}",
+                        mode="lines",
+                        line=dict(color="gray", width=3),
+                        opacity=opacity,
+                    )
+                )
                 average_coords += [second]
             else:
-                data.append(go.Scatter3d(x = second_reversed[:, 0], 
-                                         y = second_reversed[:, 1], 
-                                         z = second_reversed[:, 2], 
-                                         name = f"{protein_key} residue index {residue_index}",
-                                         mode="lines", line=dict(color="gray", width=3), opacity=opacity))
+                data.append(
+                    go.Scatter3d(
+                        x=second_reversed[:, 0],
+                        y=second_reversed[:, 1],
+                        z=second_reversed[:, 2],
+                        name=f"{protein_key} residue index {residue_index}",
+                        mode="lines",
+                        line=dict(color="gray", width=3),
+                        opacity=opacity,
+                    )
+                )
                 average_coords += [second_reversed]
-        average_coords =  np.median(average_coords, axis=0)
-        data.append(go.Scatter3d(x = average_coords[:, 0], 
-                                 y = average_coords[:, 1], 
-                                 z = average_coords[:, 2], 
-                                 name = "median shape-mer",
-                                 mode="lines", line=dict(color="black", width=5), opacity=1.))
-        
-        figure = go.Figure(data, layout=dict(scene=dict(xaxis=dict(showbackground=False), 
-                                                        yaxis=dict(showbackground=False), 
-                                                        zaxis=dict(showbackground=False))))
-        figure.update_layout(title=f"{len(protein_indices)} times across {len(set(i[0] for i in protein_indices))} proteins")
+        average_coords = np.median(average_coords, axis=0)
+        data.append(
+            go.Scatter3d(
+                x=average_coords[:, 0],
+                y=average_coords[:, 1],
+                z=average_coords[:, 2],
+                name="median shape-mer",
+                mode="lines",
+                line=dict(color="black", width=5),
+                opacity=1.0,
+            )
+        )
+
+        figure = go.Figure(
+            data,
+            layout=dict(
+                scene=dict(
+                    xaxis=dict(showbackground=False),
+                    yaxis=dict(showbackground=False),
+                    zaxis=dict(showbackground=False),
+                )
+            ),
+        )
+        figure.update_layout(
+            title=f"{len(protein_indices)} times across {len(set(i[0] for i in protein_indices))} proteins"
+        )
         return figure
-        
-    def plot_shapemer_on_protein(self, shapemer: Shapemer, protein_key: ProteinKey, opacity=0.5):
+
+    def plot_shapemer_on_protein(
+        self, shapemer: Shapemer, protein_key: ProteinKey, opacity=0.5
+    ):
         from plotly import graph_objects as go
 
-        indices = [r for p, r in self.shapemer_to_protein_indices[shapemer] if p == protein_key]
+        indices = [
+            r for p, r in self.shapemer_to_protein_indices[shapemer] if p == protein_key
+        ]
         if len(indices) == 0:
             print(f"Shapemer {shapemer} not found in protein {protein_key}")
             return None
         coordinates = self.invariants[protein_key].coordinates
-        data = [go.Scatter3d(x = coordinates[:, 0], y=coordinates[:, 1], z=coordinates[:, 2], mode="lines", line=dict(color="gray", width=3))]
+        data = [
+            go.Scatter3d(
+                x=coordinates[:, 0],
+                y=coordinates[:, 1],
+                z=coordinates[:, 2],
+                mode="lines",
+                line=dict(color="gray", width=3),
+            )
+        ]
         for index in indices:
-            shapemer_coords = coordinates[self.invariants[protein_key].split_indices[index]]
-            data.append(go.Scatter3d(x = shapemer_coords[:, 0], 
-                                     y = shapemer_coords[:, 1], 
-                                     z = shapemer_coords[:, 2], 
-                                     name = f"{protein_key} residue index {index}",
-                                     mode="markers", marker=dict(size=7, opacity=opacity)))
-        figure = go.Figure(data, layout=dict(scene=dict(xaxis=dict(showbackground=False), 
-                                                        yaxis=dict(showbackground=False), 
-                                                        zaxis=dict(showbackground=False))))
-        figure.update_layout(title=f"{len(indices)} shapemer occurrences in {protein_key}")
+            shapemer_coords = coordinates[
+                self.invariants[protein_key].split_indices[index]
+            ]
+            data.append(
+                go.Scatter3d(
+                    x=shapemer_coords[:, 0],
+                    y=shapemer_coords[:, 1],
+                    z=shapemer_coords[:, 2],
+                    name=f"{protein_key} residue index {index}",
+                    mode="markers",
+                    marker=dict(size=7, opacity=opacity),
+                )
+            )
+        figure = go.Figure(
+            data,
+            layout=dict(
+                scene=dict(
+                    xaxis=dict(showbackground=False),
+                    yaxis=dict(showbackground=False),
+                    zaxis=dict(showbackground=False),
+                )
+            ),
+        )
+        figure.update_layout(
+            title=f"{len(indices)} shapemer occurrences in {protein_key}"
+        )
         return figure
-    
-    def plot_shapemer_heatmap_on_protein(self, shapemers: Shapemers, protein_key, cmap="Greys"):
+
+    def plot_shapemer_heatmap_on_protein(
+        self, shapemers: Shapemers, protein_key, cmap="Greys"
+    ):
         import matplotlib.colors as mc
         from matplotlib import cm
         from plotly import graph_objects as go
-        
+
         heatmap = np.zeros(self.invariants[protein_key].coordinates.shape[0])
         for shapemer in shapemers:
-            indices = [self.invariants[p].split_indices[r] for p, r in self.shapemer_to_protein_indices[shapemer] if p == protein_key]
+            indices = [
+                self.invariants[p].split_indices[r]
+                for p, r in self.shapemer_to_protein_indices[shapemer]
+                if p == protein_key
+            ]
             for idx in indices:
                 if len(idx):
                     heatmap[idx] += 1
-        
+
         norm = mc.Normalize(vmin=np.min(heatmap), vmax=np.max(heatmap))
-        mapper = cm.ScalarMappable(norm=norm, cmap=cmap)       
+        mapper = cm.ScalarMappable(norm=norm, cmap=cmap)
         colors = [mapper.to_rgba(h) for h in heatmap]
-        
+
         coordinates = self.invariants[protein_key].coordinates
-        data = [go.Scatter3d(x = coordinates[:, 0], y=coordinates[:, 1], z=coordinates[:, 2],
-                             mode="markers+lines", line=dict(color="gray", width=3), marker=dict(color=colors, size=7, 
-                                                                                                 line=dict(width=2,
-                                                                                                           color='black')))]
-        figure = go.Figure(data, layout=dict(scene=dict(xaxis=dict(showbackground=False), 
-                                                        yaxis=dict(showbackground=False), 
-                                                        zaxis=dict(showbackground=False))))
+        data = [
+            go.Scatter3d(
+                x=coordinates[:, 0],
+                y=coordinates[:, 1],
+                z=coordinates[:, 2],
+                mode="markers+lines",
+                line=dict(color="gray", width=3),
+                marker=dict(color=colors, size=7, line=dict(width=2, color="black")),
+            )
+        ]
+        figure = go.Figure(
+            data,
+            layout=dict(
+                scene=dict(
+                    xaxis=dict(showbackground=False),
+                    yaxis=dict(showbackground=False),
+                    zaxis=dict(showbackground=False),
+                )
+            ),
+        )
         figure.update_layout(title=f"{protein_key}")
         return figure, heatmap
+
 
 @dataclass(eq=False)
 class MomentInvariants(Structure):
@@ -307,6 +419,8 @@ class MomentInvariants(Structure):
     """Filled with a list of residue indices for each structural fragment"""
     moments: np.ndarray = None
     """Filled with moment invariant values for each structural fragment"""
+    moment_names: List[str] = None
+    """Names of moments used"""
 
     @classmethod
     def from_coordinates(
@@ -317,6 +431,7 @@ class MomentInvariants(Structure):
         split_type: SplitType = SplitType.KMER,
         split_size: int = 16,
         upsample_rate: int = 50,
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
     ):
         """
         Construct MomentInvariants instance from a set of coordinates.
@@ -333,6 +448,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
+            moment_names=moment_names
         )
         shape._split(split_type)
         return shape
@@ -346,6 +462,7 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
     ):
         """
         Construct MomentInvariants instance from a ProDy AtomGroup object.
@@ -368,6 +485,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
+            moment_names=moment_names
         )
         shape._split(split_type)
         return shape
@@ -398,6 +516,7 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
     ):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
@@ -419,6 +538,7 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
+            moment_names=moment_names
         )
 
     @classmethod
@@ -430,6 +550,7 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
     ):
         """
         Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
@@ -451,6 +572,7 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
+            moment_names=moment_names
         )
 
     def _kmerize(self):
@@ -494,9 +616,9 @@ class MomentInvariants(Structure):
         return self._get_moments(split_indices)
 
     def _get_moments(self, split_indices):
-        moments = np.zeros((len(split_indices), NUM_MOMENTS))
+        moments = np.zeros((len(split_indices), len(self.moment_names)))
         for i, indices in enumerate(split_indices):
-            moments[i] = get_second_order_moments(self.coordinates[indices])
+            moments[i] = get_moments_from_coordinates(self.coordinates[indices], self.moment_names)
         return split_indices, moments
 
     def _split_radius(self):
@@ -531,9 +653,9 @@ class MomentInvariants(Structure):
                 radius=self.split_size,
             )
             split_indices.append(kd_tree.getIndices())
-        moments = np.zeros((len(split_indices), NUM_MOMENTS))
+        moments = np.zeros((len(split_indices), len(self.moment_names)))
         for i, indices in enumerate(split_indices_upsample):
-            moments[i] = get_second_order_moments(coordinates_upsample[indices])
+            moments[i] = get_moments_from_coordinates(coordinates_upsample[indices], self.moment_names)
         return split_indices, moments
 
 
@@ -545,8 +667,6 @@ def get_shapes(
     moment invariants -> log transformation -> multiply by resolution -> floor = shapemers
     """
     proteins_to_shapemers: Dict[ProteinKey, Shapemers] = dict()
-    if isinstance(resolution, np.ndarray):
-        assert resolution.shape[0] == NUM_MOMENTS
     for key in invariants:
         proteins_to_shapemers[key] = [
             tuple(x)
