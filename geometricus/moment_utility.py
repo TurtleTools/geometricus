@@ -5,47 +5,6 @@ import typing as ty
 from enum import Enum
 
 
-@dataclass
-class MomentInfo:
-    moment_function: ty.Callable[[int, int, int, np.ndarray, np.ndarray], float]
-    mu_arguments: ty.List[ty.Tuple[int, int, int]]
-
-
-def get_moments_from_coordinates(
-    coordinates: np.ndarray, moment_names: ty.List[str] = ("O_3", "O_4", "O_5", "F")
-) -> ty.List[float]:
-    """
-    Gets rotation-invariant moments for a set of coordinates
-
-    Parameters
-    ----------
-    coordinates
-    moment_names
-        Which moments to calculate
-        Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
-
-    Returns
-    -------
-    list of moments
-    """
-    moment_types: ty.List[MomentType] = [MomentType[m] for m in moment_names]
-    all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
-        m for moment_type in moment_types for m in moment_type.value.mu_arguments
-    )
-    centroid = nb_mean_axis_0(coordinates)
-    mus = {
-        (x, y, z): mu(float(x), float(y), float(z), coordinates, centroid)
-        for (x, y, z) in all_moment_mu_types
-    }
-    moments = [
-        moment_type.get_moments_from_coordinates(
-            [mus[m] for m in moment_type.value.mu_arguments]
-        )
-        for moment_type in moment_types
-    ]
-    return moments
-
-
 @nb.njit
 def nb_mean_axis_0(array: np.ndarray) -> np.ndarray:
     """
@@ -55,6 +14,12 @@ def nb_mean_axis_0(array: np.ndarray) -> np.ndarray:
     for i in range(array.shape[1]):
         mean_array[i] = np.mean(array[:, i])
     return mean_array
+
+
+@dataclass
+class MomentInfo:
+    moment_function: ty.Callable[[int, int, int, np.ndarray, np.ndarray], float]
+    mu_arguments: ty.List[ty.Tuple[int, int, int]]
 
 
 @nb.njit(cache=False)
@@ -99,17 +64,8 @@ def O_5(mu_200, mu_020, mu_002, mu_110, mu_101, mu_011):
 
 @nb.njit
 def F(
-        mu_201,
-        mu_021,
-        mu_210,
-        mu_300,
-        mu_111,
-        mu_012,
-        mu_003,
-        mu_030,
-        mu_102,
-        mu_120,
-    ):
+    mu_201, mu_021, mu_210, mu_300, mu_111, mu_012, mu_003, mu_030, mu_102, mu_120,
+):
     return (
         mu_003 ** 2
         + 6 * mu_012 ** 2
@@ -199,17 +155,8 @@ def phi_3(mu_020, mu_011, mu_110, mu_200, mu_002, mu_101):
 
 @nb.njit
 def phi_4(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         mu_300 ** 2
         + mu_030 ** 2
@@ -250,17 +197,8 @@ def phi_5(mu_030, mu_021, mu_120, mu_003, mu_201, mu_102, mu_210, mu_012, mu_300
 
 @nb.njit
 def phi_6(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 6 * mu_300 ** 2 * mu_210 ** 2
@@ -349,17 +287,8 @@ def phi_6(
 
 @nb.njit
 def phi_7(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 1 * mu_300 ** 3 * mu_120
@@ -533,17 +462,8 @@ def phi_7(
 
 @nb.njit
 def phi_8(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 2 * mu_300 ** 3 * mu_120
@@ -726,23 +646,23 @@ def phi_8(
 
 @nb.njit
 def phi_9(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 2 * mu_110 * mu_300 * mu_210
@@ -785,23 +705,23 @@ def phi_9(
 
 @nb.njit
 def phi_10(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 1 * mu_200 * mu_300 * mu_120
@@ -859,22 +779,22 @@ def phi_10(
 
 @nb.njit
 def phi_11(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_020,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_102,
+    mu_210,
+    mu_012,
+    mu_020,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 2 * mu_200 * mu_300 * mu_120
@@ -926,23 +846,23 @@ def phi_11(
 
 @nb.njit
 def phi_12(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 ** 2 * mu_300 ** 2
         + 4 * mu_200 * mu_110 * mu_300 * mu_210
@@ -1012,23 +932,23 @@ def phi_12(
 
 @nb.njit
 def phi_13(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_020,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_012,
+    mu_020,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 ** 2 * mu_300 ** 2
         + 2 * mu_200 * mu_110 * mu_300 * mu_210
@@ -1137,6 +1057,7 @@ class MomentType(Enum):
     Different rotation invariant moments (order 2 and order 3)
     Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
     """
+
     O_3 = MomentInfo(O_3, [(2, 0, 0), (0, 2, 0), (0, 0, 2)])
     O_4 = MomentInfo(
         O_4, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
@@ -1454,3 +1375,43 @@ def gamma(index, coords, centroid):
         return mu_220 - mu_202 + mu_040 - mu_004
     else:
         raise IndexError
+
+
+def get_moments_from_coordinates(
+    coordinates: np.ndarray,
+    moment_types: ty.List[MomentType] = (
+        MomentType.O_3,
+        MomentType.O_4,
+        MomentType.O_5,
+        MomentType.F,
+    ),
+) -> ty.List[float]:
+    """
+    Gets rotation-invariant moments for a set of coordinates
+
+    Parameters
+    ----------
+    coordinates
+    moment_types
+        Which moments to calculate
+        Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
+
+    Returns
+    -------
+    list of moments
+    """
+    all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
+        m for moment_type in moment_types for m in moment_type.value.mu_arguments
+    )
+    centroid = nb_mean_axis_0(coordinates)
+    mus = {
+        (x, y, z): mu(float(x), float(y), float(z), coordinates, centroid)
+        for (x, y, z) in all_moment_mu_types
+    }
+    moments = [
+        moment_type.get_moments_from_coordinates(
+            [mus[m] for m in moment_type.value.mu_arguments]
+        )
+        for moment_type in moment_types
+    ]
+    return moments
