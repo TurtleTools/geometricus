@@ -2,177 +2,47 @@ import numba as nb
 import numpy as np
 from dataclasses import dataclass
 import typing as ty
-import types
 from enum import Enum
 
 
-NUM_MOMENTS = 4
-
-
-class MomentName(Enum):
-    j1 = 1
-    j2 = 2
-    j3 = 3
-    j4 = 4
-    j5 = 5
-    custom1 = 6
-    custom2 = 7
-
-
-@nb.njit
-def j1(args):
-    assert len(args) == 4
-    mu_000, mu_200, mu_020, mu_002 = args
-    return mu_200 + mu_020 + mu_002 / mu_000
-
-
-@nb.njit
-def j3(args):
-    mu_200, mu_020, mu_002, mu_110, mu_101, mu_011, mu_000 = args
-    return (mu_200 * mu_020 * mu_002
-            + 2 * mu_110 * mu_101 * mu_011
-            - mu_002 * mu_110 ** 2
-            - mu_020 * mu_101 ** 2
-            - mu_200 * mu_011 ** 2) / mu_000 ** 3
-
-
-@nb.njit
-def j2(args):
-    mu_200, mu_020, mu_002, mu_110, mu_101, mu_011, mu_000 = args
-    return (mu_200 * mu_020
-            + mu_200 * mu_002
-            + mu_020 * mu_002
-            - mu_110 ** 2
-            - mu_101 ** 2
-            - mu_011 ** 2) / mu_000 ** 2
-
-
-@nb.njit
-def j4(args):
-    mu_201, mu_021, mu_210, mu_000, mu_300, mu_111, mu_012, mu_003, mu_030, mu_102, mu_120 = args
-    return (mu_003 ** 2
-            + 6 * mu_012 ** 2
-            + 6 * mu_021 ** 2
-            + mu_030 ** 2
-            + 6 * mu_102 ** 2
-            + 15 * mu_111 ** 2
-            - 3 * mu_102 * mu_120
-            + 6 * mu_120 ** 2
-            - 3 * mu_021 * mu_201
-            + 6 * mu_201 ** 2
-            - 3 * mu_003 * (mu_021 + mu_201)
-            - 3 * mu_030 * mu_210
-            + 6 * mu_210 ** 2
-            - 3 * mu_012 * (mu_030 + mu_210)
-            - 3 * mu_102 * mu_300
-            - 3 * mu_120 * mu_300
-            + mu_300 ** 2) / mu_000 ** 2
-
-
-@nb.njit
-def j5(args):
-    mu_020, mu_000, mu_011, mu_110, mu_200, mu_002, mu_101 = args
-    return (mu_200 ** 3
-            + 3 * mu_200 * mu_110 ** 2
-            + 3 * mu_200 * mu_101 ** 2
-            + 3 * mu_110 ** 2 * mu_020
-            + 3 * mu_101 ** 2 * mu_002
-            + mu_020 ** 3
-            + 3 * mu_020 * mu_011 ** 2
-            + 3 * mu_011 ** 2 * mu_002
-            + mu_002 ** 3
-            + 6 * mu_110 * mu_101 * mu_011
-
-            ) / mu_000 ** 5
-
-
 @dataclass
-class MomentType:
-    moment_name: MomentName
-    moment_formula: types.FunctionType
-    ordered_moment_mus: ty.List[ty.Tuple[int, int, int]]
-
-    @classmethod
-    def from_formula(cls, name: MomentName, f: types.FunctionType, ordered_mus: ty.List[ty.Tuple[int, int, int]]):
-        return cls(name, f, ordered_mus)
-
-    def get_moments_for_coordinates(self, mus: ty.List[np.ndarray]):
-        return self.moment_formula(mus)
+class MomentInfo:
+    moment_function: ty.Callable[[int, int, int, np.ndarray, np.ndarray], float]
+    mu_arguments: ty.List[ty.Tuple[int, int, int]]
 
 
-MOMENT_MUS = {
-    MomentName.j1:
-        [
-            (0, 0, 0),
-            (2, 0, 0),
-            (0, 2, 0),
-            (0, 0, 2)
-        ],
-    MomentName.j2:
-        [
-            (2, 0, 0),
-            (0, 2, 0),
-            (0, 0, 2),
-            (1, 1, 0),
-            (1, 0, 1),
-            (0, 1, 1),
-            (0, 0, 0)
-        ],
-    MomentName.j3:
-        [
-            (2, 0, 0),
-            (0, 2, 0),
-            (0, 0, 2),
-            (1, 1, 0),
-            (1, 0, 1),
-            (0, 1, 1),
-            (0, 0, 0)
-        ],
-    MomentName.j4:
-        [
-            (2, 0, 1),
-            (0, 2, 1),
-            (2, 1, 0),
-            (0, 0, 0),
-            (3, 0, 0),
-            (1, 1, 1),
-            (0, 1, 2),
-            (0, 0, 3),
-            (0, 3, 0),
-            (1, 0, 2),
-            (1, 2, 0)
-        ],
-    MomentName.j5:
-        [
-            (0, 2, 0),
-            (0, 0, 0),
-            (0, 1, 1),
-            (1, 1, 0),
-            (2, 0, 0),
-            (0, 0, 2),
-            (1, 0, 1)
-        ]
-}
+def get_moments_from_coordinates(
+    coordinates: np.ndarray, moment_names: ty.List[str] = ("O_3", "O_4", "O_5", "F")
+) -> ty.List[float]:
+    """
+    Gets rotation-invariant moments for a set of coordinates
 
-PREMADE_MOMENTS = {
-    MomentName.j1: MomentType.from_formula(MomentName.j1, j1, MOMENT_MUS[MomentName.j1]),
-    MomentName.j2: MomentType.from_formula(MomentName.j2, j2, MOMENT_MUS[MomentName.j2]),
-    MomentName.j3: MomentType.from_formula(MomentName.j3, j3, MOMENT_MUS[MomentName.j3]),
-    MomentName.j4: MomentType.from_formula(MomentName.j4, j4, MOMENT_MUS[MomentName.j4]),
-    MomentName.j5: MomentType.from_formula(MomentName.j5, j5, MOMENT_MUS[MomentName.j5])
-}
+    Parameters
+    ----------
+    coordinates
+    moment_names
+        Which moments to calculate
+        Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
 
-
-def from_coordinates(coordinates: np.ndarray, moment_types: ty.List[MomentType]) -> ty.Dict[MomentName, np.ndarray]:
-    all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set()
-    for moment_type in moment_types:
-        for mu_type in moment_type.ordered_moment_mus:
-            all_moment_mu_types.add(mu_type)
+    Returns
+    -------
+    list of moments
+    """
+    moment_types: ty.List[MomentType] = [MomentType[m] for m in moment_names]
+    all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
+        m for moment_type in moment_types for m in moment_type.value.mu_arguments
+    )
     centroid = nb_mean_axis_0(coordinates)
-    mus = {(x, y, z): mu(float(x), float(y), float(z), coordinates, centroid) for (x, y, z) in all_moment_mu_types}
-    moments: ty.Dict[MomentName, np.ndarray] = {x.moment_name: x.get_moments_for_coordinates([mus[mu] for _mu in
-                                                                                              x.ordered_moment_mus])
-                                                for x in moment_types}
+    mus = {
+        (x, y, z): mu(float(x), float(y), float(z), coordinates, centroid)
+        for (x, y, z) in all_moment_mu_types
+    }
+    moments = [
+        moment_type.get_moments_from_coordinates(
+            [mus[m] for m in moment_type.value.mu_arguments]
+        )
+        for moment_type in moment_types
+    ]
     return moments
 
 
@@ -200,79 +70,1282 @@ def mu(p, q, r, coords, centroid):
 
 
 @nb.njit
-def get_second_order_moments(coords: np.ndarray):
-    centroid = nb_mean_axis_0(coords)
-    mu_000 = mu(0., 0., 0., coords, centroid)
+def O_3(mu_200, mu_020, mu_002):
+    return mu_200 + mu_020 + mu_002
 
-    mu_200 = mu(2.0, 0.0, 0.0, coords, centroid)
-    mu_020 = mu(0.0, 2.0, 0.0, coords, centroid)
-    mu_002 = mu(0.0, 0.0, 2.0, coords, centroid)
 
-    j1 = (mu_200 + mu_020 + mu_002) / mu_000
+@nb.njit
+def O_4(mu_200, mu_020, mu_002, mu_110, mu_101, mu_011):
+    return (
+        mu_200 * mu_020 * mu_002
+        + 2 * mu_110 * mu_101 * mu_011
+        - mu_002 * mu_110 ** 2
+        - mu_020 * mu_101 ** 2
+        - mu_200 * mu_011 ** 2
+    )
 
-    mu_110 = mu(1.0, 1.0, 0.0, coords, centroid)
-    mu_101 = mu(1.0, 0.0, 1.0, coords, centroid)
-    mu_011 = mu(0.0, 1.0, 1.0, coords, centroid)
 
-    mu_003 = mu(0.0, 0.0, 3.0, coords, centroid)
-    mu_012 = mu(0.0, 1.0, 2.0, coords, centroid)
-    mu_021 = mu(0.0, 2.0, 1.0, coords, centroid)
-    mu_030 = mu(0.0, 3.0, 0.0, coords, centroid)
-    mu_102 = mu(1.0, 0.0, 2.0, coords, centroid)
-    mu_111 = mu(1.0, 1.0, 1.0, coords, centroid)
-    mu_210 = mu(2.0, 1.0, 0.0, coords, centroid)
-    mu_201 = mu(2.0, 0.0, 1.0, coords, centroid)
-    mu_120 = mu(1.0, 2.0, 0.0, coords, centroid)
-    mu_300 = mu(3.0, 0.0, 0.0, coords, centroid)
+@nb.njit
+def O_5(mu_200, mu_020, mu_002, mu_110, mu_101, mu_011):
+    return (
+        mu_200 * mu_020
+        + mu_200 * mu_002
+        + mu_020 * mu_002
+        - mu_110 ** 2
+        - mu_101 ** 2
+        - mu_011 ** 2
+    )
 
-    j2 = (
-                 mu_200 * mu_020
-                 + mu_200 * mu_002
-                 + mu_020 * mu_002
-                 - mu_110 ** 2
-                 - mu_101 ** 2
-                 - mu_011 ** 2
-         ) / mu_000 ** 2
-    j3 = (
-                 mu_200 * mu_020 * mu_002
-                 + 2 * mu_110 * mu_101 * mu_011
-                 - mu_002 * mu_110 ** 2
-                 - mu_020 * mu_101 ** 2
-                 - mu_200 * mu_011 ** 2
-         ) / mu_000 ** 3
-    j4 = (
-                 mu_003 ** 2
-                 + 6 * mu_012 ** 2
-                 + 6 * mu_021 ** 2
-                 + mu_030 ** 2
-                 + 6 * mu_102 ** 2
-                 + 15 * mu_111 ** 2
-                 - 3 * mu_102 * mu_120
-                 + 6 * mu_120 ** 2
-                 - 3 * mu_021 * mu_201
-                 + 6 * mu_201 ** 2
-                 - 3 * mu_003 * (mu_021 + mu_201)
-                 - 3 * mu_030 * mu_210
-                 + 6 * mu_210 ** 2
-                 - 3 * mu_012 * (mu_030 + mu_210)
-                 - 3 * mu_102 * mu_300
-                 - 3 * mu_120 * mu_300
-                 + mu_300 ** 2
-         ) / mu_000 ** 2
 
-    j5 = (
-                 mu_200 ** 3
-                 + 3 * mu_200 * mu_110 ** 2
-                 + 3 * mu_200 * mu_101 ** 2
-                 + 3 * mu_110 ** 2 * mu_020
-                 + 3 * mu_101 ** 2 * mu_002
-                 + mu_020 ** 3
-                 + 3 * mu_020 * mu_011 ** 2
-                 + 3 * mu_011 ** 2 * mu_002
-                 + mu_002 ** 3
-                 + 6 * mu_110 * mu_101 * mu_011
-         ) / mu_000 ** 5
-    return j1, j2, j3, j5
+@nb.njit
+def F(
+        mu_201,
+        mu_021,
+        mu_210,
+        mu_300,
+        mu_111,
+        mu_012,
+        mu_003,
+        mu_030,
+        mu_102,
+        mu_120,
+    ):
+    return (
+        mu_003 ** 2
+        + 6 * mu_012 ** 2
+        + 6 * mu_021 ** 2
+        + mu_030 ** 2
+        + 6 * mu_102 ** 2
+        + 15 * mu_111 ** 2
+        - 3 * mu_102 * mu_120
+        + 6 * mu_120 ** 2
+        - 3 * mu_021 * mu_201
+        + 6 * mu_201 ** 2
+        - 3 * mu_003 * (mu_021 + mu_201)
+        - 3 * mu_030 * mu_210
+        + 6 * mu_210 ** 2
+        - 3 * mu_012 * (mu_030 + mu_210)
+        - 3 * mu_102 * mu_300
+        - 3 * mu_120 * mu_300
+        + mu_300 ** 2
+    )
+
+
+def make_formula(name, formula_string):
+    """
+    Generate code from one of the formula in Appendix 4A of "2D and 3D Image Analysis by Moments"
+
+    Parameters
+    ----------
+    name
+        moment_name
+    formula_string
+        formula copy-pasted from PDF
+    """
+    formula = []
+    mu_types = set()
+    for x in formula_string.split("+"):
+        f = ""
+        parts = x.split("𝜇")
+        if len(parts[0]):
+            f += f"{parts[0]}"
+        else:
+            f += "1"
+        for group in parts[1:]:
+            f += " * mu_"
+            if len(group) == 4:
+                power = group[0]
+                mul = group[1:]
+                f += f"{mul} ** {power}"
+            else:
+                mul = group
+                f += f"{mul}"
+            mu_types.add(f"mu_{mul}")
+        formula.append(f)
+    formula = " + ".join(formula)
+    mu_arguments = list(tuple(int(c) for c in m.split("_")[1]) for m in mu_types)
+    mu_types = ", ".join(mu_types)
+    print(f"{name} = MomentInfo({name}, {mu_arguments})")
+    print(f"@nb.njit\ndef {name}({mu_types}):\n    return {formula}")
+
+
+@nb.njit
+def phi_2(mu_020, mu_011, mu_110, mu_200, mu_002, mu_101):
+    return (
+        mu_200 ** 2
+        + mu_020 ** 2
+        + mu_002 ** 2
+        + 2 * mu_110 ** 2
+        + 2 * mu_101 ** 2
+        + 2 * mu_011 ** 2
+    )
+
+
+@nb.njit
+def phi_3(mu_020, mu_011, mu_110, mu_200, mu_002, mu_101):
+    return (
+        mu_200 ** 3
+        + 3 * mu_200 * mu_110 ** 2
+        + 3 * mu_200 * mu_101 ** 2
+        + 3 * mu_110 ** 2 * mu_020
+        + 3 * mu_101 ** 2 * mu_002
+        + mu_020 ** 3
+        + 3 * mu_020 * mu_011 ** 2
+        + 3 * mu_011 ** 2 * mu_002
+        + mu_002 ** 3
+        + 6 * mu_110 * mu_101 * mu_011
+    )
+
+
+@nb.njit
+def phi_4(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_003,
+        mu_111,
+        mu_201,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_300,
+    ):
+    return (
+        mu_300 ** 2
+        + mu_030 ** 2
+        + mu_003 ** 2
+        + 3 * mu_210 ** 2
+        + 3 * mu_201 ** 2
+        + 3 * mu_120 ** 2
+        + 3 * mu_102 ** 2
+        + 3 * mu_021 ** 2
+        + 3 * mu_012 ** 2
+        + 6 * mu_111 ** 2
+    )
+
+
+@nb.njit
+def phi_5(mu_030, mu_021, mu_120, mu_003, mu_201, mu_102, mu_210, mu_012, mu_300):
+    return (
+        mu_300 ** 2
+        + 2 * mu_300
+        + 2 * mu_300
+        + 2 * mu_210
+        + 2 * mu_201
+        + mu_030 ** 2
+        + 2 * mu_030
+        + 2 * mu_021
+        + mu_003 ** 2
+        + mu_210 ** 2
+        + 2 * mu_210
+        + mu_201 ** 2
+        + 2 * mu_201
+        + mu_120 ** 2
+        + 2 * mu_120
+        + mu_102 ** 2
+        + mu_021 ** 2
+        + mu_012 ** 2
+    )
+
+
+@nb.njit
+def phi_6(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_003,
+        mu_111,
+        mu_201,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_300,
+    ):
+    return (
+        1 * mu_300 ** 4
+        + 6 * mu_300 ** 2 * mu_210 ** 2
+        + 6 * mu_300 ** 2 * mu_201 ** 2
+        + 2 * mu_300 ** 2 * mu_120 ** 2
+        + 4 * mu_300 ** 2 * mu_111 ** 2
+        + 2 * mu_300 ** 2 * mu_102 ** 2
+        + 8 * mu_300 * mu_210 ** 2 * mu_120
+        + 16 * mu_300 * mu_210 * mu_201 * mu_111
+        + 4 * mu_300 * mu_210 * mu_120 * mu_030
+        + 8 * mu_300 * mu_210 * mu_111 * mu_021
+        + 4 * mu_300 * mu_210 * mu_102 * mu_012
+        + 8 * mu_300 * mu_201 ** 2 * mu_102
+        + 4 * mu_300 * mu_201 * mu_120 * mu_021
+        + 8 * mu_300 * mu_201 * mu_111 * mu_012
+        + 4 * mu_300 * mu_201 * mu_102 * mu_003
+        + 2 * mu_210 ** 2 * mu_030 ** 2
+        + 4 * mu_210 * mu_201 * mu_030 * mu_021
+        + 4 * mu_210 * mu_201 * mu_012 * mu_003
+        + 8 * mu_210 * mu_120 ** 2 * mu_030
+        + 8 * mu_210 * mu_111 * mu_102 * mu_003
+        + 2 * mu_201 ** 2 * mu_003 ** 2
+        + 8 * mu_201 * mu_120 * mu_111 * mu_030
+        + 8 * mu_201 * mu_102 ** 2 * mu_003
+        + 6 * mu_120 ** 2 * mu_030 ** 2
+        + 16 * mu_120 * mu_111 * mu_030 * mu_021
+        + 8 * mu_120 * mu_111 * mu_012 * mu_003
+        + 4 * mu_120 * mu_102 * mu_030 * mu_012
+        + 4 * mu_120 * mu_102 * mu_021 * mu_003
+        + 4 * mu_111 ** 2 * mu_030 ** 2
+        + 4 * mu_111 ** 2 * mu_003 ** 2
+        + 8 * mu_111 * mu_102 * mu_030 * mu_021
+        + 16 * mu_111 * mu_102 * mu_012 * mu_003
+        + 6 * mu_102 ** 2 * mu_003 ** 2
+        + 1 * mu_030 ** 4
+        + 6 * mu_030 ** 2 * mu_021 ** 2
+        + 2 * mu_030 ** 2 * mu_012 ** 2
+        + 8 * mu_030 * mu_021 ** 2 * mu_012
+        + 4 * mu_030 * mu_021 * mu_012 * mu_003
+        + 2 * mu_021 ** 2 * mu_003 ** 2
+        + 8 * mu_021 * mu_012 ** 2 * mu_003
+        + 6 * mu_012 ** 2 * mu_003 ** 2
+        + 1 * mu_003 ** 4
+        + 5 * mu_210 ** 4
+        + 10 * mu_210 ** 2 * mu_201 ** 2
+        + 16 * mu_210 ** 2 * mu_120 ** 2
+        + 20 * mu_210 ** 2 * mu_111 ** 2
+        + 4 * mu_210 ** 2 * mu_102 ** 2
+        + 4 * mu_210 ** 2 * mu_021 ** 2
+        + 2 * mu_210 ** 2 * mu_012 ** 2
+        + 24 * mu_210 * mu_201 * mu_120 * mu_111
+        + 24 * mu_210 * mu_201 * mu_111 * mu_102
+        + 8 * mu_210 * mu_201 * mu_021 * mu_012
+        + 24 * mu_210 * mu_120 * mu_111 * mu_021
+        + 8 * mu_210 * mu_120 * mu_102 * mu_012
+        + 16 * mu_210 * mu_111 ** 2 * mu_012
+        + 5 * mu_201 ** 4
+        + 4 * mu_201 ** 2 * mu_120 ** 2
+        + 20 * mu_201 ** 2 * mu_111 ** 2
+        + 16 * mu_201 ** 2 * mu_102 ** 2
+        + 2 * mu_201 ** 2 * mu_021 ** 2
+        + 4 * mu_201 ** 2 * mu_012 ** 2
+        + 8 * mu_201 * mu_120 * mu_102 * mu_021
+        + 16 * mu_201 * mu_111 ** 2 * mu_021
+        + 24 * mu_201 * mu_111 * mu_102 * mu_012
+        + 5 * mu_120 ** 4
+        + 20 * mu_120 ** 2 * mu_111 ** 2
+        + 2 * mu_120 ** 2 * mu_102 ** 2
+        + 10 * mu_120 ** 2 * mu_021 ** 2
+        + 4 * mu_120 ** 2 * mu_012 ** 2
+        + 16 * mu_120 * mu_111 ** 2 * mu_102
+        + 24 * mu_120 * mu_111 * mu_021 * mu_012
+        + 20 * mu_111 ** 2 * mu_102 ** 2
+        + 20 * mu_111 ** 2 * mu_021 ** 2
+        + 20 * mu_111 ** 2 * mu_012 ** 2
+        + 24 * mu_111 * mu_102 * mu_021 * mu_012
+        + 5 * mu_102 ** 4
+        + 4 * mu_102 ** 2 * mu_021 ** 2
+        + 10 * mu_102 ** 2 * mu_012 ** 2
+        + 5 * mu_021 ** 4
+        + 16 * mu_021 ** 2 * mu_012 ** 2
+        + 5 * mu_012 ** 4
+        + 12 * mu_111 ** 4
+    )
+
+
+@nb.njit
+def phi_7(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_003,
+        mu_111,
+        mu_201,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_300,
+    ):
+    return (
+        1 * mu_300 ** 4
+        + 1 * mu_300 ** 3 * mu_120
+        + 1 * mu_300 ** 3 * mu_102
+        + 5 * mu_300 ** 2 * mu_210 ** 2
+        + 1 * mu_300 ** 2 * mu_210 * mu_030
+        + 1 * mu_300 ** 2 * mu_210 * mu_012
+        + 5 * mu_300 ** 2 * mu_201 ** 2
+        + 1 * mu_300 ** 2 * mu_201 * mu_021
+        + 1 * mu_300 ** 2 * mu_201 * mu_003
+        + 1 * mu_300 ** 2 * mu_120 ** 2
+        + 2 * mu_300 ** 2 * mu_111 ** 2
+        + 1 * mu_300 ** 2 * mu_102 ** 2
+        + 11 * mu_300 * mu_210 ** 2 * mu_120
+        + 4 * mu_300 * mu_210 ** 2 * mu_102
+        + 14 * mu_300 * mu_210 * mu_201 * mu_111
+        + 4 * mu_300 * mu_210 * mu_120 * mu_030
+        + 2 * mu_300 * mu_210 * mu_120 * mu_012
+        + 6 * mu_300 * mu_210 * mu_111 * mu_021
+        + 2 * mu_300 * mu_210 * mu_111 * mu_003
+        + 2 * mu_300 * mu_210 * mu_102 * mu_012
+        + 4 * mu_300 * mu_201 ** 2 * mu_120
+        + 11 * mu_300 * mu_201 ** 2 * mu_102
+        + 2 * mu_300 * mu_201 * mu_120 * mu_021
+        + 2 * mu_300 * mu_201 * mu_111 * mu_030
+        + 6 * mu_300 * mu_201 * mu_111 * mu_012
+        + 2 * mu_300 * mu_201 * mu_102 * mu_021
+        + 4 * mu_300 * mu_201 * mu_102 * mu_003
+        + 3 * mu_300 * mu_120 ** 3
+        + 1 * mu_300 * mu_120 ** 2 * mu_102
+        + 8 * mu_300 * mu_120 * mu_111 ** 2
+        + 1 * mu_300 * mu_120 * mu_102 ** 2
+        + 1 * mu_300 * mu_120 * mu_030 ** 2
+        + 2 * mu_300 * mu_120 * mu_021 ** 2
+        + 1 * mu_300 * mu_120 * mu_012 ** 2
+        + 8 * mu_300 * mu_111 ** 2 * mu_102
+        + 2 * mu_300 * mu_111 * mu_030 * mu_021
+        + 4 * mu_300 * mu_111 * mu_021 * mu_012
+        + 2 * mu_300 * mu_111 * mu_012 * mu_003
+        + 3 * mu_300 * mu_102 ** 3
+        + 1 * mu_300 * mu_102 * mu_021 ** 2
+        + 2 * mu_300 * mu_102 * mu_012 ** 2
+        + 1 * mu_300 * mu_102 * mu_003 ** 2
+        + 3 * mu_210 ** 3 * mu_030
+        + 2 * mu_210 ** 2 * mu_201 * mu_003
+        + 1 * mu_210 ** 2 * mu_030 ** 2
+        + 1 * mu_210 ** 2 * mu_030 * mu_012
+        + 1 * mu_210 ** 2 * mu_021 * mu_003
+        + 2 * mu_210 * mu_201 ** 2 * mu_030
+        + 2 * mu_210 * mu_201 * mu_030 * mu_021
+        + 2 * mu_210 * mu_201 * mu_012 * mu_003
+        + 11 * mu_210 * mu_120 ** 2 * mu_030
+        + 4 * mu_210 * mu_120 * mu_111 * mu_003
+        + 2 * mu_210 * mu_120 * mu_102 * mu_030
+        + 8 * mu_210 * mu_111 ** 2 * mu_030
+        + 6 * mu_210 * mu_111 * mu_102 * mu_003
+        + 1 * mu_210 * mu_102 ** 2 * mu_030
+        + 1 * mu_210 * mu_030 ** 3
+        + 4 * mu_210 * mu_030 * mu_021 ** 2
+        + 1 * mu_210 * mu_030 * mu_012 ** 2
+        + 2 * mu_210 * mu_021 * mu_012 * mu_003
+        + 1 * mu_210 * mu_012 * mu_003 ** 2
+        + 3 * mu_201 ** 3 * mu_003
+        + 1 * mu_201 ** 2 * mu_030 * mu_012
+        + 1 * mu_201 ** 2 * mu_021 * mu_003
+        + 1 * mu_201 ** 2 * mu_003 ** 2
+        + 1 * mu_201 * mu_120 ** 2 * mu_003
+        + 6 * mu_201 * mu_120 * mu_111 * mu_030
+        + 2 * mu_201 * mu_120 * mu_102 * mu_003
+        + 8 * mu_201 * mu_111 ** 2 * mu_003
+        + 4 * mu_201 * mu_111 * mu_102 * mu_030
+        + 11 * mu_201 * mu_102 ** 2 * mu_003
+        + 1 * mu_201 * mu_030 ** 2 * mu_021
+        + 2 * mu_201 * mu_030 * mu_021 * mu_012
+        + 1 * mu_201 * mu_021 ** 2 * mu_003
+        + 4 * mu_201 * mu_012 ** 2 * mu_003
+        + 1 * mu_201 * mu_003 ** 3
+        + 5 * mu_120 ** 2 * mu_030 ** 2
+        + 4 * mu_120 ** 2 * mu_030 * mu_012
+        + 2 * mu_120 ** 2 * mu_021 * mu_003
+        + 14 * mu_120 * mu_111 * mu_030 * mu_021
+        + 2 * mu_120 * mu_111 * mu_030 * mu_003
+        + 6 * mu_120 * mu_111 * mu_012 * mu_003
+        + 1 * mu_120 * mu_102 * mu_030 ** 2
+        + 2 * mu_120 * mu_102 * mu_030 * mu_012
+        + 2 * mu_120 * mu_102 * mu_021 * mu_003
+        + 1 * mu_120 * mu_102 * mu_003 ** 2
+        + 2 * mu_111 ** 2 * mu_030 ** 2
+        + 8 * mu_111 ** 2 * mu_030 * mu_012
+        + 8 * mu_111 ** 2 * mu_021 * mu_003
+        + 2 * mu_111 ** 2 * mu_003 ** 2
+        + 6 * mu_111 * mu_102 * mu_030 * mu_021
+        + 2 * mu_111 * mu_102 * mu_030 * mu_003
+        + 14 * mu_111 * mu_102 * mu_012 * mu_003
+        + 2 * mu_102 ** 2 * mu_030 * mu_012
+        + 4 * mu_102 ** 2 * mu_021 * mu_003
+        + 5 * mu_102 ** 2 * mu_003 ** 2
+        + 1 * mu_030 ** 4
+        + 1 * mu_030 ** 3 * mu_012
+        + 5 * mu_030 ** 2 * mu_021 ** 2
+        + 1 * mu_030 ** 2 * mu_021 * mu_003
+        + 1 * mu_030 ** 2 * mu_012 ** 2
+        + 11 * mu_030 * mu_021 ** 2 * mu_012
+        + 4 * mu_030 * mu_021 * mu_012 * mu_003
+        + 3 * mu_030 * mu_012 ** 3
+        + 1 * mu_030 * mu_012 * mu_003 ** 2
+        + 3 * mu_021 ** 3 * mu_003
+        + 1 * mu_021 ** 2 * mu_003 ** 2
+        + 11 * mu_021 * mu_012 ** 2 * mu_003
+        + 1 * mu_021 * mu_003 ** 3
+        + 5 * mu_012 ** 2 * mu_003 ** 2
+        + 1 * mu_003 ** 4
+        + 2 * mu_210 ** 4
+        + 2 * mu_210 ** 3 * mu_012
+        + 4 * mu_210 ** 2 * mu_201 ** 2
+        + 5 * mu_210 ** 2 * mu_201 * mu_021
+        + 10 * mu_210 ** 2 * mu_120 ** 2
+        + 5 * mu_210 ** 2 * mu_120 * mu_102
+        + 6 * mu_210 ** 2 * mu_111 ** 2
+        + 1 * mu_210 ** 2 * mu_102 ** 2
+        + 1 * mu_210 ** 2 * mu_021 ** 2
+        + 5 * mu_210 * mu_201 ** 2 * mu_012
+        + 18 * mu_210 * mu_201 * mu_120 * mu_111
+        + 18 * mu_210 * mu_201 * mu_111 * mu_102
+        + 4 * mu_210 * mu_201 * mu_021 * mu_012
+        + 5 * mu_210 * mu_120 ** 2 * mu_012
+        + 18 * mu_210 * mu_120 * mu_111 * mu_021
+        + 4 * mu_210 * mu_120 * mu_102 * mu_012
+        + 12 * mu_210 * mu_111 ** 2 * mu_012
+        + 12 * mu_210 * mu_111 * mu_102 * mu_021
+        + 5 * mu_210 * mu_102 ** 2 * mu_012
+        + 5 * mu_210 * mu_021 ** 2 * mu_012
+        + 2 * mu_210 * mu_012 ** 3
+        + 2 * mu_201 ** 4
+        + 2 * mu_201 ** 3 * mu_021
+        + 1 * mu_201 ** 2 * mu_120 ** 2
+        + 5 * mu_201 ** 2 * mu_120 * mu_102
+        + 6 * mu_201 ** 2 * mu_111 ** 2
+        + 10 * mu_201 ** 2 * mu_102 ** 2
+        + 1 * mu_201 ** 2 * mu_012 ** 2
+        + 5 * mu_201 * mu_120 ** 2 * mu_021
+        + 12 * mu_201 * mu_120 * mu_111 * mu_012
+        + 4 * mu_201 * mu_120 * mu_102 * mu_021
+        + 12 * mu_201 * mu_111 ** 2 * mu_021
+        + 18 * mu_201 * mu_111 * mu_102 * mu_012
+        + 5 * mu_201 * mu_102 ** 2 * mu_021
+        + 2 * mu_201 * mu_021 ** 3
+        + 5 * mu_201 * mu_021 * mu_012 ** 2
+        + 2 * mu_120 ** 4
+        + 2 * mu_120 ** 3 * mu_102
+        + 6 * mu_120 ** 2 * mu_111 ** 2
+        + 4 * mu_120 ** 2 * mu_021 ** 2
+        + 1 * mu_120 ** 2 * mu_012 ** 2
+        + 12 * mu_120 * mu_111 ** 2 * mu_102
+        + 18 * mu_120 * mu_111 * mu_021 * mu_012
+        + 2 * mu_120 * mu_102 ** 3
+        + 5 * mu_120 * mu_102 * mu_021 ** 2
+        + 5 * mu_120 * mu_102 * mu_012 ** 2
+        + 6 * mu_111 ** 2 * mu_102 ** 2
+        + 6 * mu_111 ** 2 * mu_021 ** 2
+        + 6 * mu_111 ** 2 * mu_012 ** 2
+        + 18 * mu_111 * mu_102 * mu_021 * mu_012
+        + 2 * mu_102 ** 4
+        + 1 * mu_102 ** 2 * mu_021 ** 2
+        + 4 * mu_102 ** 2 * mu_012 ** 2
+        + 2 * mu_021 ** 4
+        + 10 * mu_021 ** 2 * mu_012 ** 2
+        + 2 * mu_012 ** 4
+    )
+
+
+@nb.njit
+def phi_8(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_003,
+        mu_111,
+        mu_201,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_300,
+    ):
+    return (
+        1 * mu_300 ** 4
+        + 2 * mu_300 ** 3 * mu_120
+        + 2 * mu_300 ** 3 * mu_102
+        + 4 * mu_300 ** 2 * mu_210 ** 2
+        + 2 * mu_300 ** 2 * mu_210 * mu_030
+        + 2 * mu_300 ** 2 * mu_210 * mu_012
+        + 4 * mu_300 ** 2 * mu_201 ** 2
+        + 2 * mu_300 ** 2 * mu_201 * mu_021
+        + 2 * mu_300 ** 2 * mu_201 * mu_003
+        + 2 * mu_300 ** 2 * mu_120 ** 2
+        + 2 * mu_300 ** 2 * mu_120 * mu_102
+        + 2 * mu_300 ** 2 * mu_111 ** 2
+        + 2 * mu_300 ** 2 * mu_102 ** 2
+        + 10 * mu_300 * mu_210 ** 2 * mu_120
+        + 6 * mu_300 * mu_210 ** 2 * mu_102
+        + 8 * mu_300 * mu_210 * mu_201 * mu_111
+        + 8 * mu_300 * mu_210 * mu_120 * mu_030
+        + 6 * mu_300 * mu_210 * mu_120 * mu_012
+        + 8 * mu_300 * mu_210 * mu_111 * mu_021
+        + 4 * mu_300 * mu_210 * mu_111 * mu_003
+        + 2 * mu_300 * mu_210 * mu_102 * mu_030
+        + 4 * mu_300 * mu_210 * mu_102 * mu_012
+        + 6 * mu_300 * mu_201 ** 2 * mu_120
+        + 10 * mu_300 * mu_201 ** 2 * mu_102
+        + 4 * mu_300 * mu_201 * mu_120 * mu_021
+        + 2 * mu_300 * mu_201 * mu_120 * mu_003
+        + 4 * mu_300 * mu_201 * mu_111 * mu_030
+        + 8 * mu_300 * mu_201 * mu_111 * mu_012
+        + 6 * mu_300 * mu_201 * mu_102 * mu_021
+        + 8 * mu_300 * mu_201 * mu_102 * mu_003
+        + 2 * mu_300 * mu_120 ** 3
+        + 2 * mu_300 * mu_120 ** 2 * mu_102
+        + 4 * mu_300 * mu_120 * mu_111 ** 2
+        + 2 * mu_300 * mu_120 * mu_102 ** 2
+        + 2 * mu_300 * mu_120 * mu_030 ** 2
+        + 2 * mu_300 * mu_120 * mu_030 * mu_012
+        + 2 * mu_300 * mu_120 * mu_021 ** 2
+        + 2 * mu_300 * mu_120 * mu_021 * mu_003
+        + 4 * mu_300 * mu_111 ** 2 * mu_102
+        + 4 * mu_300 * mu_111 * mu_030 * mu_021
+        + 8 * mu_300 * mu_111 * mu_021 * mu_012
+        + 4 * mu_300 * mu_111 * mu_012 * mu_003
+        + 2 * mu_300 * mu_102 ** 3
+        + 2 * mu_300 * mu_102 * mu_030 * mu_012
+        + 2 * mu_300 * mu_102 * mu_021 * mu_003
+        + 2 * mu_300 * mu_102 * mu_012 ** 2
+        + 2 * mu_300 * mu_102 * mu_003 ** 2
+        + 2 * mu_210 ** 3 * mu_030
+        + 2 * mu_210 ** 2 * mu_201 * mu_003
+        + 2 * mu_210 ** 2 * mu_030 ** 2
+        + 2 * mu_210 ** 2 * mu_030 * mu_012
+        + 2 * mu_210 * mu_201 ** 2 * mu_030
+        + 4 * mu_210 * mu_201 * mu_030 * mu_021
+        + 2 * mu_210 * mu_201 * mu_030 * mu_003
+        + 4 * mu_210 * mu_201 * mu_012 * mu_003
+        + 10 * mu_210 * mu_120 ** 2 * mu_030
+        + 8 * mu_210 * mu_120 * mu_111 * mu_003
+        + 6 * mu_210 * mu_120 * mu_102 * mu_030
+        + 4 * mu_210 * mu_111 ** 2 * mu_030
+        + 8 * mu_210 * mu_111 * mu_102 * mu_003
+        + 2 * mu_210 * mu_030 ** 3
+        + 2 * mu_210 * mu_030 ** 2 * mu_012
+        + 6 * mu_210 * mu_030 * mu_021 ** 2
+        + 2 * mu_210 * mu_030 * mu_021 * mu_003
+        + 2 * mu_210 * mu_030 * mu_012 ** 2
+        + 6 * mu_210 * mu_021 * mu_012 * mu_003
+        + 2 * mu_210 * mu_012 * mu_003 ** 2
+        + 2 * mu_201 ** 3 * mu_003
+        + 2 * mu_201 ** 2 * mu_021 * mu_003
+        + 2 * mu_201 ** 2 * mu_003 ** 2
+        + 8 * mu_201 * mu_120 * mu_111 * mu_030
+        + 6 * mu_201 * mu_120 * mu_102 * mu_003
+        + 4 * mu_201 * mu_111 ** 2 * mu_003
+        + 8 * mu_201 * mu_111 * mu_102 * mu_030
+        + 10 * mu_201 * mu_102 ** 2 * mu_003
+        + 2 * mu_201 * mu_030 ** 2 * mu_021
+        + 6 * mu_201 * mu_030 * mu_021 * mu_012
+        + 2 * mu_201 * mu_030 * mu_012 * mu_003
+        + 2 * mu_201 * mu_021 ** 2 * mu_003
+        + 2 * mu_201 * mu_021 * mu_003 ** 2
+        + 6 * mu_201 * mu_012 ** 2 * mu_003
+        + 2 * mu_201 * mu_003 ** 3
+        + 4 * mu_120 ** 2 * mu_030 ** 2
+        + 6 * mu_120 ** 2 * mu_030 * mu_012
+        + 2 * mu_120 ** 2 * mu_021 * mu_003
+        + 8 * mu_120 * mu_111 * mu_030 * mu_021
+        + 4 * mu_120 * mu_111 * mu_030 * mu_003
+        + 8 * mu_120 * mu_111 * mu_012 * mu_003
+        + 2 * mu_120 * mu_102 * mu_030 ** 2
+        + 4 * mu_120 * mu_102 * mu_030 * mu_012
+        + 4 * mu_120 * mu_102 * mu_021 * mu_003
+        + 2 * mu_120 * mu_102 * mu_003 ** 2
+        + 2 * mu_111 ** 2 * mu_030 ** 2
+        + 4 * mu_111 ** 2 * mu_030 * mu_012
+        + 4 * mu_111 ** 2 * mu_021 * mu_003
+        + 2 * mu_111 ** 2 * mu_003 ** 2
+        + 8 * mu_111 * mu_102 * mu_030 * mu_021
+        + 4 * mu_111 * mu_102 * mu_030 * mu_003
+        + 8 * mu_111 * mu_102 * mu_012 * mu_003
+        + 2 * mu_102 ** 2 * mu_030 * mu_012
+        + 6 * mu_102 ** 2 * mu_021 * mu_003
+        + 4 * mu_102 ** 2 * mu_003 ** 2
+        + 1 * mu_030 ** 4
+        + 2 * mu_030 ** 3 * mu_012
+        + 4 * mu_030 ** 2 * mu_021 ** 2
+        + 2 * mu_030 ** 2 * mu_021 * mu_003
+        + 2 * mu_030 ** 2 * mu_012 ** 2
+        + 10 * mu_030 * mu_021 ** 2 * mu_012
+        + 8 * mu_030 * mu_021 * mu_012 * mu_003
+        + 2 * mu_030 * mu_012 ** 3
+        + 2 * mu_030 * mu_012 * mu_003 ** 2
+        + 2 * mu_021 ** 3 * mu_003
+        + 2 * mu_021 ** 2 * mu_003 ** 2
+        + 10 * mu_021 * mu_012 ** 2 * mu_003
+        + 2 * mu_021 * mu_003 ** 3
+        + 4 * mu_012 ** 2 * mu_003 ** 2
+        + 1 * mu_003 ** 4
+        + 1 * mu_210 ** 4
+        + 2 * mu_210 ** 3 * mu_012
+        + 2 * mu_210 ** 2 * mu_201 ** 2
+        + 2 * mu_210 ** 2 * mu_201 * mu_021
+        + 8 * mu_210 ** 2 * mu_120 ** 2
+        + 8 * mu_210 ** 2 * mu_120 * mu_102
+        + 2 * mu_210 ** 2 * mu_111 ** 2
+        + 2 * mu_210 ** 2 * mu_102 ** 2
+        + 2 * mu_210 ** 2 * mu_021 ** 2
+        + 2 * mu_210 ** 2 * mu_012 ** 2
+        + 2 * mu_210 * mu_201 ** 2 * mu_012
+        + 12 * mu_210 * mu_201 * mu_120 * mu_111
+        + 12 * mu_210 * mu_201 * mu_111 * mu_102
+        + 6 * mu_210 * mu_201 * mu_021 * mu_012
+        + 8 * mu_210 * mu_120 ** 2 * mu_012
+        + 12 * mu_210 * mu_120 * mu_111 * mu_021
+        + 6 * mu_210 * mu_120 * mu_102 * mu_012
+        + 4 * mu_210 * mu_111 ** 2 * mu_012
+        + 12 * mu_210 * mu_111 * mu_102 * mu_021
+        + 2 * mu_210 * mu_102 ** 2 * mu_012
+        + 8 * mu_210 * mu_021 ** 2 * mu_012
+        + 2 * mu_210 * mu_012 ** 3
+        + 1 * mu_201 ** 4
+        + 2 * mu_201 ** 3 * mu_021
+        + 2 * mu_201 ** 2 * mu_120 ** 2
+        + 8 * mu_201 ** 2 * mu_120 * mu_102
+        + 2 * mu_201 ** 2 * mu_111 ** 2
+        + 8 * mu_201 ** 2 * mu_102 ** 2
+        + 2 * mu_201 ** 2 * mu_021 ** 2
+        + 2 * mu_201 ** 2 * mu_012 ** 2
+        + 2 * mu_201 * mu_120 ** 2 * mu_021
+        + 12 * mu_201 * mu_120 * mu_111 * mu_012
+        + 6 * mu_201 * mu_120 * mu_102 * mu_021
+        + 4 * mu_201 * mu_111 ** 2 * mu_021
+        + 12 * mu_201 * mu_111 * mu_102 * mu_012
+        + 8 * mu_201 * mu_102 ** 2 * mu_021
+        + 2 * mu_201 * mu_021 ** 3
+        + 8 * mu_201 * mu_021 * mu_012 ** 2
+        + 1 * mu_120 ** 4
+        + 2 * mu_120 ** 3 * mu_102
+        + 2 * mu_120 ** 2 * mu_111 ** 2
+        + 2 * mu_120 ** 2 * mu_102 ** 2
+        + 2 * mu_120 ** 2 * mu_021 ** 2
+        + 2 * mu_120 ** 2 * mu_012 ** 2
+        + 4 * mu_120 * mu_111 ** 2 * mu_102
+        + 12 * mu_120 * mu_111 * mu_021 * mu_012
+        + 2 * mu_120 * mu_102 ** 3
+        + 2 * mu_120 * mu_102 * mu_021 ** 2
+        + 2 * mu_120 * mu_102 * mu_012 ** 2
+        + 2 * mu_111 ** 2 * mu_102 ** 2
+        + 2 * mu_111 ** 2 * mu_021 ** 2
+        + 2 * mu_111 ** 2 * mu_012 ** 2
+        + 12 * mu_111 * mu_102 * mu_021 * mu_012
+        + 1 * mu_102 ** 4
+        + 2 * mu_102 ** 2 * mu_021 ** 2
+        + 2 * mu_102 ** 2 * mu_012 ** 2
+        + 1 * mu_021 ** 4
+        + 8 * mu_021 ** 2 * mu_012 ** 2
+        + 1 * mu_012 ** 4
+    )
+
+
+@nb.njit
+def phi_9(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_101,
+        mu_003,
+        mu_200,
+        mu_110,
+        mu_201,
+        mu_111,
+        mu_102,
+        mu_210,
+        mu_020,
+        mu_012,
+        mu_002,
+        mu_011,
+        mu_300,
+    ):
+    return (
+        1 * mu_200 * mu_300 ** 2
+        + 2 * mu_110 * mu_300 * mu_210
+        + 2 * mu_110 * mu_120 * mu_030
+        + 2 * mu_101 * mu_300 * mu_201
+        + 2 * mu_101 * mu_102 * mu_003
+        + 1 * mu_020 * mu_030 ** 2
+        + 2 * mu_011 * mu_030 * mu_021
+        + 2 * mu_011 * mu_012 * mu_003
+        + 1 * mu_002 * mu_003 ** 2
+        + 2 * mu_200 * mu_210 ** 2
+        + 2 * mu_200 * mu_201 ** 2
+        + 1 * mu_200 * mu_120 ** 2
+        + 2 * mu_200 * mu_111 ** 2
+        + 1 * mu_200 * mu_102 ** 2
+        + 4 * mu_110 * mu_210 * mu_120
+        + 4 * mu_110 * mu_201 * mu_111
+        + 4 * mu_110 * mu_111 * mu_021
+        + 2 * mu_110 * mu_102 * mu_012
+        + 4 * mu_101 * mu_210 * mu_111
+        + 4 * mu_101 * mu_201 * mu_102
+        + 2 * mu_101 * mu_120 * mu_021
+        + 4 * mu_101 * mu_111 * mu_012
+        + 1 * mu_020 * mu_210 ** 2
+        + 2 * mu_020 * mu_120 ** 2
+        + 2 * mu_020 * mu_111 ** 2
+        + 2 * mu_020 * mu_021 ** 2
+        + 1 * mu_020 * mu_012 ** 2
+        + 2 * mu_011 * mu_210 * mu_201
+        + 4 * mu_011 * mu_120 * mu_111
+        + 4 * mu_011 * mu_111 * mu_102
+        + 4 * mu_011 * mu_021 * mu_012
+        + 1 * mu_002 * mu_201 ** 2
+        + 2 * mu_002 * mu_111 ** 2
+        + 2 * mu_002 * mu_102 ** 2
+        + 1 * mu_002 * mu_021 ** 2
+        + 2 * mu_002 * mu_012 ** 2
+    )
+
+
+@nb.njit
+def phi_10(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_101,
+        mu_003,
+        mu_200,
+        mu_110,
+        mu_201,
+        mu_111,
+        mu_102,
+        mu_210,
+        mu_020,
+        mu_012,
+        mu_002,
+        mu_011,
+        mu_300,
+    ):
+    return (
+        1 * mu_200 * mu_300 ** 2
+        + 1 * mu_200 * mu_300 * mu_120
+        + 1 * mu_200 * mu_300 * mu_102
+        + 1 * mu_200 * mu_210 * mu_030
+        + 1 * mu_200 * mu_201 * mu_003
+        + 2 * mu_110 * mu_300 * mu_210
+        + 2 * mu_110 * mu_120 * mu_030
+        + 2 * mu_110 * mu_111 * mu_003
+        + 2 * mu_101 * mu_300 * mu_201
+        + 2 * mu_101 * mu_111 * mu_030
+        + 2 * mu_101 * mu_102 * mu_003
+        + 1 * mu_020 * mu_300 * mu_120
+        + 1 * mu_020 * mu_210 * mu_030
+        + 1 * mu_020 * mu_030 ** 2
+        + 1 * mu_020 * mu_030 * mu_012
+        + 1 * mu_020 * mu_021 * mu_003
+        + 2 * mu_011 * mu_300 * mu_111
+        + 2 * mu_011 * mu_030 * mu_021
+        + 2 * mu_011 * mu_012 * mu_003
+        + 1 * mu_002 * mu_300 * mu_102
+        + 1 * mu_002 * mu_201 * mu_003
+        + 1 * mu_002 * mu_030 * mu_012
+        + 1 * mu_002 * mu_021 * mu_003
+        + 1 * mu_002 * mu_003 ** 2
+        + 1 * mu_200 * mu_210 ** 2
+        + 1 * mu_200 * mu_210 * mu_012
+        + 1 * mu_200 * mu_201 ** 2
+        + 1 * mu_200 * mu_201 * mu_021
+        + 4 * mu_110 * mu_210 * mu_120
+        + 2 * mu_110 * mu_210 * mu_102
+        + 2 * mu_110 * mu_201 * mu_111
+        + 2 * mu_110 * mu_120 * mu_012
+        + 2 * mu_110 * mu_111 * mu_021
+        + 2 * mu_101 * mu_210 * mu_111
+        + 2 * mu_101 * mu_201 * mu_120
+        + 4 * mu_101 * mu_201 * mu_102
+        + 2 * mu_101 * mu_111 * mu_012
+        + 2 * mu_101 * mu_102 * mu_021
+        + 1 * mu_020 * mu_201 * mu_021
+        + 1 * mu_020 * mu_120 ** 2
+        + 1 * mu_020 * mu_120 * mu_102
+        + 1 * mu_020 * mu_021 ** 2
+        + 2 * mu_011 * mu_210 * mu_021
+        + 2 * mu_011 * mu_201 * mu_012
+        + 2 * mu_011 * mu_120 * mu_111
+        + 2 * mu_011 * mu_111 * mu_102
+        + 4 * mu_011 * mu_021 * mu_012
+        + 1 * mu_002 * mu_210 * mu_012
+        + 1 * mu_002 * mu_120 * mu_102
+        + 1 * mu_002 * mu_102 ** 2
+        + 1 * mu_002 * mu_012 ** 2
+    )
+
+
+@nb.njit
+def phi_11(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_101,
+        mu_003,
+        mu_200,
+        mu_110,
+        mu_201,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_020,
+        mu_002,
+        mu_011,
+        mu_300,
+    ):
+    return (
+        1 * mu_200 * mu_300 ** 2
+        + 2 * mu_200 * mu_300 * mu_120
+        + 2 * mu_200 * mu_300 * mu_102
+        + 2 * mu_110 * mu_300 * mu_210
+        + 2 * mu_110 * mu_300 * mu_030
+        + 2 * mu_110 * mu_300 * mu_012
+        + 2 * mu_110 * mu_120 * mu_030
+        + 2 * mu_110 * mu_102 * mu_030
+        + 2 * mu_101 * mu_300 * mu_201
+        + 2 * mu_101 * mu_300 * mu_021
+        + 2 * mu_101 * mu_300 * mu_003
+        + 2 * mu_101 * mu_120 * mu_003
+        + 2 * mu_101 * mu_102 * mu_003
+        + 2 * mu_020 * mu_210 * mu_030
+        + 1 * mu_020 * mu_030 ** 2
+        + 2 * mu_020 * mu_030 * mu_012
+        + 2 * mu_011 * mu_210 * mu_003
+        + 2 * mu_011 * mu_201 * mu_030
+        + 2 * mu_011 * mu_030 * mu_021
+        + 2 * mu_011 * mu_030 * mu_003
+        + 2 * mu_011 * mu_012 * mu_003
+        + 2 * mu_002 * mu_201 * mu_003
+        + 2 * mu_002 * mu_021 * mu_003
+        + 1 * mu_002 * mu_003 ** 2
+        + 1 * mu_200 * mu_120 ** 2
+        + 2 * mu_200 * mu_120 * mu_102
+        + 1 * mu_200 * mu_102 ** 2
+        + 2 * mu_110 * mu_210 * mu_120
+        + 2 * mu_110 * mu_210 * mu_102
+        + 2 * mu_110 * mu_120 * mu_012
+        + 2 * mu_110 * mu_102 * mu_012
+        + 2 * mu_101 * mu_201 * mu_120
+        + 2 * mu_101 * mu_201 * mu_102
+        + 2 * mu_101 * mu_120 * mu_021
+        + 2 * mu_101 * mu_102 * mu_021
+        + 1 * mu_020 * mu_210 ** 2
+        + 2 * mu_020 * mu_210 * mu_012
+        + 1 * mu_020 * mu_012 ** 2
+        + 2 * mu_011 * mu_210 * mu_201
+        + 2 * mu_011 * mu_210 * mu_021
+        + 2 * mu_011 * mu_201 * mu_012
+        + 2 * mu_011 * mu_021 * mu_012
+        + 1 * mu_002 * mu_201 ** 2
+        + 2 * mu_002 * mu_201 * mu_021
+        + 1 * mu_002 * mu_021 ** 2
+    )
+
+
+@nb.njit
+def phi_12(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_101,
+        mu_003,
+        mu_200,
+        mu_110,
+        mu_201,
+        mu_111,
+        mu_102,
+        mu_210,
+        mu_020,
+        mu_012,
+        mu_002,
+        mu_011,
+        mu_300,
+    ):
+    return (
+        1 * mu_200 ** 2 * mu_300 ** 2
+        + 4 * mu_200 * mu_110 * mu_300 * mu_210
+        + 4 * mu_200 * mu_101 * mu_300 * mu_201
+        + 2 * mu_200 * mu_020 * mu_300 * mu_120
+        + 2 * mu_200 * mu_020 * mu_210 * mu_030
+        + 4 * mu_200 * mu_011 * mu_300 * mu_111
+        + 2 * mu_200 * mu_002 * mu_300 * mu_102
+        + 2 * mu_200 * mu_002 * mu_201 * mu_003
+        + 4 * mu_110 * mu_020 * mu_120 * mu_030
+        + 4 * mu_110 * mu_002 * mu_111 * mu_003
+        + 4 * mu_101 * mu_020 * mu_111 * mu_030
+        + 4 * mu_101 * mu_002 * mu_102 * mu_003
+        + 1 * mu_020 ** 2 * mu_030 ** 2
+        + 4 * mu_020 * mu_011 * mu_030 * mu_021
+        + 2 * mu_020 * mu_002 * mu_030 * mu_012
+        + 2 * mu_020 * mu_002 * mu_021 * mu_003
+        + 4 * mu_011 * mu_002 * mu_012 * mu_003
+        + 1 * mu_002 ** 2 * mu_003 ** 2
+        + 1 * mu_200 ** 2 * mu_210 ** 2
+        + 1 * mu_200 ** 2 * mu_201 ** 2
+        + 4 * mu_200 * mu_110 * mu_210 * mu_120
+        + 4 * mu_200 * mu_110 * mu_201 * mu_111
+        + 4 * mu_200 * mu_101 * mu_210 * mu_111
+        + 4 * mu_200 * mu_101 * mu_201 * mu_102
+        + 2 * mu_200 * mu_020 * mu_201 * mu_021
+        + 4 * mu_200 * mu_011 * mu_210 * mu_021
+        + 4 * mu_200 * mu_011 * mu_201 * mu_012
+        + 2 * mu_200 * mu_002 * mu_210 * mu_012
+        + 4 * mu_110 ** 2 * mu_210 ** 2
+        + 4 * mu_110 ** 2 * mu_120 ** 2
+        + 8 * mu_110 * mu_101 * mu_210 * mu_201
+        + 8 * mu_110 * mu_101 * mu_120 * mu_111
+        + 8 * mu_110 * mu_101 * mu_111 * mu_102
+        + 4 * mu_110 * mu_020 * mu_210 * mu_120
+        + 4 * mu_110 * mu_020 * mu_111 * mu_021
+        + 8 * mu_110 * mu_011 * mu_210 * mu_111
+        + 8 * mu_110 * mu_011 * mu_120 * mu_021
+        + 8 * mu_110 * mu_011 * mu_111 * mu_012
+        + 4 * mu_110 * mu_002 * mu_210 * mu_102
+        + 4 * mu_110 * mu_002 * mu_120 * mu_012
+        + 4 * mu_101 ** 2 * mu_201 ** 2
+        + 4 * mu_101 ** 2 * mu_102 ** 2
+        + 4 * mu_101 * mu_020 * mu_201 * mu_120
+        + 4 * mu_101 * mu_020 * mu_102 * mu_021
+        + 8 * mu_101 * mu_011 * mu_201 * mu_111
+        + 8 * mu_101 * mu_011 * mu_111 * mu_021
+        + 8 * mu_101 * mu_011 * mu_102 * mu_012
+        + 4 * mu_101 * mu_002 * mu_201 * mu_102
+        + 4 * mu_101 * mu_002 * mu_111 * mu_012
+        + 1 * mu_020 ** 2 * mu_120 ** 2
+        + 1 * mu_020 ** 2 * mu_021 ** 2
+        + 4 * mu_020 * mu_011 * mu_120 * mu_111
+        + 4 * mu_020 * mu_011 * mu_021 * mu_012
+        + 2 * mu_020 * mu_002 * mu_120 * mu_102
+        + 4 * mu_011 ** 2 * mu_021 ** 2
+        + 4 * mu_011 ** 2 * mu_012 ** 2
+        + 4 * mu_011 * mu_002 * mu_111 * mu_102
+        + 4 * mu_011 * mu_002 * mu_021 * mu_012
+        + 1 * mu_002 ** 2 * mu_102 ** 2
+        + 1 * mu_002 ** 2 * mu_012 ** 2
+        + 4 * mu_110 ** 2 * mu_111 ** 2
+        + 4 * mu_101 ** 2 * mu_111 ** 2
+        + 4 * mu_011 ** 2 * mu_111 ** 2
+    )
+
+
+@nb.njit
+def phi_13(
+        mu_030,
+        mu_021,
+        mu_120,
+        mu_101,
+        mu_003,
+        mu_200,
+        mu_110,
+        mu_201,
+        mu_111,
+        mu_102,
+        mu_210,
+        mu_012,
+        mu_020,
+        mu_002,
+        mu_011,
+        mu_300,
+    ):
+    return (
+        1 * mu_200 ** 2 * mu_300 ** 2
+        + 2 * mu_200 * mu_110 * mu_300 * mu_210
+        + 2 * mu_200 * mu_110 * mu_120 * mu_030
+        + 2 * mu_200 * mu_101 * mu_300 * mu_201
+        + 2 * mu_200 * mu_101 * mu_102 * mu_003
+        + 1 * mu_110 ** 2 * mu_300 ** 2
+        + 1 * mu_110 ** 2 * mu_030 ** 2
+        + 2 * mu_110 * mu_101 * mu_030 * mu_021
+        + 2 * mu_110 * mu_101 * mu_012 * mu_003
+        + 2 * mu_110 * mu_020 * mu_300 * mu_210
+        + 2 * mu_110 * mu_020 * mu_120 * mu_030
+        + 2 * mu_110 * mu_011 * mu_300 * mu_201
+        + 2 * mu_110 * mu_011 * mu_102 * mu_003
+        + 1 * mu_101 ** 2 * mu_300 ** 2
+        + 1 * mu_101 ** 2 * mu_003 ** 2
+        + 2 * mu_101 * mu_011 * mu_300 * mu_210
+        + 2 * mu_101 * mu_011 * mu_120 * mu_030
+        + 2 * mu_101 * mu_002 * mu_300 * mu_201
+        + 2 * mu_101 * mu_002 * mu_102 * mu_003
+        + 1 * mu_020 ** 2 * mu_030 ** 2
+        + 2 * mu_020 * mu_011 * mu_030 * mu_021
+        + 2 * mu_020 * mu_011 * mu_012 * mu_003
+        + 1 * mu_011 ** 2 * mu_030 ** 2
+        + 1 * mu_011 ** 2 * mu_003 ** 2
+        + 2 * mu_011 * mu_002 * mu_030 * mu_021
+        + 2 * mu_011 * mu_002 * mu_012 * mu_003
+        + 1 * mu_002 ** 2 * mu_003 ** 2
+        + 2 * mu_200 ** 2 * mu_210 ** 2
+        + 2 * mu_200 ** 2 * mu_201 ** 2
+        + 1 * mu_200 ** 2 * mu_120 ** 2
+        + 2 * mu_200 ** 2 * mu_111 ** 2
+        + 1 * mu_200 ** 2 * mu_102 ** 2
+        + 4 * mu_200 * mu_110 * mu_210 * mu_120
+        + 4 * mu_200 * mu_110 * mu_201 * mu_111
+        + 4 * mu_200 * mu_110 * mu_111 * mu_021
+        + 2 * mu_200 * mu_110 * mu_102 * mu_012
+        + 4 * mu_200 * mu_101 * mu_210 * mu_111
+        + 4 * mu_200 * mu_101 * mu_201 * mu_102
+        + 2 * mu_200 * mu_101 * mu_120 * mu_021
+        + 4 * mu_200 * mu_101 * mu_111 * mu_012
+        + 3 * mu_110 ** 2 * mu_210 ** 2
+        + 2 * mu_110 ** 2 * mu_201 ** 2
+        + 3 * mu_110 ** 2 * mu_120 ** 2
+        + 1 * mu_110 ** 2 * mu_102 ** 2
+        + 2 * mu_110 ** 2 * mu_021 ** 2
+        + 1 * mu_110 ** 2 * mu_012 ** 2
+        + 2 * mu_110 * mu_101 * mu_210 * mu_201
+        + 4 * mu_110 * mu_101 * mu_120 * mu_111
+        + 4 * mu_110 * mu_101 * mu_111 * mu_102
+        + 4 * mu_110 * mu_101 * mu_021 * mu_012
+        + 4 * mu_110 * mu_020 * mu_210 * mu_120
+        + 4 * mu_110 * mu_020 * mu_201 * mu_111
+        + 4 * mu_110 * mu_020 * mu_111 * mu_021
+        + 2 * mu_110 * mu_020 * mu_102 * mu_012
+        + 4 * mu_110 * mu_011 * mu_210 * mu_111
+        + 4 * mu_110 * mu_011 * mu_201 * mu_102
+        + 2 * mu_110 * mu_011 * mu_120 * mu_021
+        + 4 * mu_110 * mu_011 * mu_111 * mu_012
+        + 2 * mu_101 ** 2 * mu_210 ** 2
+        + 3 * mu_101 ** 2 * mu_201 ** 2
+        + 1 * mu_101 ** 2 * mu_120 ** 2
+        + 3 * mu_101 ** 2 * mu_102 ** 2
+        + 1 * mu_101 ** 2 * mu_021 ** 2
+        + 2 * mu_101 ** 2 * mu_012 ** 2
+        + 4 * mu_101 * mu_011 * mu_210 * mu_120
+        + 4 * mu_101 * mu_011 * mu_201 * mu_111
+        + 4 * mu_101 * mu_011 * mu_111 * mu_021
+        + 2 * mu_101 * mu_011 * mu_102 * mu_012
+        + 4 * mu_101 * mu_002 * mu_210 * mu_111
+        + 4 * mu_101 * mu_002 * mu_201 * mu_102
+        + 2 * mu_101 * mu_002 * mu_120 * mu_021
+        + 4 * mu_101 * mu_002 * mu_111 * mu_012
+        + 1 * mu_020 ** 2 * mu_210 ** 2
+        + 2 * mu_020 ** 2 * mu_120 ** 2
+        + 2 * mu_020 ** 2 * mu_111 ** 2
+        + 2 * mu_020 ** 2 * mu_021 ** 2
+        + 1 * mu_020 ** 2 * mu_012 ** 2
+        + 2 * mu_020 * mu_011 * mu_210 * mu_201
+        + 4 * mu_020 * mu_011 * mu_120 * mu_111
+        + 4 * mu_020 * mu_011 * mu_111 * mu_102
+        + 4 * mu_020 * mu_011 * mu_021 * mu_012
+        + 1 * mu_011 ** 2 * mu_210 ** 2
+        + 1 * mu_011 ** 2 * mu_201 ** 2
+        + 2 * mu_011 ** 2 * mu_120 ** 2
+        + 2 * mu_011 ** 2 * mu_102 ** 2
+        + 3 * mu_011 ** 2 * mu_021 ** 2
+        + 3 * mu_011 ** 2 * mu_012 ** 2
+        + 2 * mu_011 * mu_002 * mu_210 * mu_201
+        + 4 * mu_011 * mu_002 * mu_120 * mu_111
+        + 4 * mu_011 * mu_002 * mu_111 * mu_102
+        + 4 * mu_011 * mu_002 * mu_021 * mu_012
+        + 1 * mu_002 ** 2 * mu_201 ** 2
+        + 2 * mu_002 ** 2 * mu_111 ** 2
+        + 2 * mu_002 ** 2 * mu_102 ** 2
+        + 1 * mu_002 ** 2 * mu_021 ** 2
+        + 2 * mu_002 ** 2 * mu_012 ** 2
+        + 4 * mu_110 ** 2 * mu_111 ** 2
+        + 4 * mu_101 ** 2 * mu_111 ** 2
+        + 4 * mu_011 ** 2 * mu_111 ** 2
+    )
+
+
+class MomentType(Enum):
+    """
+    Different rotation invariant moments (order 2 and order 3)
+    Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
+    """
+    O_3 = MomentInfo(O_3, [(2, 0, 0), (0, 2, 0), (0, 0, 2)])
+    O_4 = MomentInfo(
+        O_4, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
+    )
+    O_5 = MomentInfo(
+        O_5, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
+    )
+    F = MomentInfo(
+        F,
+        [
+            (2, 0, 1),
+            (0, 2, 1),
+            (2, 1, 0),
+            (3, 0, 0),
+            (1, 1, 1),
+            (0, 1, 2),
+            (0, 0, 3),
+            (0, 3, 0),
+            (1, 0, 2),
+            (1, 2, 0),
+        ],
+    )
+    phi_2 = MomentInfo(
+        phi_2, [(0, 2, 0), (0, 1, 1), (1, 1, 0), (2, 0, 0), (0, 0, 2), (1, 0, 1)]
+    )
+    phi_3 = MomentInfo(
+        phi_3, [(0, 2, 0), (0, 1, 1), (1, 1, 0), (2, 0, 0), (0, 0, 2), (1, 0, 1)]
+    )
+    phi_4 = MomentInfo(
+        phi_4,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (0, 0, 3),
+            (1, 1, 1),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (3, 0, 0),
+        ],
+    )
+    phi_5 = MomentInfo(
+        phi_5,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (0, 0, 3),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (3, 0, 0),
+        ],
+    )
+    phi_6 = MomentInfo(
+        phi_6,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (0, 0, 3),
+            (1, 1, 1),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (3, 0, 0),
+        ],
+    )
+    phi_7 = MomentInfo(
+        phi_7,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (0, 0, 3),
+            (1, 1, 1),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (3, 0, 0),
+        ],
+    )
+    phi_8 = MomentInfo(
+        phi_8,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (0, 0, 3),
+            (1, 1, 1),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (3, 0, 0),
+        ],
+    )
+    phi_9 = MomentInfo(
+        phi_9,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (1, 0, 1),
+            (0, 0, 3),
+            (2, 0, 0),
+            (1, 1, 0),
+            (2, 0, 1),
+            (1, 1, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 2, 0),
+            (0, 1, 2),
+            (0, 0, 2),
+            (0, 1, 1),
+            (3, 0, 0),
+        ],
+    )
+    phi_10 = MomentInfo(
+        phi_10,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (1, 0, 1),
+            (0, 0, 3),
+            (2, 0, 0),
+            (1, 1, 0),
+            (2, 0, 1),
+            (1, 1, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 2, 0),
+            (0, 1, 2),
+            (0, 0, 2),
+            (0, 1, 1),
+            (3, 0, 0),
+        ],
+    )
+    phi_11 = MomentInfo(
+        phi_11,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (1, 0, 1),
+            (0, 0, 3),
+            (2, 0, 0),
+            (1, 1, 0),
+            (2, 0, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (0, 2, 0),
+            (0, 0, 2),
+            (0, 1, 1),
+            (3, 0, 0),
+        ],
+    )
+    phi_12 = MomentInfo(
+        phi_12,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (1, 0, 1),
+            (0, 0, 3),
+            (2, 0, 0),
+            (1, 1, 0),
+            (2, 0, 1),
+            (1, 1, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 2, 0),
+            (0, 1, 2),
+            (0, 0, 2),
+            (0, 1, 1),
+            (3, 0, 0),
+        ],
+    )
+    phi_13 = MomentInfo(
+        phi_13,
+        [
+            (0, 3, 0),
+            (0, 2, 1),
+            (1, 2, 0),
+            (1, 0, 1),
+            (0, 0, 3),
+            (2, 0, 0),
+            (1, 1, 0),
+            (2, 0, 1),
+            (1, 1, 1),
+            (1, 0, 2),
+            (2, 1, 0),
+            (0, 1, 2),
+            (0, 2, 0),
+            (0, 0, 2),
+            (0, 1, 1),
+            (3, 0, 0),
+        ],
+    )
+
+    def get_moments_from_coordinates(self, mus: ty.List[float]):
+        return self.value.moment_function(*mus)
 
 
 def alpha(index, coords, centroid):
@@ -381,6 +1454,3 @@ def gamma(index, coords, centroid):
         return mu_220 - mu_202 + mu_040 - mu_004
     else:
         raise IndexError
-
-# def ci(coords, centroid):
-# part1 = mu_110 * (mu_022 * (3 * gamma(2, coords, centroid) - 2 * gamma(3, coords, centroid)))
