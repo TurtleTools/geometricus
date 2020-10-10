@@ -1,7 +1,179 @@
 import numba as nb
 import numpy as np
+from dataclasses import dataclass
+import typing as ty
+import types
+from enum import Enum
+
 
 NUM_MOMENTS = 4
+
+
+class MomentName(Enum):
+    j1 = 1
+    j2 = 2
+    j3 = 3
+    j4 = 4
+    j5 = 5
+    custom1 = 6
+    custom2 = 7
+
+
+@nb.njit
+def j1(args):
+    assert len(args) == 4
+    mu_000, mu_200, mu_020, mu_002 = args
+    return mu_200 + mu_020 + mu_002 / mu_000
+
+
+@nb.njit
+def j3(args):
+    mu_200, mu_020, mu_002, mu_110, mu_101, mu_011, mu_000 = args
+    return (mu_200 * mu_020 * mu_002
+            + 2 * mu_110 * mu_101 * mu_011
+            - mu_002 * mu_110 ** 2
+            - mu_020 * mu_101 ** 2
+            - mu_200 * mu_011 ** 2) / mu_000 ** 3
+
+
+@nb.njit
+def j2(args):
+    mu_200, mu_020, mu_002, mu_110, mu_101, mu_011, mu_000 = args
+    return (mu_200 * mu_020
+            + mu_200 * mu_002
+            + mu_020 * mu_002
+            - mu_110 ** 2
+            - mu_101 ** 2
+            - mu_011 ** 2) / mu_000 ** 2
+
+
+@nb.njit
+def j4(args):
+    mu_201, mu_021, mu_210, mu_000, mu_300, mu_111, mu_012, mu_003, mu_030, mu_102, mu_120 = args
+    return (mu_003 ** 2
+            + 6 * mu_012 ** 2
+            + 6 * mu_021 ** 2
+            + mu_030 ** 2
+            + 6 * mu_102 ** 2
+            + 15 * mu_111 ** 2
+            - 3 * mu_102 * mu_120
+            + 6 * mu_120 ** 2
+            - 3 * mu_021 * mu_201
+            + 6 * mu_201 ** 2
+            - 3 * mu_003 * (mu_021 + mu_201)
+            - 3 * mu_030 * mu_210
+            + 6 * mu_210 ** 2
+            - 3 * mu_012 * (mu_030 + mu_210)
+            - 3 * mu_102 * mu_300
+            - 3 * mu_120 * mu_300
+            + mu_300 ** 2) / mu_000 ** 2
+
+
+@nb.njit
+def j5(args):
+    mu_020, mu_000, mu_011, mu_110, mu_200, mu_002, mu_101 = args
+    return (mu_200 ** 3
+            + 3 * mu_200 * mu_110 ** 2
+            + 3 * mu_200 * mu_101 ** 2
+            + 3 * mu_110 ** 2 * mu_020
+            + 3 * mu_101 ** 2 * mu_002
+            + mu_020 ** 3
+            + 3 * mu_020 * mu_011 ** 2
+            + 3 * mu_011 ** 2 * mu_002
+            + mu_002 ** 3
+            + 6 * mu_110 * mu_101 * mu_011
+
+            ) / mu_000 ** 5
+
+
+@dataclass
+class MomentType:
+    moment_name: MomentName
+    moment_formula: types.FunctionType
+    ordered_moment_mus: ty.List[ty.Tuple[int, int, int]]
+
+    @classmethod
+    def from_formula(cls, name: MomentName, f: types.FunctionType, ordered_mus: ty.List[ty.Tuple[int, int, int]]):
+        return cls(name, f, ordered_mus)
+
+    def get_moments_for_coordinates(self, mus: ty.List[np.ndarray]):
+        return self.moment_formula(mus)
+
+
+MOMENT_MUS = {
+    MomentName.j1:
+        [
+            (0, 0, 0),
+            (2, 0, 0),
+            (0, 2, 0),
+            (0, 0, 2)
+        ],
+    MomentName.j2:
+        [
+            (2, 0, 0),
+            (0, 2, 0),
+            (0, 0, 2),
+            (1, 1, 0),
+            (1, 0, 1),
+            (0, 1, 1),
+            (0, 0, 0)
+        ],
+    MomentName.j3:
+        [
+            (2, 0, 0),
+            (0, 2, 0),
+            (0, 0, 2),
+            (1, 1, 0),
+            (1, 0, 1),
+            (0, 1, 1),
+            (0, 0, 0)
+        ],
+    MomentName.j4:
+        [
+            (2, 0, 1),
+            (0, 2, 1),
+            (2, 1, 0),
+            (0, 0, 0),
+            (3, 0, 0),
+            (1, 1, 1),
+            (0, 1, 2),
+            (0, 0, 3),
+            (0, 3, 0),
+            (1, 0, 2),
+            (1, 2, 0)
+        ],
+    MomentName.j5:
+        [
+            (0, 2, 0),
+            (0, 0, 0),
+            (0, 1, 1),
+            (1, 1, 0),
+            (2, 0, 0),
+            (0, 0, 2),
+            (1, 0, 1)
+        ]
+}
+
+PREMADE_MOMENTS = {
+    MomentName.j1: MomentType.from_formula(MomentName.j1, j1, MOMENT_MUS[MomentName.j1]),
+    MomentName.j2: MomentType.from_formula(MomentName.j2, j2, MOMENT_MUS[MomentName.j2]),
+    MomentName.j3: MomentType.from_formula(MomentName.j3, j3, MOMENT_MUS[MomentName.j3]),
+    MomentName.j4: MomentType.from_formula(MomentName.j4, j4, MOMENT_MUS[MomentName.j4]),
+    MomentName.j5: MomentType.from_formula(MomentName.j5, j5, MOMENT_MUS[MomentName.j5])
+}
+
+
+def from_coordinates(coordinates: np.ndarray, moment_types: ty.List[MomentType]) -> ty.Dict[MomentName, np.ndarray]:
+    all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set()
+    for moment_type in moment_types:
+        for mu_type in moment_type.ordered_moment_mus:
+            all_moment_mu_types.add(mu_type)
+    centroid = nb_mean_axis_0(coordinates)
+    mus = {(x, y, z): mu(float(x), float(y), float(z), coordinates, centroid) for (x, y, z) in all_moment_mu_types}
+    moments: ty.Dict[MomentName, np.ndarray] = {x.moment_name: x.get_moments_for_coordinates([mus[mu] for _mu in
+                                                                                              x.ordered_moment_mus])
+                                                for x in moment_types}
+    return moments
 
 
 @nb.njit
@@ -54,52 +226,52 @@ def get_second_order_moments(coords: np.ndarray):
     mu_300 = mu(3.0, 0.0, 0.0, coords, centroid)
 
     j2 = (
-        mu_200 * mu_020
-        + mu_200 * mu_002
-        + mu_020 * mu_002
-        - mu_110 ** 2
-        - mu_101 ** 2
-        - mu_011 ** 2
-    ) / mu_000 ** 2
+                 mu_200 * mu_020
+                 + mu_200 * mu_002
+                 + mu_020 * mu_002
+                 - mu_110 ** 2
+                 - mu_101 ** 2
+                 - mu_011 ** 2
+         ) / mu_000 ** 2
     j3 = (
-        mu_200 * mu_020 * mu_002
-        + 2 * mu_110 * mu_101 * mu_011
-        - mu_002 * mu_110 ** 2
-        - mu_020 * mu_101 ** 2
-        - mu_200 * mu_011 ** 2
-    ) / mu_000 ** 3
+                 mu_200 * mu_020 * mu_002
+                 + 2 * mu_110 * mu_101 * mu_011
+                 - mu_002 * mu_110 ** 2
+                 - mu_020 * mu_101 ** 2
+                 - mu_200 * mu_011 ** 2
+         ) / mu_000 ** 3
     j4 = (
-        mu_003 ** 2
-        + 6 * mu_012 ** 2
-        + 6 * mu_021 ** 2
-        + mu_030 ** 2
-        + 6 * mu_102 ** 2
-        + 15 * mu_111 ** 2
-        - 3 * mu_102 * mu_120
-        + 6 * mu_120 ** 2
-        - 3 * mu_021 * mu_201
-        + 6 * mu_201 ** 2
-        - 3 * mu_003 * (mu_021 + mu_201)
-        - 3 * mu_030 * mu_210
-        + 6 * mu_210 ** 2
-        - 3 * mu_012 * (mu_030 + mu_210)
-        - 3 * mu_102 * mu_300
-        - 3 * mu_120 * mu_300
-        + mu_300 ** 2
-    ) / mu_000 ** 2
+                 mu_003 ** 2
+                 + 6 * mu_012 ** 2
+                 + 6 * mu_021 ** 2
+                 + mu_030 ** 2
+                 + 6 * mu_102 ** 2
+                 + 15 * mu_111 ** 2
+                 - 3 * mu_102 * mu_120
+                 + 6 * mu_120 ** 2
+                 - 3 * mu_021 * mu_201
+                 + 6 * mu_201 ** 2
+                 - 3 * mu_003 * (mu_021 + mu_201)
+                 - 3 * mu_030 * mu_210
+                 + 6 * mu_210 ** 2
+                 - 3 * mu_012 * (mu_030 + mu_210)
+                 - 3 * mu_102 * mu_300
+                 - 3 * mu_120 * mu_300
+                 + mu_300 ** 2
+         ) / mu_000 ** 2
 
     j5 = (
-        mu_200 ** 3
-        + 3 * mu_200 * mu_110 ** 2
-        + 3 * mu_200 * mu_101 ** 2
-        + 3 * mu_110 ** 2 * mu_020
-        + 3 * mu_101 ** 2 * mu_002
-        + mu_020 ** 3
-        + 3 * mu_020 * mu_011 ** 2
-        + 3 * mu_011 ** 2 * mu_002
-        + mu_002 ** 3
-        + 6 * mu_110 * mu_101 * mu_011
-    ) / mu_000 ** 5
+                 mu_200 ** 3
+                 + 3 * mu_200 * mu_110 ** 2
+                 + 3 * mu_200 * mu_101 ** 2
+                 + 3 * mu_110 ** 2 * mu_020
+                 + 3 * mu_101 ** 2 * mu_002
+                 + mu_020 ** 3
+                 + 3 * mu_020 * mu_011 ** 2
+                 + 3 * mu_011 ** 2 * mu_002
+                 + mu_002 ** 3
+                 + 6 * mu_110 * mu_101 * mu_011
+         ) / mu_000 ** 5
     return j1, j2, j3, j5
 
 
@@ -211,4 +383,4 @@ def gamma(index, coords, centroid):
         raise IndexError
 
 # def ci(coords, centroid):
-    # part1 = mu_110 * (mu_022 * (3 * gamma(2, coords, centroid) - 2 * gamma(3, coords, centroid)))
+# part1 = mu_110 * (mu_022 * (3 * gamma(2, coords, centroid) - 2 * gamma(3, coords, centroid)))
