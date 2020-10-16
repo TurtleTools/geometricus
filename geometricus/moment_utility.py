@@ -1055,15 +1055,32 @@ def phi_13(
 class MomentType(Enum):
     """
     Different rotation invariant moments (order 2 and order 3)
+
     Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
+
+    O_3, O_4, and O_5 are second order moments from [1] and F is a third order moment from [2].
+    These four moments are used in the original Geometricus manuscript [3].
+
+    phi_{2-13} are independent third order moments from [4].
+
+
+    [1] Mamistvalov, Alexander G. "N-dimensional moment invariants and conceptual mathematical theory of recognition n-dimensional solids."
+    IEEE Transactions on pattern analysis and machine intelligence 20.8 (1998): 819-831.
+
+    [2] Flusser, Jan, Jirí Boldys, and Barbara Zitová. "Moment forms invariant to rotation and blur in arbitrary number of dimensions."
+    IEEE Transactions on Pattern Analysis and Machine Intelligence 25.2 (2003): 234-246.
+
+    [3] Durairaj, Janani, et al. "Geometricus Represents Protein Structures as Shape-mers Derived from Moment Invariants." bioRxiv (2020).
+
+    [4] Flusser, Jan, Tomas Suk, and Barbara Zitová. 2D and 3D image analysis by moments. John Wiley & Sons, 2016.
     """
 
     O_3 = MomentInfo(O_3, [(2, 0, 0), (0, 2, 0), (0, 0, 2)])
     O_4 = MomentInfo(
-        O_4, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
+        O_4, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)]
     )
     O_5 = MomentInfo(
-        O_5, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
+        O_5, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)]
     )
     F = MomentInfo(
         F,
@@ -1267,114 +1284,6 @@ class MomentType(Enum):
 
     def get_moments_from_coordinates(self, mus: ty.List[float]):
         return self.value.moment_function(*mus)
-
-
-def alpha(index, coords, centroid):
-    mu_200 = mu(2.0, 0.0, 0.0, coords, centroid)
-    mu_020 = mu(0.0, 2.0, 0.0, coords, centroid)
-    mu_002 = mu(0.0, 0.0, 2.0, coords, centroid)
-
-    if index == 1:
-        return mu_002 - mu_020
-    elif index == 2:
-        return mu_020 - mu_200
-    else:
-        return mu_200 - mu_002
-
-
-def beta(index, coords, centroid):
-    mu_003 = mu(0.0, 0.0, 3.0, coords, centroid)
-    mu_012 = mu(0.0, 1.0, 2.0, coords, centroid)
-    mu_021 = mu(0.0, 2.0, 1.0, coords, centroid)
-    mu_030 = mu(0.0, 3.0, 0.0, coords, centroid)
-    mu_102 = mu(1.0, 0.0, 2.0, coords, centroid)
-    mu_111 = mu(1.0, 1.0, 1.0, coords, centroid)
-    mu_210 = mu(2.0, 1.0, 0.0, coords, centroid)
-    mu_201 = mu(2.0, 0.0, 1.0, coords, centroid)
-    mu_120 = mu(1.0, 2.0, 0.0, coords, centroid)
-    mu_300 = mu(3.0, 0.0, 0.0, coords, centroid)
-
-    if index == 1:
-        return mu_021 - mu_201
-    elif index == 2:
-        return mu_102 - mu_120
-    elif index == 3:
-        return mu_210 - mu_012
-    elif index == 4:
-        return mu_003 - mu_201 - 2 * mu_021
-    elif index == 5:
-        return mu_030 - mu_012 - 2 * mu_210
-    elif index == 6:
-        return mu_300 - mu_120 - 2 * mu_102
-    elif index == 7:
-        return mu_021 - mu_003 + 2 * mu_201
-    elif index == 8:
-        return mu_102 - mu_300 + 2 * mu_120
-    elif index == 9:
-        return mu_210 - mu_030 + 2 * mu_012
-    elif index == 10:
-        return mu_021 + mu_201 - 3 * mu_003
-    elif index == 11:
-        return mu_012 + mu_210 - 3 * mu_030
-    elif index == 12:
-        return mu_102 + mu_120 - 3 * mu_300
-    elif index == 13:
-        return mu_021 + mu_003 + 3 * mu_201
-    elif index == 14:
-        return mu_102 + mu_300 + 3 * mu_120
-    elif index == 15:
-        return mu_210 + mu_030 + 3 * mu_012
-    elif index == 16:
-        return mu_012 + mu_030 + 3 * mu_210
-    elif index == 17:
-        return mu_201 + mu_003 + 3 * mu_021
-    elif index == 18:
-        return mu_120 + mu_300 + 3 * mu_102
-    else:
-        raise IndexError
-
-
-def gamma(index, coords, centroid):
-    mu_022 = mu(0, 2, 2, coords, centroid)
-    mu_202 = mu(2, 0, 2, coords, centroid)
-    mu_220 = mu(2, 2, 0, coords, centroid)
-
-    mu_400 = mu(4, 0, 0, coords, centroid)
-    mu_040 = mu(0, 4, 0, coords, centroid)
-    mu_004 = mu(0, 0, 4, coords, centroid)
-
-    mu_112 = mu(1, 1, 2, coords, centroid)
-    mu_121 = mu(1, 2, 1, coords, centroid)
-    mu_211 = mu(2, 1, 1, coords, centroid)
-
-    mu_130 = mu(1, 3, 0, coords, centroid)
-    mu_103 = mu(1, 0, 3, coords, centroid)
-    mu_013 = mu(0, 1, 3, coords, centroid)
-
-    mu_310 = mu(3, 1, 0, coords, centroid)
-    mu_301 = mu(3, 0, 1, coords, centroid)
-    mu_031 = mu(0, 3, 1, coords, centroid)
-
-    if index == 1:
-        return mu_022 - mu_400
-    elif index == 2:
-        return mu_202 - mu_040
-    elif index == 3:
-        return mu_220 - mu_004
-    elif index == 4:
-        return mu_112 + mu_130 + mu_310
-    elif index == 5:
-        return mu_121 + mu_103 + mu_301
-    elif index == 6:
-        return mu_211 + mu_013 + mu_031
-    elif index == 7:
-        return mu_022 - mu_220 + mu_004 - mu_400
-    elif index == 8:
-        return mu_202 - mu_022 + mu_400 - mu_040
-    elif index == 9:
-        return mu_220 - mu_202 + mu_040 - mu_004
-    else:
-        raise IndexError
 
 
 def get_moments_from_coordinates(

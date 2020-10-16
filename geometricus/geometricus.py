@@ -27,7 +27,7 @@ class SplitType(IntEnum):
     Different approaches to structural fragmentation
     """
 
-    KMER = (1,)
+    KMER = 1
     """each residue is taken as the center of a kmer of length split_size, ends are included but shorter"""
     RADIUS = 2
     """overlapping spheres of radius split_size"""
@@ -477,10 +477,11 @@ class MomentInvariants(Structure):
         """
         Construct MomentInvariants instance from a ProDy AtomGroup object.
         Selects according to `selection` string, (default = alpha carbons)
+        `moment_types` determines which moments are calculated.
 
         Example
         --------
-        >>> invariants = MomentInvariants.from_prody_atomgroup(atom_group, split_type=SplitType.RADIUS)
+        >>> invariants = MomentInvariants.from_prody_atomgroup(atom_group, split_type=SplitType.RADIUS, moment_types=[MomentType.O_3, MomentType.F, MomentType.phi_7, MomentType.phi_12])
         """
         protein: pd.AtomGroup = protein.select("protein").select(selection)
         coordinates: np.ndarray = protein.getCoords()
