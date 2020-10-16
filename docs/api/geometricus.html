@@ -274,7 +274,7 @@ if None, uses all shapemers</p></li>
 
 <dl class="class">
 <dt id="geometricus.geometricus.MomentInvariants">
-<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">MomentInvariants</code><span class="sig-paren">(</span><em class="sig-param">name: ProteinKey, length: int, coordinates: np.ndarray, residue_splits: List[List[int]], original_indices: np.ndarray, sequence: str = typing.Union[str, NoneType], split_type: SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50, split_indices: Union[List, None] = None, moments: np.ndarray = None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.geometricus.</code><code class="sig-name descname">MomentInvariants</code><span class="sig-paren">(</span><em class="sig-param">name: ProteinKey, length: int, coordinates: np.ndarray, residue_splits: List[List[int]], original_indices: np.ndarray, sequence: str = typing.Union[str, NoneType], split_type: SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50, split_indices: Union[List, None] = None, moments: np.ndarray = None, moment_types: List[MomentType] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#geometricus.protein_utility.Structure" title="geometricus.protein_utility.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">geometricus.protein_utility.Structure</span></code></a></p>
 <p>Class for storing moment invariants for a protein.
 Use <cite>from_*</cite> constructors to make an instance of this.
@@ -330,27 +330,34 @@ or just indices in a range if coordinates are given directly</p>
 <dd><p>Filled with moment invariant values for each structural fragment</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="geometricus.geometricus.MomentInvariants.moment_types">
+<code class="sig-name descname">moment_types</code><em class="property">: List[MomentType]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.moment_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Names of moments used</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_coordinates">
-<em class="property">classmethod </em><code class="sig-name descname">from_coordinates</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], coordinates: numpy.ndarray, sequence: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_coordinates" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_coordinates</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], coordinates: numpy.ndarray, sequence: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, upsample_rate: int = 50, moment_types: List[geometricus.moment_utility.MomentType] = (&lt;MomentType.O_3: MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2)])&gt;, &lt;MomentType.O_4: MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.O_5: MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.F: MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;), mu_arguments=[(2, 0, 1), (0, 2, 1), (2, 1, 0), (3, 0, 0), (1, 1, 1), (0, 1, 2), (0, 0, 3), (0, 3, 0), (1, 0, 2), (1, 2, 0)])&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a set of coordinates.
 Assumes one coordinate per residue.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_prody_atomgroup">
-<em class="property">classmethod </em><code class="sig-name descname">from_prody_atomgroup</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], protein: prody.atomic.atomgroup.AtomGroup, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_prody_atomgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_prody_atomgroup" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_prody_atomgroup</code><span class="sig-paren">(</span><em class="sig-param">name: Union[str, Tuple[str, str]], protein: prody.atomic.atomgroup.AtomGroup, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50, moment_types: List[geometricus.moment_utility.MomentType] = (&lt;MomentType.O_3: MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2)])&gt;, &lt;MomentType.O_4: MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.O_5: MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.F: MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;), mu_arguments=[(2, 0, 1), (0, 2, 1), (2, 1, 0), (3, 0, 0), (1, 1, 1), (0, 1, 2), (0, 0, 3), (0, 3, 0), (1, 0, 2), (1, 2, 0)])&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_prody_atomgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_prody_atomgroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a ProDy AtomGroup object.
-Selects according to <cite>selection</cite> string, (default = alpha carbons)</p>
+Selects according to <cite>selection</cite> string, (default = alpha carbons)
+<cite>moment_types</cite> determines which moments are calculated.</p>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">invariants</span> <span class="o">=</span> <span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">atom_group</span><span class="p">,</span> <span class="n">split_type</span><span class="o">=</span><span class="n">SplitType</span><span class="o">.</span><span class="n">RADIUS</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">invariants</span> <span class="o">=</span> <span class="n">MomentInvariants</span><span class="o">.</span><span class="n">from_prody_atomgroup</span><span class="p">(</span><span class="n">atom_group</span><span class="p">,</span> <span class="n">split_type</span><span class="o">=</span><span class="n">SplitType</span><span class="o">.</span><span class="n">RADIUS</span><span class="p">,</span> <span class="n">moment_types</span><span class="o">=</span><span class="p">[</span><span class="n">MomentType</span><span class="o">.</span><span class="n">O_3</span><span class="p">,</span> <span class="n">MomentType</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">MomentType</span><span class="o">.</span><span class="n">phi_7</span><span class="p">,</span> <span class="n">MomentType</span><span class="o">.</span><span class="n">phi_12</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_pdb_file">
-<em class="property">classmethod </em><code class="sig-name descname">from_pdb_file</code><span class="sig-paren">(</span><em class="sig-param">pdb_file: Union[str, pathlib.Path], chain: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_pdb_file</code><span class="sig-paren">(</span><em class="sig-param">pdb_file: Union[str, pathlib.Path], chain: Optional[str] = None, split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;, split_size: int = 16, selection: str = 'calpha', upsample_rate: int = 50, moment_types: List[geometricus.moment_utility.MomentType] = (&lt;MomentType.O_3: MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2)])&gt;, &lt;MomentType.O_4: MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.O_5: MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])&gt;, &lt;MomentType.F: MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;), mu_arguments=[(2, 0, 1), (0, 2, 1), (2, 1, 0), (3, 0, 0), (1, 1, 1), (0, 1, 2), (0, 0, 3), (0, 3, 0), (1, 0, 2), (1, 2, 0)])&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a PDB file and optional chain.
 Selects according to <cite>selection</cite> string, (default = alpha carbons)</p>
 <p class="rubric">Example</p>
@@ -361,7 +368,7 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 
 <dl class="method">
 <dt id="geometricus.geometricus.MomentInvariants.from_pdb_id">
-<em class="property">classmethod </em><code class="sig-name descname">from_pdb_id</code><span class="sig-paren">(</span><em class="sig-param">pdb_name: str</em>, <em class="sig-param">chain: Optional[str] = None</em>, <em class="sig-param">split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;</em>, <em class="sig-param">split_size: int = 16</em>, <em class="sig-param">selection: str = 'calpha'</em>, <em class="sig-param">upsample_rate: int = 50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_id" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_pdb_id</code><span class="sig-paren">(</span><em class="sig-param">pdb_name: str</em>, <em class="sig-param">chain: Optional[str] = None</em>, <em class="sig-param">split_type: geometricus.geometricus.SplitType = &lt;SplitType.KMER: 1&gt;</em>, <em class="sig-param">split_size: int = 16</em>, <em class="sig-param">selection: str = 'calpha'</em>, <em class="sig-param">upsample_rate: int = 50</em>, <em class="sig-param">moment_types: List[geometricus.moment_utility.MomentType] = (&lt;MomentType.O_3: MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)])&gt;</em>, <em class="sig-param">&lt;MomentType.O_4: MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">1)])&gt;</em>, <em class="sig-param">&lt;MomentType.O_5: MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">1)])&gt;</em>, <em class="sig-param">&lt;MomentType.F: MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">1)</em>, <em class="sig-param">(2</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(3</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">2)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">3)</em>, <em class="sig-param">(0</em>, <em class="sig-param">3</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">2</em>, <em class="sig-param">0)])&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/geometricus.html#MomentInvariants.from_pdb_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.geometricus.MomentInvariants.from_pdb_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
 Selects according to <cite>selection</cite> string, (default = alpha carbons)</p>
 <p class="rubric">Example</p>
@@ -399,6 +406,22 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 <dd><p>Same as np.mean(array, axis=0) but njitted</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="geometricus.moment_utility.MomentInfo">
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">MomentInfo</code><span class="sig-paren">(</span><em class="sig-param">moment_function: Callable[[int, int, int, numpy.ndarray, numpy.ndarray], float], mu_arguments: List[Tuple[int, int, int]]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/moment_utility.html#MomentInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.MomentInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentInfo.moment_function">
+<code class="sig-name descname">moment_function</code><em class="property">: ty.Callable[[int, int, int, np.ndarray, np.ndarray], float]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.moment_utility.MomentInfo.moment_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentInfo.mu_arguments">
+<code class="sig-name descname">mu_arguments</code><em class="property">: ty.List[ty.Tuple[int, int, int]]</em><em class="property"> = None</em><a class="headerlink" href="#geometricus.moment_utility.MomentInfo.mu_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="attribute">
 <dt id="geometricus.moment_utility.mu">
 <code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">mu</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#mu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.mu" title="Permalink to this definition">¶</a></dt>
@@ -406,9 +429,221 @@ Selects according to <cite>selection</cite> string, (default = alpha carbons)</p
 </dd></dl>
 
 <dl class="attribute">
-<dt id="geometricus.moment_utility.get_second_order_moments">
-<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">get_second_order_moments</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#get_second_order_moments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.get_second_order_moments" title="Permalink to this definition">¶</a></dt>
+<dt id="geometricus.moment_utility.O_3">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">O_3</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#O_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.O_3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.O_4">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">O_4</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#O_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.O_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.O_5">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">O_5</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#O_5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.O_5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.F">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">F</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#F"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="geometricus.moment_utility.make_formula">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">make_formula</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">formula_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/moment_utility.html#make_formula"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.make_formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate code from one of the formula in Appendix 4A of “2D and 3D Image Analysis by Moments”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – moment_name</p></li>
+<li><p><strong>formula_string</strong> – formula copy-pasted from PDF</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_2">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_2</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_3">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_3</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_4">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_4</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_5">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_5</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_6">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_6</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_7">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_7</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_8">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_8</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_9">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_9</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_9" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_10">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_10</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_11">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_11</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_12">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_12</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.phi_13">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">phi_13</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#phi_13"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.phi_13" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="geometricus.moment_utility.MomentType">
+<em class="property">class </em><code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">MomentType</code><a class="reference internal" href="../_modules/geometricus/moment_utility.html#MomentType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.MomentType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Different rotation invariant moments (order 2 and order 3)</p>
+<p>Choose from [‘O_3’, ‘O_4’, ‘O_5’, ‘F’, ‘phi_2’, ‘phi_3’, ‘phi_4’, ‘phi_5’, ‘phi_6’, ‘phi_7’, ‘phi_8’, ‘phi_9’, ‘phi_10’, ‘phi_11’, ‘phi_12’, ‘phi_13’]</p>
+<p>O_3, O_4, and O_5 are second order moments from [1] and F is a third order moment from [2].
+These four moments are used in the original Geometricus manuscript [3].</p>
+<p>phi_{2-13} are independent third order moments from [4].</p>
+<p>[1] Mamistvalov, Alexander G. “N-dimensional moment invariants and conceptual mathematical theory of recognition n-dimensional solids.”
+IEEE Transactions on pattern analysis and machine intelligence 20.8 (1998): 819-831.</p>
+<p>[2] Flusser, Jan, Jirí Boldys, and Barbara Zitová. “Moment forms invariant to rotation and blur in arbitrary number of dimensions.”
+IEEE Transactions on Pattern Analysis and Machine Intelligence 25.2 (2003): 234-246.</p>
+<p>[3] Durairaj, Janani, et al. “Geometricus Represents Protein Structures as Shape-mers Derived from Moment Invariants.” bioRxiv (2020).</p>
+<p>[4] Flusser, Jan, Tomas Suk, and Barbara Zitová. 2D and 3D image analysis by moments. John Wiley &amp; Sons, 2016.</p>
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.O_3">
+<code class="sig-name descname">O_3</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.O_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.O_4">
+<code class="sig-name descname">O_4</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.O_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.O_5">
+<code class="sig-name descname">O_5</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;), mu_arguments=[(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.O_5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.F">
+<code class="sig-name descname">F</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;), mu_arguments=[(2, 0, 1), (0, 2, 1), (2, 1, 0), (3, 0, 0), (1, 1, 1), (0, 1, 2), (0, 0, 3), (0, 3, 0), (1, 0, 2), (1, 2, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_2">
+<code class="sig-name descname">phi_2</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_2&gt;), mu_arguments=[(0, 2, 0), (0, 1, 1), (1, 1, 0), (2, 0, 0), (0, 0, 2), (1, 0, 1)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_3">
+<code class="sig-name descname">phi_3</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_3&gt;), mu_arguments=[(0, 2, 0), (0, 1, 1), (1, 1, 0), (2, 0, 0), (0, 0, 2), (1, 0, 1)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_4">
+<code class="sig-name descname">phi_4</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_4&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (0, 0, 3), (1, 1, 1), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_5">
+<code class="sig-name descname">phi_5</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_5&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (0, 0, 3), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_6">
+<code class="sig-name descname">phi_6</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_6&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (0, 0, 3), (1, 1, 1), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_7">
+<code class="sig-name descname">phi_7</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_7&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (0, 0, 3), (1, 1, 1), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_7" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_8">
+<code class="sig-name descname">phi_8</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_8&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (0, 0, 3), (1, 1, 1), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_8" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_9">
+<code class="sig-name descname">phi_9</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_9&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (1, 0, 1), (0, 0, 3), (2, 0, 0), (1, 1, 0), (2, 0, 1), (1, 1, 1), (1, 0, 2), (2, 1, 0), (0, 2, 0), (0, 1, 2), (0, 0, 2), (0, 1, 1), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_9" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_10">
+<code class="sig-name descname">phi_10</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_10&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (1, 0, 1), (0, 0, 3), (2, 0, 0), (1, 1, 0), (2, 0, 1), (1, 1, 1), (1, 0, 2), (2, 1, 0), (0, 2, 0), (0, 1, 2), (0, 0, 2), (0, 1, 1), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_11">
+<code class="sig-name descname">phi_11</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_11&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (1, 0, 1), (0, 0, 3), (2, 0, 0), (1, 1, 0), (2, 0, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (0, 2, 0), (0, 0, 2), (0, 1, 1), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_12">
+<code class="sig-name descname">phi_12</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_12&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (1, 0, 1), (0, 0, 3), (2, 0, 0), (1, 1, 0), (2, 0, 1), (1, 1, 1), (1, 0, 2), (2, 1, 0), (0, 2, 0), (0, 1, 2), (0, 0, 2), (0, 1, 1), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="geometricus.moment_utility.MomentType.phi_13">
+<code class="sig-name descname">phi_13</code><em class="property"> = MomentInfo(moment_function=CPUDispatcher(&lt;function phi_13&gt;), mu_arguments=[(0, 3, 0), (0, 2, 1), (1, 2, 0), (1, 0, 1), (0, 0, 3), (2, 0, 0), (1, 1, 0), (2, 0, 1), (1, 1, 1), (1, 0, 2), (2, 1, 0), (0, 1, 2), (0, 2, 0), (0, 0, 2), (0, 1, 1), (3, 0, 0)])</em><a class="headerlink" href="#geometricus.moment_utility.MomentType.phi_13" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="geometricus.moment_utility.MomentType.get_moments_from_coordinates">
+<code class="sig-name descname">get_moments_from_coordinates</code><span class="sig-paren">(</span><em class="sig-param">mus: List[float]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/geometricus/moment_utility.html#MomentType.get_moments_from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.MomentType.get_moments_from_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="geometricus.moment_utility.get_moments_from_coordinates">
+<code class="sig-prename descclassname">geometricus.moment_utility.</code><code class="sig-name descname">get_moments_from_coordinates</code><span class="sig-paren">(</span><em class="sig-param">coordinates: numpy.ndarray</em>, <em class="sig-param">moment_types: List[geometricus.moment_utility.MomentType] = (&lt;MomentType.O_3: MomentInfo(moment_function=CPUDispatcher(&lt;function O_3&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)])&gt;</em>, <em class="sig-param">&lt;MomentType.O_4: MomentInfo(moment_function=CPUDispatcher(&lt;function O_4&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">1)])&gt;</em>, <em class="sig-param">&lt;MomentType.O_5: MomentInfo(moment_function=CPUDispatcher(&lt;function O_5&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">0)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">1)])&gt;</em>, <em class="sig-param">&lt;MomentType.F: MomentInfo(moment_function=CPUDispatcher(&lt;function F&gt;)</em>, <em class="sig-param">mu_arguments=[(2</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">2</em>, <em class="sig-param">1)</em>, <em class="sig-param">(2</em>, <em class="sig-param">1</em>, <em class="sig-param">0)</em>, <em class="sig-param">(3</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">1</em>, <em class="sig-param">1)</em>, <em class="sig-param">(0</em>, <em class="sig-param">1</em>, <em class="sig-param">2)</em>, <em class="sig-param">(0</em>, <em class="sig-param">0</em>, <em class="sig-param">3)</em>, <em class="sig-param">(0</em>, <em class="sig-param">3</em>, <em class="sig-param">0)</em>, <em class="sig-param">(1</em>, <em class="sig-param">0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">2</em>, <em class="sig-param">0)])&gt;)</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="reference internal" href="../_modules/geometricus/moment_utility.html#get_moments_from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geometricus.moment_utility.get_moments_from_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets rotation-invariant moments for a set of coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinates</strong> – </p></li>
+<li><p><strong>moment_types</strong> – Which moments to calculate
+Choose from [‘O_3’, ‘O_4’, ‘O_5’, ‘F’, ‘phi_2’, ‘phi_3’, ‘phi_4’, ‘phi_5’, ‘phi_6’, ‘phi_7’, ‘phi_8’, ‘phi_9’, ‘phi_10’, ‘phi_11’, ‘phi_12’, ‘phi_13’]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of moments</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-geometricus.protein_utility">

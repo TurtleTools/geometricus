@@ -146,14 +146,13 @@ class</p>
 <h2>Structural fragmentation<a class="headerlink" href="#structural-fragmentation" title="Permalink to this headline">¶</a></h2>
 <p>We consider two different ways of dividing a protein with <span class="math notranslate nohighlight">\(l\)</span>
 residues into structural fragments, a <span class="math notranslate nohighlight">\(k\)</span>-mer-based approach and a
-radius-based approach. For each structural fragment, four rotation and
-translation-invariant moments are calculated, termed
-<span class="math notranslate nohighlight">\(O_1, O_2, O_3\)</span>, and <span class="math notranslate nohighlight">\(O_4\)</span>. While the <span class="math notranslate nohighlight">\(k\)</span>-mer based
-approach is effective in describing structural fragments that are
-sequential in nature, such as <span class="math notranslate nohighlight">\(\alpha\)</span>-helices and loops, the
-radius-based approach can capture long-range structural contacts as seen
-in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as well as distinct interaction patterns in
-space, as found in enzyme active sites.</p>
+radius-based approach. For each structural fragment, multiple rotation
+and translation-invariant moments can be calculated. While the
+<span class="math notranslate nohighlight">\(k\)</span>-mer based approach is effective in describing structural
+fragments that are sequential in nature, such as <span class="math notranslate nohighlight">\(\alpha\)</span>-helices
+and loops, the radius-based approach can capture long-range structural
+contacts as seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as well as distinct
+interaction patterns in space, as found in enzyme active sites.</p>
 <p>Below we fetch and parse each protein as a ProDy AtomGroup object. This
 takes a while (around 15 mins) since it downloads via FTP from RCSB.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">prody</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -200,6 +199,10 @@ don’t change the shape</p></li>
 <p>Below we use <code class="docutils literal notranslate"><span class="pre">SplitType.KMER</span></code> with a <code class="docutils literal notranslate"><span class="pre">split_size</span></code> (i.e. kmer size)
 of 16 and <code class="docutils literal notranslate"><span class="pre">SplitType.RADIUS</span></code> with a <code class="docutils literal notranslate"><span class="pre">split_size</span></code> (i.e. radius) of
 10.</p>
+<p><code class="docutils literal notranslate"><span class="pre">geometricus.MomentType</span></code> lists the available moment invariants. By
+default <span class="math notranslate nohighlight">\(O_3\)</span>, <span class="math notranslate nohighlight">\(O_4\)</span>, <span class="math notranslate nohighlight">\(O_5\)</span>, and <span class="math notranslate nohighlight">\(F\)</span> are
+calculated. This can be changed using the <code class="docutils literal notranslate"><span class="pre">moment_types</span></code> argument in
+any of the <code class="docutils literal notranslate"><span class="pre">MomentInvariants</span></code> constructors.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">MomentInvariants</span><span class="p">,</span> <span class="n">SplitType</span>
 
 <span class="n">invariants_kmer</span> <span class="o">=</span> <span class="p">[]</span>
