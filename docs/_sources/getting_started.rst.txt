@@ -55,14 +55,13 @@ Structural fragmentation
 
 We consider two different ways of dividing a protein with :math:`l`
 residues into structural fragments, a :math:`k`-mer-based approach and a
-radius-based approach. For each structural fragment, four rotation and
-translation-invariant moments are calculated, termed
-:math:`O_1, O_2, O_3`, and :math:`O_4`. While the :math:`k`-mer based
-approach is effective in describing structural fragments that are
-sequential in nature, such as :math:`\alpha`-helices and loops, the
-radius-based approach can capture long-range structural contacts as seen
-in :math:`\beta`-sheets, as well as distinct interaction patterns in
-space, as found in enzyme active sites.
+radius-based approach. For each structural fragment, multiple rotation
+and translation-invariant moments can be calculated. While the
+:math:`k`-mer based approach is effective in describing structural
+fragments that are sequential in nature, such as :math:`\alpha`-helices
+and loops, the radius-based approach can capture long-range structural
+contacts as seen in :math:`\beta`-sheets, as well as distinct
+interaction patterns in space, as found in enzyme active sites.
 
 Below we fetch and parse each protein as a ProDy AtomGroup object. This
 takes a while (around 15 mins) since it downloads via FTP from RCSB.
@@ -116,6 +115,11 @@ fragmentation to use. The options are:
 Below we use ``SplitType.KMER`` with a ``split_size`` (i.e. kmer size)
 of 16 and ``SplitType.RADIUS`` with a ``split_size`` (i.e. radius) of
 10.
+
+``geometricus.MomentType`` lists the available moment invariants. By
+default :math:`O_3`, :math:`O_4`, :math:`O_5`, and :math:`F` are
+calculated. This can be changed using the ``moment_types`` argument in
+any of the ``MomentInvariants`` constructors.
 
 .. code:: ipython3
 

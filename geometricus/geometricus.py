@@ -10,7 +10,7 @@ import prody as pd
 from scipy.signal import resample
 
 from geometricus.protein_utility import ProteinKey, Structure, group_indices
-from geometricus.moment_utility import get_moments_from_coordinates
+from geometricus.moment_utility import get_moments_from_coordinates, MomentType
 
 Shapemer = Tuple[int, int, int, int]
 """
@@ -27,7 +27,7 @@ class SplitType(IntEnum):
     Different approaches to structural fragmentation
     """
 
-    KMER = (1,)
+    KMER = 1
     """each residue is taken as the center of a kmer of length split_size, ends are included but shorter"""
     RADIUS = 2
     """overlapping spheres of radius split_size"""
@@ -419,7 +419,7 @@ class MomentInvariants(Structure):
     """Filled with a list of residue indices for each structural fragment"""
     moments: np.ndarray = None
     """Filled with moment invariant values for each structural fragment"""
-    moment_names: List[str] = None
+    moment_types: List[MomentType] = None
     """Names of moments used"""
     density: np.ndarray = None
     """Density of each residue"""
@@ -433,7 +433,12 @@ class MomentInvariants(Structure):
         split_type: SplitType = SplitType.KMER,
         split_size: int = 16,
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        moment_types: List[MomentType] = (
+            MomentType.O_3,
+            MomentType.O_4,
+            MomentType.O_5,
+            MomentType.F,
+        ),
         density: np.ndarray = None
     ):
         """
@@ -451,7 +456,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_names=moment_names,
+            moment_types=moment_types,
             density=density
         )
         if shape.density is None:
@@ -468,16 +473,23 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        moment_types: List[MomentType] = (
+            MomentType.O_3,
+            MomentType.O_4,
+            MomentType.O_5,
+            MomentType.F,
+        ),
         density: np.ndarray = None
+
     ):
         """
         Construct MomentInvariants instance from a ProDy AtomGroup object.
         Selects according to `selection` string, (default = alpha carbons)
+        `moment_types` determines which moments are calculated.
 
         Example
         --------
-        >>> invariants = MomentInvariants.from_prody_atomgroup(atom_group, split_type=SplitType.RADIUS)
+        >>> invariants = MomentInvariants.from_prody_atomgroup(atom_group, split_type=SplitType.RADIUS, moment_types=[MomentType.O_3, MomentType.F, MomentType.phi_7, MomentType.phi_12])
         """
         protein: pd.AtomGroup = protein.select("protein").select(selection)
         coordinates: np.ndarray = protein.getCoords()
@@ -492,7 +504,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_names=moment_names,
+            moment_types=moment_types,
             density=density
         )
         if shape.density is None:
@@ -526,7 +538,12 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        moment_types: List[MomentType] = (
+            MomentType.O_3,
+            MomentType.O_4,
+            MomentType.O_5,
+            MomentType.F,
+        ),
         density: np.ndarray = None
     ):
         """
@@ -549,7 +566,7 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
-            moment_names=moment_names,
+            moment_types=moment_types,
             density=density
         )
 
@@ -562,7 +579,12 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        moment_types: List[MomentType] = (
+            MomentType.O_3,
+            MomentType.O_4,
+            MomentType.O_5,
+            MomentType.F,
+        ),
         density: np.ndarray = None
     ):
         """
@@ -585,7 +607,7 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
-            moment_names=moment_names,
+            moment_types=moment_types,
             density=density
         )
 
@@ -630,10 +652,10 @@ class MomentInvariants(Structure):
         return self._get_moments(split_indices)
 
     def _get_moments(self, split_indices):
-        moments = np.zeros((len(split_indices), len(self.moment_names)))
+        moments = np.zeros((len(split_indices), len(self.moment_types)))
         for i, indices in enumerate(split_indices):
             moments[i] = get_moments_from_coordinates(self.coordinates[indices],
-                                                      self.moment_names,
+                                                      self.moment_types,
                                                       self.density[indices])
         return split_indices, moments
 
@@ -669,10 +691,9 @@ class MomentInvariants(Structure):
                 radius=self.split_size,
             )
             split_indices.append(kd_tree.getIndices())
-        moments = np.zeros((len(split_indices), len(self.moment_names)))
+        moments = np.zeros((len(split_indices), len(self.moment_types)))
         for i, indices in enumerate(split_indices_upsample):
-            # TODO: add density here
-            moments[i] = get_moments_from_coordinates(coordinates_upsample[indices], self.moment_names)
+            moments[i] = get_moments_from_coordinates(coordinates_upsample[indices], self.moment_types)
         return split_indices, moments
 
 

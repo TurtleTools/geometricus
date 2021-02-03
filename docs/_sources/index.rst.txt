@@ -11,7 +11,7 @@ Welcome to Geometricus's documentation!
    :caption: Contents:
 
    install
-   getting_started
+   getting_started.ipynb
    api/modules
 
 
