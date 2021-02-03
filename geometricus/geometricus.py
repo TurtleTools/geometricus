@@ -421,6 +421,8 @@ class MomentInvariants(Structure):
     """Filled with moment invariant values for each structural fragment"""
     moment_names: List[str] = None
     """Names of moments used"""
+    density: np.ndarray = None
+    """Density of each residue"""
 
     @classmethod
     def from_coordinates(
@@ -431,7 +433,8 @@ class MomentInvariants(Structure):
         split_type: SplitType = SplitType.KMER,
         split_size: int = 16,
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        density: np.ndarray = None
     ):
         """
         Construct MomentInvariants instance from a set of coordinates.
@@ -448,8 +451,11 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_names=moment_names
+            moment_names=moment_names,
+            density=density
         )
+        if shape.density is None:
+            shape.density = np.ones(shape.coordinates.shape[0])
         shape._split(split_type)
         return shape
 
@@ -462,7 +468,8 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        density: np.ndarray = None
     ):
         """
         Construct MomentInvariants instance from a ProDy AtomGroup object.
@@ -485,8 +492,11 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_names=moment_names
+            moment_names=moment_names,
+            density=density
         )
+        if shape.density is None:
+            shape.density = np.ones(shape.coordinates.shape[0])
         shape._split(split_type)
         return shape
 
@@ -516,7 +526,8 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        density: np.ndarray = None
     ):
         """
         Construct MomentInvariants instance from a PDB file and optional chain.
@@ -538,7 +549,8 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
-            moment_names=moment_names
+            moment_names=moment_names,
+            density=density
         )
 
     @classmethod
@@ -550,7 +562,8 @@ class MomentInvariants(Structure):
         split_size: int = 16,
         selection: str = "calpha",
         upsample_rate: int = 50,
-        moment_names: List[str] = ("O_3", "O_4", "O_5", "F")
+        moment_names: List[str] = ("O_3", "O_4", "O_5", "F"),
+        density: np.ndarray = None
     ):
         """
         Construct MomentInvariants instance from a PDB ID and optional chain (downloads the PDB file from RCSB).
@@ -572,7 +585,8 @@ class MomentInvariants(Structure):
             split_size,
             selection=selection,
             upsample_rate=upsample_rate,
-            moment_names=moment_names
+            moment_names=moment_names,
+            density=density
         )
 
     def _kmerize(self):
@@ -618,7 +632,9 @@ class MomentInvariants(Structure):
     def _get_moments(self, split_indices):
         moments = np.zeros((len(split_indices), len(self.moment_names)))
         for i, indices in enumerate(split_indices):
-            moments[i] = get_moments_from_coordinates(self.coordinates[indices], self.moment_names)
+            moments[i] = get_moments_from_coordinates(self.coordinates[indices],
+                                                      self.moment_names,
+                                                      self.density[indices])
         return split_indices, moments
 
     def _split_radius(self):
@@ -655,6 +671,7 @@ class MomentInvariants(Structure):
             split_indices.append(kd_tree.getIndices())
         moments = np.zeros((len(split_indices), len(self.moment_names)))
         for i, indices in enumerate(split_indices_upsample):
+            # TODO: add density here
             moments[i] = get_moments_from_coordinates(coordinates_upsample[indices], self.moment_names)
         return split_indices, moments
 

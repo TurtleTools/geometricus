@@ -12,7 +12,9 @@ class MomentInfo:
 
 
 def get_moments_from_coordinates(
-    coordinates: np.ndarray, moment_names: ty.List[str] = ("O_3", "O_4", "O_5", "F")
+    coordinates: np.ndarray,
+    moment_names: ty.List[str] = ("O_3", "O_4", "O_5", "F"),
+    density: np.ndarray = None,
 ) -> ty.List[float]:
     """
     Gets rotation-invariant moments for a set of coordinates
@@ -23,18 +25,23 @@ def get_moments_from_coordinates(
     moment_names
         Which moments to calculate
         Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
-
+    density
+        assign a density to each residue/coordinate. 1 by default
     Returns
     -------
     list of moments
     """
+    if density is None:
+        density = np.ones(coordinates.shape[0])
+    else:
+        assert density.shape[0] == coordinates.shape[0]
     moment_types: ty.List[MomentType] = [MomentType[m] for m in moment_names]
     all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
         m for moment_type in moment_types for m in moment_type.value.mu_arguments
     )
     centroid = nb_mean_axis_0(coordinates)
     mus = {
-        (x, y, z): mu(float(x), float(y), float(z), coordinates, centroid)
+        (x, y, z): mu(float(x), float(y), float(z), coordinates, density, centroid)
         for (x, y, z) in all_moment_mu_types
     }
     moments = [
@@ -58,7 +65,7 @@ def nb_mean_axis_0(array: np.ndarray) -> np.ndarray:
 
 
 @nb.njit(cache=False)
-def mu(p, q, r, coords, centroid):
+def mu(p, q, r, coords, density, centroid):
     """
     Central moment
     """
@@ -66,6 +73,7 @@ def mu(p, q, r, coords, centroid):
         ((coords[:, 0] - centroid[0]) ** p)
         * ((coords[:, 1] - centroid[1]) ** q)
         * ((coords[:, 2] - centroid[2]) ** r)
+        * density
     )
 
 
@@ -99,17 +107,8 @@ def O_5(mu_200, mu_020, mu_002, mu_110, mu_101, mu_011):
 
 @nb.njit
 def F(
-        mu_201,
-        mu_021,
-        mu_210,
-        mu_300,
-        mu_111,
-        mu_012,
-        mu_003,
-        mu_030,
-        mu_102,
-        mu_120,
-    ):
+    mu_201, mu_021, mu_210, mu_300, mu_111, mu_012, mu_003, mu_030, mu_102, mu_120,
+):
     return (
         mu_003 ** 2
         + 6 * mu_012 ** 2
@@ -199,17 +198,8 @@ def phi_3(mu_020, mu_011, mu_110, mu_200, mu_002, mu_101):
 
 @nb.njit
 def phi_4(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         mu_300 ** 2
         + mu_030 ** 2
@@ -250,17 +240,8 @@ def phi_5(mu_030, mu_021, mu_120, mu_003, mu_201, mu_102, mu_210, mu_012, mu_300
 
 @nb.njit
 def phi_6(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 6 * mu_300 ** 2 * mu_210 ** 2
@@ -349,17 +330,8 @@ def phi_6(
 
 @nb.njit
 def phi_7(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 1 * mu_300 ** 3 * mu_120
@@ -533,17 +505,8 @@ def phi_7(
 
 @nb.njit
 def phi_8(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_003,
-        mu_111,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_300,
-    ):
+    mu_030, mu_021, mu_120, mu_003, mu_111, mu_201, mu_102, mu_210, mu_012, mu_300,
+):
     return (
         1 * mu_300 ** 4
         + 2 * mu_300 ** 3 * mu_120
@@ -726,23 +689,23 @@ def phi_8(
 
 @nb.njit
 def phi_9(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 2 * mu_110 * mu_300 * mu_210
@@ -785,23 +748,23 @@ def phi_9(
 
 @nb.njit
 def phi_10(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 1 * mu_200 * mu_300 * mu_120
@@ -859,22 +822,22 @@ def phi_10(
 
 @nb.njit
 def phi_11(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_020,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_102,
+    mu_210,
+    mu_012,
+    mu_020,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 * mu_300 ** 2
         + 2 * mu_200 * mu_300 * mu_120
@@ -926,23 +889,23 @@ def phi_11(
 
 @nb.njit
 def phi_12(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_020,
-        mu_012,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_020,
+    mu_012,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 ** 2 * mu_300 ** 2
         + 4 * mu_200 * mu_110 * mu_300 * mu_210
@@ -1012,23 +975,23 @@ def phi_12(
 
 @nb.njit
 def phi_13(
-        mu_030,
-        mu_021,
-        mu_120,
-        mu_101,
-        mu_003,
-        mu_200,
-        mu_110,
-        mu_201,
-        mu_111,
-        mu_102,
-        mu_210,
-        mu_012,
-        mu_020,
-        mu_002,
-        mu_011,
-        mu_300,
-    ):
+    mu_030,
+    mu_021,
+    mu_120,
+    mu_101,
+    mu_003,
+    mu_200,
+    mu_110,
+    mu_201,
+    mu_111,
+    mu_102,
+    mu_210,
+    mu_012,
+    mu_020,
+    mu_002,
+    mu_011,
+    mu_300,
+):
     return (
         1 * mu_200 ** 2 * mu_300 ** 2
         + 2 * mu_200 * mu_110 * mu_300 * mu_210
@@ -1137,6 +1100,7 @@ class MomentType(Enum):
     Different rotation invariant moments (order 2 and order 3)
     Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
     """
+
     O_3 = MomentInfo(O_3, [(2, 0, 0), (0, 2, 0), (0, 0, 2)])
     O_4 = MomentInfo(
         O_4, [(2, 0, 0), (0, 2, 0), (0, 0, 2), (1, 1, 0), (1, 0, 1), (0, 1, 1),]
@@ -1348,10 +1312,10 @@ class MomentType(Enum):
         return self.value.moment_function(*mus)
 
 
-def alpha(index, coords, centroid):
-    mu_200 = mu(2.0, 0.0, 0.0, coords, centroid)
-    mu_020 = mu(0.0, 2.0, 0.0, coords, centroid)
-    mu_002 = mu(0.0, 0.0, 2.0, coords, centroid)
+def alpha(index, coords, density, centroid):
+    mu_200 = mu(2.0, 0.0, 0.0, coords, density, centroid)
+    mu_020 = mu(0.0, 2.0, 0.0, coords, density, centroid)
+    mu_002 = mu(0.0, 0.0, 2.0, coords, density, centroid)
 
     if index == 1:
         return mu_002 - mu_020
@@ -1361,17 +1325,17 @@ def alpha(index, coords, centroid):
         return mu_200 - mu_002
 
 
-def beta(index, coords, centroid):
-    mu_003 = mu(0.0, 0.0, 3.0, coords, centroid)
-    mu_012 = mu(0.0, 1.0, 2.0, coords, centroid)
-    mu_021 = mu(0.0, 2.0, 1.0, coords, centroid)
-    mu_030 = mu(0.0, 3.0, 0.0, coords, centroid)
-    mu_102 = mu(1.0, 0.0, 2.0, coords, centroid)
-    mu_111 = mu(1.0, 1.0, 1.0, coords, centroid)
-    mu_210 = mu(2.0, 1.0, 0.0, coords, centroid)
-    mu_201 = mu(2.0, 0.0, 1.0, coords, centroid)
-    mu_120 = mu(1.0, 2.0, 0.0, coords, centroid)
-    mu_300 = mu(3.0, 0.0, 0.0, coords, centroid)
+def beta(index, coords, density, centroid):
+    mu_003 = mu(0.0, 0.0, 3.0, coords, density, centroid)
+    mu_012 = mu(0.0, 1.0, 2.0, coords, density, centroid)
+    mu_021 = mu(0.0, 2.0, 1.0, coords, density, centroid)
+    mu_030 = mu(0.0, 3.0, 0.0, coords, density, centroid)
+    mu_102 = mu(1.0, 0.0, 2.0, coords, density, centroid)
+    mu_111 = mu(1.0, 1.0, 1.0, coords, density, centroid)
+    mu_210 = mu(2.0, 1.0, 0.0, coords, density, centroid)
+    mu_201 = mu(2.0, 0.0, 1.0, coords, density, centroid)
+    mu_120 = mu(1.0, 2.0, 0.0, coords, density, centroid)
+    mu_300 = mu(3.0, 0.0, 0.0, coords, density, centroid)
 
     if index == 1:
         return mu_021 - mu_201
@@ -1413,26 +1377,26 @@ def beta(index, coords, centroid):
         raise IndexError
 
 
-def gamma(index, coords, centroid):
-    mu_022 = mu(0, 2, 2, coords, centroid)
-    mu_202 = mu(2, 0, 2, coords, centroid)
-    mu_220 = mu(2, 2, 0, coords, centroid)
+def gamma(index, coords, density, centroid):
+    mu_022 = mu(0, 2, 2, coords, density, centroid)
+    mu_202 = mu(2, 0, 2, coords, density, centroid)
+    mu_220 = mu(2, 2, 0, coords, density, centroid)
 
-    mu_400 = mu(4, 0, 0, coords, centroid)
-    mu_040 = mu(0, 4, 0, coords, centroid)
-    mu_004 = mu(0, 0, 4, coords, centroid)
+    mu_400 = mu(4, 0, 0, coords, density, centroid)
+    mu_040 = mu(0, 4, 0, coords, density, centroid)
+    mu_004 = mu(0, 0, 4, coords, density, centroid)
 
-    mu_112 = mu(1, 1, 2, coords, centroid)
-    mu_121 = mu(1, 2, 1, coords, centroid)
-    mu_211 = mu(2, 1, 1, coords, centroid)
+    mu_112 = mu(1, 1, 2, coords, density, centroid)
+    mu_121 = mu(1, 2, 1, coords, density, centroid)
+    mu_211 = mu(2, 1, 1, coords, density, centroid)
 
-    mu_130 = mu(1, 3, 0, coords, centroid)
-    mu_103 = mu(1, 0, 3, coords, centroid)
-    mu_013 = mu(0, 1, 3, coords, centroid)
+    mu_130 = mu(1, 3, 0, coords, density, centroid)
+    mu_103 = mu(1, 0, 3, coords, density, centroid)
+    mu_013 = mu(0, 1, 3, coords, density, centroid)
 
-    mu_310 = mu(3, 1, 0, coords, centroid)
-    mu_301 = mu(3, 0, 1, coords, centroid)
-    mu_031 = mu(0, 3, 1, coords, centroid)
+    mu_310 = mu(3, 1, 0, coords, density, centroid)
+    mu_301 = mu(3, 0, 1, coords, density, centroid)
+    mu_031 = mu(0, 3, 1, coords, density, centroid)
 
     if index == 1:
         return mu_022 - mu_400
