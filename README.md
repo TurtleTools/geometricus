@@ -21,3 +21,7 @@ See the [Getting Started](https://turtletools.github.io/geometricus/getting_star
 
 Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D J van Dijk, Geometricus represents protein structures as shape-mers derived from moment invariants, 
 Bioinformatics, Volume 36, Issue Supplement_2, December 2020, Pages i718–i725, https://doi.org/10.1093/bioinformatics/btaa839
+
+
+Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D.J. van Dijk, Fast and adaptive protein structure representations for machine learning,
+bioRxiv 2021.04.07.438777; doi: https://doi.org/10.1101/2021.04.07.438777
