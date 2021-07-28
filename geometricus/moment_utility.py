@@ -23,7 +23,7 @@ class MomentInfo:
 
 
 @nb.njit(cache=False)
-def mu(p, q, r, coords, centroid):
+def mu(p, q, r, coords, density, centroid):
     """
     Central moment
     """
@@ -31,6 +31,7 @@ def mu(p, q, r, coords, centroid):
         ((coords[:, 0] - centroid[0]) ** p)
         * ((coords[:, 1] - centroid[1]) ** q)
         * ((coords[:, 2] - centroid[2]) ** r)
+        * density
     )
 
 
@@ -1294,6 +1295,7 @@ def get_moments_from_coordinates(
         MomentType.O_5,
         MomentType.F,
     ),
+    density: np.ndarray = None
 ) -> ty.List[float]:
     """
     Gets rotation-invariant moments for a set of coordinates
@@ -1304,17 +1306,22 @@ def get_moments_from_coordinates(
     moment_types
         Which moments to calculate
         Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13']
+    density
+        assign a density to each residue/coordinate. 1 by default
 
     Returns
     -------
     list of moments
     """
+    if density is None:
+        density = np.ones(coordinates.shape[0])
+    assert density.shape[0] == coordinates.shape[0]
     all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
         m for moment_type in moment_types for m in moment_type.value.mu_arguments
     )
     centroid = nb_mean_axis_0(coordinates)
     mus = {
-        (x, y, z): mu(float(x), float(y), float(z), coordinates, centroid)
+        (x, y, z): mu(float(x), float(y), float(z), coordinates, density, centroid)
         for (x, y, z) in all_moment_mu_types
     }
     moments = [
