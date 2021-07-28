@@ -12,9 +12,8 @@ authors:
   given-names: "Aalt D J"
   name-particle: "van"
 title: "Geometricus represents protein structures as shape-mers derived from moment invariants"
-version: 1.0.0
 doi: 10.1093/BIOINFORMATICS/BTAA839
-date-released: 2021-07-28
+date-released: 2020-12-29
 identifiers:
 - type: doi
   value: 10.1093/BIOINFORMATICS/BTAA839
