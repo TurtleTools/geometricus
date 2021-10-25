@@ -419,7 +419,7 @@ class MomentInvariants(Structure):
     """Filled with a list of residue indices for each structural fragment"""
     moments: np.ndarray = None
     """Filled with moment invariant values for each structural fragment"""
-    moment_types: List[MomentType] = None
+    moment_types: List[str] = None
     """Names of moments used"""
 
     @classmethod
@@ -453,7 +453,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_types=moment_types,
+            moment_types=[str(m) for m in moment_types],
         )
         shape._split(split_type)
         return shape
@@ -496,7 +496,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_types=moment_types,
+            moment_types=[str(m) for m in moment_types],
         )
         shape._split(split_type)
         return shape
@@ -679,7 +679,7 @@ class MomentInvariants(Structure):
         moments = np.zeros((len(split_indices), len(self.moment_types)))
         for i, indices in enumerate(split_indices_upsample):
             moments[i] = get_moments_from_coordinates(
-                coordinates_upsample[indices], self.moment_types
+                coordinates_upsample[indices], [MomentType[m] for m in self.moment_types]
             )
         return split_indices, moments
 
