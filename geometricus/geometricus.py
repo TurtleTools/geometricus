@@ -453,7 +453,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_types=[str(m) for m in moment_types],
+            moment_types=[m.name for m in moment_types],
         )
         shape._split(split_type)
         return shape
@@ -485,6 +485,7 @@ class MomentInvariants(Structure):
         """
         protein: pd.AtomGroup = protein.select("protein").select(selection)
         coordinates: np.ndarray = protein.getCoords()
+        coordinates += np.min(coordinates, axis=0)
         residue_splits = group_indices(protein.getResindices())
         shape = cls(
             name,
@@ -496,7 +497,7 @@ class MomentInvariants(Structure):
             split_type=split_type,
             split_size=split_size,
             upsample_rate=upsample_rate,
-            moment_types=[str(m) for m in moment_types],
+            moment_types=[m.name for m in moment_types],
         )
         shape._split(split_type)
         return shape
@@ -640,7 +641,7 @@ class MomentInvariants(Structure):
         moments = np.zeros((len(split_indices), len(self.moment_types)))
         for i, indices in enumerate(split_indices):
             moments[i] = get_moments_from_coordinates(
-                self.coordinates[indices], self.moment_types
+                self.coordinates[indices], [MomentType[m] for m in self.moment_types]
             )
         return split_indices, moments
 
