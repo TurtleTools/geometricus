@@ -1,20 +1,20 @@
+from os import path
+
 from setuptools import setup
 
-from os import path
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
-    
-    
+
 DISTNAME = "geometricus"
 DESCRIPTION = "Fast, structure-based, alignment-free protein embedding"
 LONG_DESCRIPTION = long_description
 MAINTAINER = "Janani Durairaj, Mehmet Akdel"
-MAINTAINER_EMAIL = "janani.durairaj@wur.nl"
+MAINTAINER_EMAIL = "janani.durairaj@unibas.ch"
 URL = "https://github.com/TurtleTools/geometricus"
 LICENSE = "MIT License"
 DOWNLOAD_URL = "https://github.com/TurtleTools/geometricus"
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 PYTHON_VERSION = (3, 7)
 INST_DEPENDENCIES = ["numpy==1.21.5", "scipy", "numba==0.55.1", "prody"]
 

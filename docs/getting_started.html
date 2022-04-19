@@ -4,18 +4,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Getting Started &#8212; Geometricus 0.0.1-dev documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api/modules.html" />
@@ -55,7 +55,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing Geometricus</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
@@ -84,7 +84,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -316,7 +316,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -358,8 +358,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -368,21 +367,19 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 </div>
 </div>
-<div class="section" id="Getting-Started">
+<section id="Getting-Started">
 <h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this headline">¶</a></h1>
 <p>Let’s walk through an example application of Geometricus in machine learning using a dataset of human MAP kinases, divided into three classes - JNK, Erk, and p38 kinases. This dataset was generated from the <a class="reference external" href="https://klifs.vu-compmedchem.nl/index.php">Kinase-Ligand Interaction Fingerprints and Structures database (KLIFS)</a> (Raw table <a class="reference external" href="../../example_data/MAPK_KLIFS.tsv">here</a>).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pnd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pnd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 
@@ -410,14 +407,13 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapk_pdb_id_to_class</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapk_pdb_id_to_class</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 <span class="n">class_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;JNK&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Erk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;p38&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">class_mapping</span><span class="p">[</span><span class="n">mapk_pdb_id_to_class</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">X_names</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="Structural-fragmentation">
+<section id="Structural-fragmentation">
 <h2>Structural fragmentation<a class="headerlink" href="#Structural-fragmentation" title="Permalink to this headline">¶</a></h2>
 <p>We consider two different ways of dividing a protein with <span class="math notranslate nohighlight">\(l\)</span> residues into structural fragments, a <span class="math notranslate nohighlight">\(k\)</span>-mer-based approach and a radius-based approach. For each structural fragment, multiple rotation and translation-invariant moments can be calculated. While the <span class="math notranslate nohighlight">\(k\)</span>-mer based approach is effective in describing structural fragments that are sequential in nature, such as <span class="math notranslate nohighlight">\(\alpha\)</span>-helices and loops, the radius-based approach can capture long-range structural contacts as
 seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as well as distinct interaction patterns in space, as found in enzyme active sites.</p>
@@ -426,8 +422,7 @@ seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as w
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">prody</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">prody</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
 <span class="n">pdbs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -470,8 +465,7 @@ seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as w
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">MomentInvariants</span><span class="p">,</span> <span class="n">SplitType</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">MomentInvariants</span><span class="p">,</span> <span class="n">SplitType</span>
 
 <span class="n">invariants_kmer</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">invariants_radius</span> <span class="o">=</span> <span class="p">[]</span>
@@ -502,21 +496,20 @@ seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as w
 500 proteins in 45.82 seconds
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Generating-an-Embedding-from-Structural-Fragments">
+</section>
+<section id="Generating-an-Embedding-from-Structural-Fragments">
 <h2>Generating an Embedding from Structural Fragments<a class="headerlink" href="#Generating-an-Embedding-from-Structural-Fragments" title="Permalink to this headline">¶</a></h2>
 <p>Moment invariants are discretized into shape-mers, using a <strong>resolution</strong> parameter which controls how coarse or fine-grained this discretization is. A count vector of shape-mers is calculated for each protein with each element recording the number of times the corresponding shape-mer appears in that protein. The resolution parameter can be optimized to the task at hand. Generally, more divergent proteins would require a lower resolution while highly similar proteins would need higher
 resolutions to differentiate them. For the MAP kinases, we use a relatively high resolution of 2.</p>
 <p>Depending on the use-case you may want to embed all proteins at once, as demonstrated below, or separate train and test proteins as demonstrated in the Supervised Learning section.</p>
-<div class="section" id="Embedding-for-Dimensionality-Reduction">
+<section id="Embedding-for-Dimensionality-Reduction">
 <h3>Embedding for Dimensionality Reduction<a class="headerlink" href="#Embedding-for-Dimensionality-Reduction" title="Permalink to this headline">¶</a></h3>
 <p>Embeddings across all proteins can be used for dimensionality reduction and visualization.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">umap</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">umap</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">GeometricusEmbedding</span>
@@ -557,16 +550,15 @@ Generated embeddings in 1.19 seconds
 <img alt="_images/getting_started_11_1.png" src="_images/getting_started_11_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Embedding-for-Supervised-Learning">
+</section>
+<section id="Embedding-for-Supervised-Learning">
 <h3>Embedding for Supervised Learning<a class="headerlink" href="#Embedding-for-Supervised-Learning" title="Permalink to this headline">¶</a></h3>
 <p>Supervised learning, be it classification or regression, requires some form of training and test set separation. Below, the shape-mers used for embedding are calculated from the training set (using the kmer approach) and only those shape-mers are counted in the test proteins.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">X_train_names</span><span class="p">,</span> <span class="n">X_test_names</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
@@ -582,8 +574,7 @@ Generated embeddings in 1.19 seconds
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
 
 <span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -610,9 +601,9 @@ weighted avg       0.93      0.92      0.92       159
 
 </pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="Finding-predictive-residues-and-structural-fragments">
+</section>
+</section>
+<section id="Finding-predictive-residues-and-structural-fragments">
 <h2>Finding predictive residues and structural fragments<a class="headerlink" href="#Finding-predictive-residues-and-structural-fragments" title="Permalink to this headline">¶</a></h2>
 <p>Since each shape-mer can be mapped back to the residues it describes, it’s easy to use Geometricus to determine predictive or functionally relevant residues and structural regions from a trained predictor (or from loadings generated from a method such as PCA). Such insights can be directly be applied to select candidate residues for mutational studies or used in directed evolution techniques to engineer proteins and enzymes with desired properties.</p>
 <p>By inspecting the decision tree created above, it becomes clear that some shape-mers are present multiple times across a protein and the number of times differs across classes.</p>
@@ -620,8 +611,7 @@ weighted avg       0.93      0.92      0.92       159
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
 <span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">train_embedder</span><span class="o">.</span><span class="n">shapemer_keys</span><span class="p">);</span>
 </pre></div>
@@ -638,8 +628,7 @@ weighted avg       0.93      0.92      0.92       159
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
 <span class="n">predictive_feature_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">6</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -656,8 +645,7 @@ weighted avg       0.93      0.92      0.92       159
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">shapemer</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">shapemer_keys</span><span class="p">[</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">shapemer_keys</span><span class="p">[</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">residue_indices_train</span> <span class="o">=</span> <span class="n">train_embedder</span><span class="o">.</span><span class="n">map_shapemer_to_residues</span><span class="p">(</span><span class="n">shapemer</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape-mer:&quot;</span><span class="p">,</span> <span class="n">shapemer</span><span class="p">,</span> <span class="s2">&quot;Number of proteins with shape-mer:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_indices_train</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">()</span>
@@ -691,8 +679,8 @@ Residue indices per protein (for 10 proteins):
 </pre></div></div>
 </div>
 <p>These residue indices can then be visualized on a protein structure using molecule visualization software such as PyMol. Comparing the same location in proteins which don’t have this shape-mer can also be informative.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -705,7 +693,7 @@ Residue indices per protein (for 10 proteins):
       &copy;2020, Janani Durairaj, Mehmet Akdel.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
