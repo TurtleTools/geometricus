@@ -1434,7 +1434,7 @@ def get_moments_from_coordinates(
     coordinates
     moment_types
         Which moments to calculate
-        Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13', 'CI]
+        Choose from ['O_3', 'O_4', 'O_5', 'F', 'phi_2', 'phi_3', 'phi_4', 'phi_5', 'phi_6', 'phi_7', 'phi_8', 'phi_9', 'phi_10', 'phi_11', 'phi_12', 'phi_13', 'CI']
 
     Returns
     -------
