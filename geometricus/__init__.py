@@ -1,7 +1,7 @@
-__version__ = "0.0.1-dev"
+__version__ = "0.3.0"
 
 from .geometricus import GeometricusEmbedding, MomentInvariants, SplitType
-from .protein_utility import Structure
 from .moment_utility import MomentType
+from .protein_utility import Structure
 
 __all__ = ["GeometricusEmbedding", "MomentInvariants", "SplitType", "Structure", "MomentType"]
