@@ -696,7 +696,7 @@ def get_shapes(
     for key in invariants:
         proteins_to_shapemers[key] = [
             tuple(x)
-            for x in (np.log1p(invariants[key].moments) * resolution).astype(int)
+            for x in (np.log1p(np.nan_to_num(invariants[key].moments)) * resolution).astype(int)
         ]
     return proteins_to_shapemers
 

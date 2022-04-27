@@ -1117,6 +1117,8 @@ def CI(mu_000,
     gamma_8 = mu_202 - mu_022 + mu_400 - mu_040
     gamma_9 = mu_220 - mu_202 + mu_040 - mu_004
     r_gyr = np.sqrt((mu_200 + mu_020 + mu_002) / (3 * mu_000))
+    if r_gyr == 0:
+        return np.nan
     s_3 = 1 / (mu_000 ** 3 * r_gyr ** 9)
     s_4 = 1 / (mu_000 ** 4 * r_gyr ** 9)
     return 4 * s_3 * (mu_110 * (mu_021 * (3 * gamma_2 - 2 * gamma_3 - gamma_1)
