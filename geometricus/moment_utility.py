@@ -1442,6 +1442,8 @@ def get_moments_from_coordinates(
     -------
     list of moments
     """
+    if coordinates.shape[0] < 2:
+        return [np.nan] * len(moment_types)
     all_moment_mu_types: ty.Set[ty.Tuple[int, int, int]] = set(
         m for moment_type in moment_types for m in moment_type.value.mu_arguments
     )
