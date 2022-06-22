@@ -16,7 +16,7 @@ LICENSE = "MIT License"
 DOWNLOAD_URL = "https://github.com/TurtleTools/geometricus"
 VERSION = "0.3.0"
 PYTHON_VERSION = (3, 7)
-INST_DEPENDENCIES = ["numpy==1.21.5", "scipy", "numba==0.55.1", "prody"]
+INST_DEPENDENCIES = ["numpy==1.22.0", "scipy", "numba==0.55.1", "prody"]
 
 if __name__ == "__main__":
     setup(
