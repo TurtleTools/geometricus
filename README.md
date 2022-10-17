@@ -25,3 +25,8 @@ Bioinformatics, Volume 36, Issue Supplement_2, December 2020, Pages i718–i725,
 
 Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D.J. van Dijk, Fast and adaptive protein structure representations for machine learning,
 bioRxiv 2021.04.07.438777; doi: https://doi.org/10.1101/2021.04.07.438777
+
+Mehmet Akdel, Douglas E V Pires, Eduard Porta Pardo, Jürgen Jänes, Arthur O Zalevsky, Bálint Mészáros, Patrick Bryant, Lydia L. Good, Roman A Laskowski, Gabriele Pozzati, Aditi Shenoy, Wensi Zhu, Petras Kundrotas, Victoria Ruiz Serra, Carlos H M Rodrigues, Alistair S Dunham, David Burke, Neera Borkakoti, Sameer Velankar, Adam Frost, Kresten Lindorff-Larsen, Alfonso Valencia, Sergey Ovchinnikov, Janani Durairaj, David B Ascher, Janet M Thornton, Norman E Davey, Amelie Stein, Arne Elofsson, Tristan I Croll, Pedro Beltrao,  A structural biology community assessment of AlphaFold 2 applications,
+bioRxiv 2021.09.26.461876; doi: https://doi.org/10.1101/2021.09.26.461876 
+
+Janani Durairaj, Joana Pereira, Mehmet Akdel, Torsten Schwede, What is hidden in the darkness? Characterization of AlphaFold structural space, bioRxiv 2022.10.11.511548; doi: https://doi.org/10.1101/2022.10.11.511548 
