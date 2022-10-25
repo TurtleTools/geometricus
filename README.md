@@ -10,23 +10,55 @@ A structure-based, alignment-free embedding approach for proteins. Can be used a
 See the [documentation](https://turtletools.github.io/geometricus/).
 
 ## Installation
-Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies. 
+
+Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies.
 
 Install with `pip install geometricus`
 
 ## Usage
+
 See the [Getting Started](https://turtletools.github.io/geometricus/getting_started) page for example usage.
+
+## Pairwise distances between query database and target database
+
+The pairwise distances between the query database and target database can be calculated using the `geometricus-search`
+command line tool as follows:
+
+```shell
+export NUMBA_NUM_THREADS=64
+geometricus-search create query_folder database --resolution=1,1 --split-infos=KMER_16,RADIUS_10  --n-threads=64
+geometricus-search query target_folder database output.tsv
+```
+
+This creates a database pickle file (geometricus.Database) and an output file with rows (query_name, target_name,
+distance). The pickle file can later be loaded to inspect the shape-mers created and map them back to the structures as
+described in the getting started page.
+
+The most important parameters are the split sizes (equivalent to kmer size) and the resolution: Make sure to set them
+according to the expected structural similarity of the proteins in the query vs target database (higher = more similar).
+An easy way to choose is to run the database creation step (on a subset of proteins) with a range of parameters and
+choose the one giving a shape-mer count that matches your expectation in terms of the number of differing substructures
+you would like to compare. If comparing structurally distant proteins, smaller resolutions of 0.5-1 are recommended,
+while small changes in highly similar proteins can be identified with higher resolutions (>=2).
 
 ## Publications
 
-Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D J van Dijk, Geometricus represents protein structures as shape-mers derived from moment invariants, 
-Bioinformatics, Volume 36, Issue Supplement_2, December 2020, Pages i718–i725, https://doi.org/10.1093/bioinformatics/btaa839
+Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D J van Dijk, Geometricus represents protein structures as
+shape-mers derived from moment invariants,
+Bioinformatics, Volume 36, Issue Supplement_2, December 2020, Pages
+i718–i725, https://doi.org/10.1093/bioinformatics/btaa839
 
-
-Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D.J. van Dijk, Fast and adaptive protein structure representations for machine learning,
+Janani Durairaj, Mehmet Akdel, Dick de Ridder, Aalt D.J. van Dijk, Fast and adaptive protein structure representations
+for machine learning,
 bioRxiv 2021.04.07.438777; doi: https://doi.org/10.1101/2021.04.07.438777
 
-Mehmet Akdel, Douglas E V Pires, Eduard Porta Pardo, Jürgen Jänes, Arthur O Zalevsky, Bálint Mészáros, Patrick Bryant, Lydia L. Good, Roman A Laskowski, Gabriele Pozzati, Aditi Shenoy, Wensi Zhu, Petras Kundrotas, Victoria Ruiz Serra, Carlos H M Rodrigues, Alistair S Dunham, David Burke, Neera Borkakoti, Sameer Velankar, Adam Frost, Kresten Lindorff-Larsen, Alfonso Valencia, Sergey Ovchinnikov, Janani Durairaj, David B Ascher, Janet M Thornton, Norman E Davey, Amelie Stein, Arne Elofsson, Tristan I Croll, Pedro Beltrao,  A structural biology community assessment of AlphaFold 2 applications,
-bioRxiv 2021.09.26.461876; doi: https://doi.org/10.1101/2021.09.26.461876 
+Mehmet Akdel, Douglas E V Pires, Eduard Porta Pardo, Jürgen Jänes, Arthur O Zalevsky, Bálint Mészáros, Patrick Bryant,
+Lydia L. Good, Roman A Laskowski, Gabriele Pozzati, Aditi Shenoy, Wensi Zhu, Petras Kundrotas, Victoria Ruiz Serra,
+Carlos H M Rodrigues, Alistair S Dunham, David Burke, Neera Borkakoti, Sameer Velankar, Adam Frost, Kresten
+Lindorff-Larsen, Alfonso Valencia, Sergey Ovchinnikov, Janani Durairaj, David B Ascher, Janet M Thornton, Norman E
+Davey, Amelie Stein, Arne Elofsson, Tristan I Croll, Pedro Beltrao, A structural biology community assessment of
+AlphaFold 2 applications,
+bioRxiv 2021.09.26.461876; doi: https://doi.org/10.1101/2021.09.26.461876
 
-Janani Durairaj, Joana Pereira, Mehmet Akdel, Torsten Schwede, What is hidden in the darkness? Characterization of AlphaFold structural space, bioRxiv 2022.10.11.511548; doi: https://doi.org/10.1101/2022.10.11.511548 
+Janani Durairaj, Joana Pereira, Mehmet Akdel, Torsten Schwede, What is hidden in the darkness? Characterization of
+AlphaFold structural space, bioRxiv 2022.10.11.511548; doi: https://doi.org/10.1101/2022.10.11.511548 
