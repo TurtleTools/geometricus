@@ -1,4 +1,8 @@
 from __future__ import annotations
+
+import gzip
+import io
+from pathlib import Path
 from typing import Union, Tuple, List
 from dataclasses import dataclass, field
 
@@ -23,6 +27,29 @@ class Structure:
     """Number of residues"""
     coordinates: np.ndarray = field(repr=False)
     """Coordinates"""
+
+
+def parse_protein_file(filename):
+    filename = str(filename)
+    if filename.endswith('.pdb') or filename.endswith('.pdb.gz'):
+        protein = pd.parsePDB(filename)
+        if protein is None:
+            with open(filename) as f:
+                return pd.parsePDBStream(f)
+        else:
+            return protein
+    elif filename.endswith('.cif'):
+        protein = pd.parseMMCIF(filename)
+        if protein is None:
+            with open(filename) as f:
+                return pd.parseMMCIFStream(f)
+    elif filename.endswith(".cif.gz"):
+        with gzip.open(filename, 'r') as mmcif:
+            with io.TextIOWrapper(mmcif, encoding='utf-8') as decoder:
+                return pd.parseMMCIFStream(decoder)
+    else:
+        with open(filename) as f:
+            return pd.parsePDBStream(f)
 
 
 def group_indices(input_list: List[int]) -> List[List[int]]:

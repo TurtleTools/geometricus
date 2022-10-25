@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+from geometricus import Database, SplitInfo, SplitType
+import pickle
+import typer
+
+app = typer.Typer()
+
+
+@app.command()
+def create(input_folder: str = typer.Argument(...,
+                                              help="A folder with target protein structure files (.pdb(.gz), .cif(.gz)"),
+           database_name: str = typer.Argument("database", help="Name of database to create"),
+           split_infos: str = typer.Option("KMER_16,RADIUS_10", help="Comma separated split type and split size"),
+           moment_types: str = typer.Option("O_3,O_4,O_5,F", help="Moment types to use, comma separated"),
+           resolution: str = typer.Option("1,1", help="Resolution of embedding, comma separated"),
+           n_threads: int = typer.Option(1, help="Number of threads to use for multiprocessing"),
+           verbose: bool = typer.Option(True, help="If True, print progress")):
+    split_infos = [SplitInfo(SplitType[split_info.split("_")[0]], int(split_info.split("_")[1])) for split_info in
+                   split_infos.split(",")]
+    moment_types = moment_types.split(",")
+    resolution = [float(r) for r in resolution.split(",")]
+    database = Database.from_folder(input_folder, split_infos, moment_types, resolution, n_threads, verbose)
+    with open(f"{database_name}.pkl", "wb") as f:
+        pickle.dump(database, f)
+
+
+@app.command()
+def query(input_folder: str = typer.Argument(...,
+                                             help="A folder with query protein structure files (.pdb(.gz), .cif(.gz)"),
+          database_name: str = typer.Argument("database", help="Name of database to load"),
+          output_file: str = typer.Argument("output.tsv", help="Name of output file")):
+    with open(f"{database_name}.pkl", "rb") as f:
+        database = pickle.load(f)
+    database.query(input_folder, output_file)
+
+
+if __name__ == '__main__':
+    app()
