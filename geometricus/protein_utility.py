@@ -43,6 +43,7 @@ def parse_protein_file(filename):
         if protein is None:
             with open(filename) as f:
                 return pd.parseMMCIFStream(f)
+        return protein
     elif filename.endswith(".cif.gz"):
         with gzip.open(filename, 'r') as mmcif:
             with io.TextIOWrapper(mmcif, encoding='utf-8') as decoder:
