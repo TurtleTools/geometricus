@@ -111,9 +111,9 @@ class Geometricus:
     def from_invariants(
             cls,
             invariants: Union[Generator[MultipleMomentInvariants], List[MultipleMomentInvariants]],
-            protein_keys: Union[None, List[ProteinKey]] = None,
-            model=None,
-            resolution: Union[float, np.ndarray] = None,
+            protein_keys: Optional[List[ProteinKey]] = None,
+            model: Optional[ShapemerLearn] = None,
+            resolution: Optional[Union[float, np.ndarray]] = None,
     ):
         """
         Make a GeometricusEmbedding object from a list of MultipleMomentInvariant objects
@@ -146,19 +146,20 @@ class Geometricus:
             proteins_to_shapemers = {k: invariants[k].get_shapemers_binned(resolution) for k in
                                      tqdm(protein_keys, total=len(protein_keys))}
         else:
-            proteins_to_shapemers = {k: invariants[k].get_shapemers_model(model) for k, v in
+            proteins_to_shapemers = {k: invariants[k].get_shapemers_model(model) for k in
                                      tqdm(protein_keys, total=len(protein_keys))}
 
-        proteins_to_shapemer_residue_indices = {k: invariants[k].get_neighbors() for k, v in protein_keys}
+        proteins_to_shapemer_residue_indices = {k: invariants[k].get_neighbors() for k in protein_keys}
         geometricus_class = cls(
             proteins_to_shapemers=proteins_to_shapemers,
             protein_keys=protein_keys,
             resolution=resolution,
             proteins_to_shapemer_residue_indices=proteins_to_shapemer_residue_indices,
+            shapemer_keys=[],
             shapemer_to_protein_indices={},
-            shapemer_keys=[]
         )
-        geometricus_class.shapemer_to_protein_indices, geometricus_class.shapemer_keys = geometricus_class.map_shapemers_to_indices()
+        geometricus_class.shapemer_to_protein_indices = geometricus_class.map_shapemers_to_indices()
+        geometricus_class.shapemer_keys = sorted(list(geometricus_class.shapemer_to_protein_indices.keys()))
         return geometricus_class
 
     def map_shapemers_to_indices(self, protein_keys=None):
