@@ -1,9 +1,8 @@
-from pathlib import Path
-
 import numpy as np
 import torch
 
 from geometricus.moment_invariants import SPLIT_INFOS, MomentType
+import importlib.resources as importlib_resources
 
 
 class ShapemerLearn(torch.nn.Module):
@@ -44,17 +43,17 @@ class ShapemerLearn(torch.nn.Module):
         split_info_string = "_".join(
             [f"{split_info.split_type.name}-{split_info.split_size}" for split_info in self.split_infos])
 
-        return f"ShapemerLearn_{split_info_string}_{self.number_of_moments}_{self.hidden_layer_dimension}_{self.output_dimension}.pt "
+        return f"ShapemerLearn_{split_info_string}_{self.number_of_moments}_{self.hidden_layer_dimension}_{self.output_dimension}.pt"
 
     @classmethod
-    def load(cls, folder, hidden_layer_dimension=32, output_dimension=10, split_infos=SPLIT_INFOS):
+    def load(cls, hidden_layer_dimension=32, output_dimension=10, split_infos=SPLIT_INFOS):
         model = ShapemerLearn(hidden_layer_dimension, output_dimension, split_infos=split_infos)
-        filename = Path(folder) / model.filename
-        assert filename.exists(), f"Model file {filename} does not exist"
         if torch.cuda.is_available():
-            m = torch.load(str(filename), map_location=torch.device("cuda"))
+            m = torch.load(importlib_resources.files("geometricus") / "models" / model.filename,
+                           map_location=torch.device("cuda"))
         else:
-            m = torch.load(str(filename), map_location=torch.device("cpu"))
+            m = torch.load(importlib_resources.files("geometricus") / "models" / model.filename,
+                           map_location=torch.device("cpu"))
         model.load_state_dict(m)
         model.eval()
         if torch.cuda.is_available():
