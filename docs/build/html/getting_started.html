@@ -360,25 +360,6 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">load_ext</span> <span class="n">autoreload</span>
-<span class="o">%</span> <span class="n">autoreload</span> <span class="mi">2</span>
-</pre></div>
-</div>
-</div>
 <section id="Getting-Started">
 <h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this heading">¶</a></h1>
 <p>Let’s walk through an example application of Geometricus in machine learning using a dataset of human MAP kinases, divided into three classes - JNK, Erk, and p38 kinases. This dataset was generated from the <a class="reference external" href="https://klifs.vu-compmedchem.nl/index.php">Kinase-Ligand Interaction Fingerprints and Structures database (KLIFS)</a> (Raw table <a class="reference external" href="../../example_data/MAPK_KLIFS.tsv">here</a>).</p>
@@ -437,7 +418,7 @@ seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as w
 
 <span class="n">invariants</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">get_invariants_for_structures</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ShapemerLearn</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ShapemerLearn</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">shapemer_class</span> <span class="o">=</span> <span class="n">Geometricus</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_names</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated shapemers in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
 </pre></div>
@@ -530,7 +511,7 @@ Generated shapemers in 1.60 seconds
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_10_0.png" src="_images/getting_started_10_0.png" />
+<img alt="_images/getting_started_8_0.png" src="_images/getting_started_8_0.png" />
 </div>
 </div>
 <section id="Embedding-for-Supervised-Learning">
@@ -603,7 +584,7 @@ weighted avg       0.92      0.91      0.91       159
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_16_0.png" src="_images/getting_started_16_0.png" />
+<img alt="_images/getting_started_14_0.png" src="_images/getting_started_14_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -619,7 +600,7 @@ weighted avg       0.92      0.91      0.91       159
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_17_0.png" src="_images/getting_started_17_0.png" />
+<img alt="_images/getting_started_15_0.png" src="_images/getting_started_15_0.png" />
 </div>
 </div>
 <p>We can map back to the residues described by a shape-mer using the <code class="docutils literal notranslate"><span class="pre">map_shapemer_to_residues</span></code> function which returns a dictionary mapping each protein to the corresponding residue indices of the shape-mer within that protein, if it exists.</p>

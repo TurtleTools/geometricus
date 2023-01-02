@@ -131,7 +131,7 @@ def get_structure_files(input_value: Union[Path, str, List[str]]) -> List[Union[
             protein_file, chain = protein_file
             final_protein_files.append((protein_file, chain))
         else:
-            assert type(protein_file) == str, "Could not understand input"
+            assert type(protein_file) == str, f"Could not understand input {protein_file}"
             if ", " in protein_file:
                 protein_file, chain = protein_file.split(", ")
                 final_protein_files.append((protein_file, chain))
