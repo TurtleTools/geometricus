@@ -1,9 +1,10 @@
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
-from .geometricus import GeometricusEmbedding
-from .moment_invariants import MomentInvariants, SplitType, SplitInfo
+from .geometricus import Geometricus
+from .model_utility import ShapemerLearn
+from .moment_invariants import MultipleMomentInvariants, MomentInvariants, SplitType, SplitInfo
 from .moment_utility import MomentType
 from .protein_utility import Structure
-from .database import Database
 
-__all__ = ["GeometricusEmbedding", "MomentInvariants", "SplitType", "SplitInfo", "Structure", "MomentType", "Database"]
+__all__ = ["Geometricus", "ShapemerLearn", "MultipleMomentInvariants", "MomentInvariants", "SplitType", "SplitInfo",
+           "Structure", "MomentType"]

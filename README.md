@@ -11,35 +11,13 @@ See the [documentation](https://turtletools.github.io/geometricus/).
 
 ## Installation
 
-Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies.
+Geometricus is a Python (3.9+) package with NumPy, SciPy, Numba, PyTorch and ProDy as dependencies.
 
 Install with `pip install geometricus`
 
 ## Usage
 
 See the [Getting Started](https://turtletools.github.io/geometricus/getting_started) page for example usage.
-
-## Pairwise distances between query database and target database
-
-The pairwise distances between the query database and target database can be calculated using the `geometricus-search`
-command line tool as follows:
-
-```shell
-export NUMBA_NUM_THREADS=64
-geometricus-search create query_folder database --resolution=1,1 --split-infos=KMER_16,RADIUS_10  --n-threads=64
-geometricus-search query target_folder database output.tsv
-```
-
-This creates a database pickle file (geometricus.Database) and an output file with rows (query_name, target_name,
-distance). The pickle file can later be loaded to inspect the shape-mers created and map them back to the structures as
-described in the getting started page.
-
-The most important parameters are the split sizes (equivalent to kmer size) and the resolution: Make sure to set them
-according to the expected structural similarity of the proteins in the query vs target database (higher = more similar).
-An easy way to choose is to run the database creation step (on a subset of proteins) with a range of parameters and
-choose the one giving a shape-mer count that matches your expectation in terms of the number of differing substructures
-you would like to compare. If comparing structurally distant proteins, smaller resolutions of 0.5-1 are recommended,
-while small changes in highly similar proteins can be identified with higher resolutions (>=2).
 
 ## Publications
 
