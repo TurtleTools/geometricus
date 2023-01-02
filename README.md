@@ -13,7 +13,7 @@ See the [documentation](https://turtletools.github.io/geometricus/).
 
 Geometricus is a Python (3.9+) package with NumPy, SciPy, Numba, PyTorch and ProDy as dependencies.
 
-Install with `pip install geometricus`
+Install with `pip install git+https://github.com/TurtleTools/geometricus.git`
 
 ## Usage
 
