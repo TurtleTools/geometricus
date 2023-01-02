@@ -46,10 +46,6 @@ class Geometricus:
     """
     Maps each protein to a set of residue indices covered by the current residue's shapemer in order of its residues\n\n
     """
-    model: ShapemerLearn = None
-    """
-    Trained shapemer model file
-    """
     resolution: Union[float, np.ndarray] = None
     """
     Multiplier that determines how coarse/fine-grained each shape is. 
@@ -81,7 +77,7 @@ class Geometricus:
             A file which lists structure filenames or "structure_filename, chain" on each line,
             A file which lists PDBIDs or PDBID_chain or PDBID, chain on each line
         model
-            Trained shapemer model
+            trained ShapemerLearn model
             if this is not None, shapemers are generated using the trained model
             and split_infos, moment_types, and resolution is ignored
         split_infos
@@ -157,7 +153,6 @@ class Geometricus:
         geometricus_class = cls(
             proteins_to_shapemers=proteins_to_shapemers,
             protein_keys=protein_keys,
-            model=model,
             resolution=resolution,
             proteins_to_shapemer_residue_indices=proteins_to_shapemer_residue_indices,
             shapemer_to_protein_indices={},

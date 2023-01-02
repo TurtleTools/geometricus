@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
@@ -63,23 +62,11 @@ class ShapemerLearn(torch.nn.Module):
         return model
 
 
-# def loss_func(out, distant, y):
-#     dist_sq = torch.sum(torch.pow(out - distant, 2), 1)
-#     dist = torch.sqrt(dist_sq + 1e-10)
-#     mdist = 1 - dist
-#     dist = torch.clamp(mdist, min=0.0)
-#     loss = y * dist_sq + (1 - y) * torch.pow(dist, 2)
-#     loss = torch.sum(loss) / 2.0 / out.size()[0]
-#     return loss
-
 def loss_func(out, distant, y):
     # Calculate the squared Euclidean distance between out and distant
     dist_sq = torch.sum(torch.pow(out - distant, 2), 1)
     # Calculate the contrastive loss
     loss = y * dist_sq + (1 - y) * torch.pow(torch.clamp(1 - torch.sqrt(dist_sq + 1e-10), min=0.0), 2)
-    # # Add a penalty for outputs that are far from 0 or 1
-    # alpha = 0.1  # Hyperparameter to control the strength of the penalty
-    # loss += torch.mean(alpha * torch.abs(out * (1 - out)), 1)
     # Return the mean loss over the batch
     return torch.mean(loss)
 
@@ -113,29 +100,3 @@ def moments_to_shapemers(list_of_moments, model):
             .numpy()
         )
     return moment_tensors_to_bits(moment_tensors)
-
-
-def get_all_keys(list_of_moment_hashes, model):
-    all_keys = set()
-    for prot in list_of_moment_hashes:
-        all_keys |= set(moments_to_shapemers(prot, model))
-    return list(all_keys)
-
-
-def count_with_keys(prot_hashes, keys):
-    d = OrderedDict.fromkeys(keys, 0)
-    for prot_hash in prot_hashes:
-        d[prot_hash] += 1
-    return np.array([d[x] for x in keys])
-
-
-def get_count_matrix(protein_moments, model, with_counts=False):
-    ind_moments_compressed = [
-        moments_to_shapemers(x, model) for x in protein_moments
-    ]
-    all_keys = get_all_keys(protein_moments, model)
-    print(f"Total shapemers: {len(all_keys)}")
-    protein_embeddings = [count_with_keys(x, all_keys) for x in ind_moments_compressed]
-    if with_counts:
-        return [x / x.sum() for x in protein_embeddings], protein_embeddings
-    return protein_embeddings

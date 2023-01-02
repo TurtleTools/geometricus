@@ -1,5 +1,3 @@
-from typing import List
-
 from ftplib import FTP
 
 import torch
@@ -18,7 +16,6 @@ from geometricus.moment_utility import nb_mean_axis_0
 
 POSITIVE_TM_THRESHOLD = 0.8  # only protein pairs with >this TM score considered for positive residue pairs
 NEGATIVE_TM_THRESHOLD = 0.6  # only protein pairs with <this TM score considered for negative residue pairs
-RMSD_THRESHOLD = 2
 
 
 def get_cath_data(data_folder):
@@ -373,11 +370,9 @@ def sample_from_protein_pair(protein_1_moments: MultipleMomentInvariants,
     coords_2 = pdb_2.select("calpha").getCoords()
     vector_2 = protein_2_moments.normalized_moments
     indices, mapping = map_residue_indices(aln, protein_1, protein_2, is_positive)
-    # choices = np.random.choice(len(indices), min(len(indices), num), replace=False)
     for a1, a2, aligned in indices:
         assert a1 < len(vector_1) and a2 < len(
             vector_2), f"{protein_1} {protein_2} {a1} {a2} {len(vector_1)} {len(vector_2)}"
-        # if 8 < a1 < protein_1_moments.length - 8 and 8 < a2 < protein_2_moments.length - 8:
         rmsd = get_rmsd_neighbors_aligned_pair(coords_1, coords_2, a1, np.array(list(neighbors_1[a1])), mapping)
         yield ResiduePair(protein_1, protein_2, a1, a2,
                           vector_1[a1], vector_2[a2],
