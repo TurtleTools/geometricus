@@ -11,7 +11,7 @@ See the [documentation](https://turtletools.github.io/geometricus/).
 
 ## Installation
 
-Geometricus is a Python (3.7+) package with NumPy, SciPy, Numba and ProDy as dependencies.
+Geometricus is a Python (3.9+) package with NumPy, SciPy, Numba, PyTorch and ProDy as dependencies.
 
 Install with `pip install geometricus`
 

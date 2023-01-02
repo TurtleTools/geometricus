@@ -8,6 +8,8 @@ Submodules
    :maxdepth: 4
 
    geometricus.geometricus
+   geometricus.model_utility
+   geometricus.moment_invariants
    geometricus.moment_utility
    geometricus.protein_utility
 

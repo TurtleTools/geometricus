@@ -176,20 +176,20 @@ def phi_4(
 def phi_5(mu_030, mu_021, mu_120, mu_003, mu_201, mu_102, mu_210, mu_012, mu_300):
     return (
             mu_300 ** 2
-            + 2 * mu_300
-            + 2 * mu_300
-            + 2 * mu_210
-            + 2 * mu_201
+            + 2 * mu_300 * mu_120
+            + 2 * mu_300 * mu_102
+            + 2 * mu_210 * mu_030
+            + 2 * mu_201 * mu_003
             + mu_030 ** 2
-            + 2 * mu_030
-            + 2 * mu_021
+            + 2 * mu_030 * mu_012
+            + 2 * mu_021 * mu_003
             + mu_003 ** 2
             + mu_210 ** 2
-            + 2 * mu_210
+            + 2 * mu_210 * mu_012
             + mu_201 ** 2
-            + 2 * mu_201
+            + 2 * mu_201 * mu_021
             + mu_120 ** 2
-            + 2 * mu_120
+            + 2 * mu_120 * mu_102
             + mu_102 ** 2
             + mu_021 ** 2
             + mu_012 ** 2
@@ -1135,7 +1135,7 @@ def CI(mu_000,
                       + mu_020 * (beta_17 * gamma_4 - beta_14 * gamma_6 - 2 * (mu_111 * gamma_7 + beta_3 * gamma_5))
                       + mu_200 * (beta_16 * gamma_5 - beta_13 * gamma_4 - 2 * (mu_111 * gamma_9 + beta_2 * gamma_6))) \
            - 16 * s_4 * (mu_011 * alpha_2 * alpha_3 * beta_2 + mu_101 * alpha_1 * alpha_2 * beta_3
-                         + mu_110 * alpha_1 * alpha_3 * beta_1 - mu_111 * alpha_1 * alpha_2 * alpha_2
+                         + mu_110 * alpha_1 * alpha_3 * beta_1 - mu_111 * alpha_1 * alpha_2 * alpha_3
                          - mu_011 * mu_011 * (mu_111 * alpha_1 - mu_011 * beta_2 - mu_101 * beta_5 - mu_110 * beta_7)
                          - mu_101 * mu_101 * (mu_111 * alpha_3 - mu_101 * beta_3 - mu_110 * beta_4 - mu_011 * beta_8)
                          - mu_110 * mu_110 * (mu_111 * alpha_2 - mu_110 * beta_1 - mu_011 * beta_6 - mu_101 * beta_9)

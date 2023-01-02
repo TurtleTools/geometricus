@@ -1,10 +1,14 @@
 from __future__ import annotations
-from typing import List, Tuple, Dict, Set, Union, Generator
+from pathlib import Path
+from tqdm import tqdm
+from typing import List, Tuple, Dict, Set, Union, Generator, Optional
 from collections import defaultdict
 from dataclasses import dataclass
 
 import numpy as np
-from geometricus.moment_invariants import MomentInvariants
+import numba as nb
+from geometricus.model_utility import ShapemerLearn
+from geometricus.moment_invariants import MultipleMomentInvariants, SplitInfo, get_invariants_for_structures
 from geometricus.protein_utility import ProteinKey
 
 Shapemer = Union[bytes, tuple]
@@ -18,32 +22,13 @@ A list of Shapemer types
 
 
 @dataclass
-class GeometricusEmbedding:
+class Geometricus:
     """
     Class for storing embedding information
-    """
-    invariants: Dict[ProteinKey, MomentInvariants]
-    """
-    Dictionary mapping protein_keys to MomentInvariant objects
-    """
-    resolution: Union[float, np.ndarray]
-    """
-    Multiplier that determines how coarse/fine-grained each shape is. 
-    This can be a single number, multiplied to all four moment invariants 
-    or a numpy array of four numbers, one for each invariant
     """
     protein_keys: List[ProteinKey]
     """
     List of protein names = rows of the output embedding
-    """
-    shapemer_keys: Shapemers
-    """
-    If given uses only these shapemers for the embedding.
-    If None, uses all shapemers
-    """
-    embedding: np.ndarray
-    """
-    Embedding matrix of size (len(protein_keys), len(self.shapemer_keys))
     """
     shapemer_to_protein_indices: Dict[Shapemer, List[Tuple[ProteinKey, int]]]
     """
@@ -53,81 +38,163 @@ class GeometricusEmbedding:
     """
     Maps each protein to a list of shapemers in order of its residues\n\n
     """
+    shapemer_keys: Shapemers
+    """
+    List of shapemers found
+    """
+    proteins_to_shapemer_residue_indices: Dict[ProteinKey, Shapemers]
+    """
+    Maps each protein to a set of residue indices covered by the current residue's shapemer in order of its residues\n\n
+    """
+    resolution: Union[float, np.ndarray] = None
+    """
+    Multiplier that determines how coarse/fine-grained each shape is. 
+    This can be a single number, multiplied to all four moment invariants 
+    or a numpy array of four numbers, one for each invariant
+    (This is for the old way of binning shapemers)
+    """
+
+    @classmethod
+    def from_protein_files(cls,
+                           input_files: Union[Path, str, List[str]],
+                           model: ShapemerLearn = None,
+                           split_infos: List[SplitInfo] = None,
+                           moment_types: List[str] = None,
+                           resolution: Union[float, np.ndarray] = None,
+                           n_threads: int = 1,
+                           verbose: bool = True):
+        """
+        Creates a Geometricus object from protein structure files
+
+        Parameters
+        ----------
+        input_files
+            Can be \n
+            A list of structure files (.pdb, .pdb.gz, .cif, .cif.gz),
+            A list of (structure_file, chain)
+            A list of PDBIDs or PDBID_chain or (PDB ID, chain)
+            A folder with input structure files,
+            A file which lists structure filenames or "structure_filename, chain" on each line,
+            A file which lists PDBIDs or PDBID_chain or PDBID, chain on each line
+        model
+            trained ShapemerLearn model
+            if this is not None, shapemers are generated using the trained model
+            and split_infos, moment_types, and resolution is ignored
+        split_infos
+            List of SplitInfo objects
+        moment_types
+            List of moment types to use
+        resolution
+            Multiplier that determines how coarse/fine-grained each shape is.
+            This can be a single number, multiplied to all four moment invariants
+            or a numpy array of four numbers, one for each invariant
+            (This is for the old way of binning shapemers)
+        n_threads
+            Number of threads to use
+        verbose
+            Whether to print progress
+
+        Returns
+        -------
+        Geometricus object
+        """
+        invariants, errors = get_invariants_for_structures(input_files,
+                                                           split_infos=split_infos,
+                                                           moment_types=moment_types,
+                                                           n_threads=n_threads,
+                                                           verbose=verbose)
+        return cls.from_invariants(
+            invariants,
+            model=model, resolution=resolution)
 
     @classmethod
     def from_invariants(
             cls,
-            invariants: Union[Generator[MomentInvariants], List[MomentInvariants]],
-            resolution: Union[float, np.ndarray] = 1.0,
-            protein_keys: Union[None, List[ProteinKey]] = None,
-            shapemer_keys: Union[None, List[Shapemer]] = None,
+            invariants: Union[Generator[MultipleMomentInvariants], List[MultipleMomentInvariants]],
+            protein_keys: Optional[List[ProteinKey]] = None,
+            model: Optional[ShapemerLearn] = None,
+            resolution: Optional[Union[float, np.ndarray]] = None,
     ):
         """
-        Make a GeometricusEmbedding object from a list of MomentInvariant objects
+        Make a GeometricusEmbedding object from a list of MultipleMomentInvariant objects
 
         Parameters
         ----------
         invariants
-            List of MomentInvariant objects
+            List of MultipleMomentInvariant objects
+        protein_keys
+            list of protein names = rows of the output embedding.
+            if None, takes all keys in `invariants`
+        model
+            if given, uses this model to make the shapemers
         resolution
             multiplier that determines how coarse/fine-grained each shape is
             this can be a single number, multiplied to all four moment invariants
             or a numpy array of four numbers, one for each invariant
-        protein_keys
-            list of protein names = rows of the output embedding.
-            if None, takes all keys in `invariants`
-        shapemer_keys
-            if given uses only these shapemers for the embedding.
-            if None, uses all shapemers
+            (This is for the old way of binning shapemers)
         """
+        assert model is not None or resolution is not None, "Must provide either a model or resolution"
         if isinstance(resolution, np.ndarray):
-            assert resolution.shape[0] == invariants[0].moments.shape[1]
-        invariants: Dict[ProteinKey, MomentInvariants] = {
+            assert resolution.shape[0] == invariants[0].invariants[0].moments.shape[1]
+        invariants: Dict[ProteinKey, MultipleMomentInvariants] = {
             x.name: x for x in invariants
         }
         if protein_keys is None:
             protein_keys: List[ProteinKey] = list(invariants.keys())
         assert all(k in invariants for k in protein_keys)
+        if model is None:
+            proteins_to_shapemers = {k: invariants[k].get_shapemers_binned(resolution) for k in
+                                     tqdm(protein_keys, total=len(protein_keys))}
+        else:
+            proteins_to_shapemers = {k: invariants[k].get_shapemers_model(model) for k in
+                                     tqdm(protein_keys, total=len(protein_keys))}
 
-        proteins_to_shapemers: Dict[ProteinKey, Shapemers] = get_shapes(
-            invariants, resolution
+        proteins_to_shapemer_residue_indices = {k: invariants[k].get_neighbors() for k in protein_keys}
+        geometricus_class = cls(
+            proteins_to_shapemers=proteins_to_shapemers,
+            protein_keys=protein_keys,
+            resolution=resolution,
+            proteins_to_shapemer_residue_indices=proteins_to_shapemer_residue_indices,
+            shapemer_keys=[],
+            shapemer_to_protein_indices={},
         )
-        shapemers_to_protein_indices = map_shapemers_to_indices(proteins_to_shapemers)
-        if shapemer_keys is None:
-            shapemer_keys = sorted(list(shapemers_to_protein_indices))
-        embedding = make_embedding(protein_keys, proteins_to_shapemers, shapemer_keys)
-        return cls(
-            invariants,
-            resolution,
-            protein_keys,
-            shapemer_keys,
-            embedding,
-            shapemers_to_protein_indices,
-            proteins_to_shapemers,
-        )
+        geometricus_class.shapemer_to_protein_indices = geometricus_class.map_shapemers_to_indices()
+        geometricus_class.shapemer_keys = sorted(list(geometricus_class.shapemer_to_protein_indices.keys()))
+        return geometricus_class
 
-    def embed(
-            self,
-            invariants: Union[Generator[MomentInvariants], List[MomentInvariants]],
-            protein_keys: Union[None, List[ProteinKey]] = None,
-    ) -> "GeometricusEmbedding":
+    def map_shapemers_to_indices(self, protein_keys=None):
         """
-        Embed a new set of proteins using an existing embedding's shapemers
-
-        Parameters
-        ----------
-        invariants
-            List of MomentInvariant objects.
-        protein_keys
-            list of protein names = rows of the output embedding
-
-        Returns
-        -------
-        a GeometricusEmbedding object on the new (test) keys
+        Maps each shapemer to the proteins which have it and to the corresponding residue indices within these proteins
+        Maps shapemer to (protein_key, residue_index)
         """
-        return self.from_invariants(
-            invariants, self.resolution, protein_keys, self.shapemer_keys
-        )
+        if protein_keys is None:
+            protein_keys = self.protein_keys
+        shapemer_to_protein_indices: Dict[
+            Shapemer, List[Tuple[ProteinKey, int]]
+        ] = defaultdict(list)
+        for key in protein_keys:
+            for j, shapemer in enumerate(self.proteins_to_shapemers[key]):
+                shapemer_to_protein_indices[shapemer].append((key, j))
+        return shapemer_to_protein_indices
+
+    def map_protein_to_shapemer_indices(self, protein_keys=None, shapemer_keys=None):
+        """
+        Maps each protein to a list of shapemer indices where the index corresponds to the shapemer in shapemer_keys
+        in order of its residues\n\n
+        """
+        if protein_keys is not None and shapemer_keys is None:
+            shapemer_keys = sorted(list(self.map_shapemers_to_indices(protein_keys).keys()))
+        elif protein_keys is None:
+            protein_keys = self.protein_keys
+            if shapemer_keys is None:
+                shapemer_keys = self.shapemer_keys
+        shapemer_index = {k: i for i, k in enumerate(shapemer_keys)}
+        return {
+                   k: np.array([shapemer_index[x] for x in self.proteins_to_shapemers[k] if x in shapemer_index],
+                               dtype=int)
+                   for
+                   k in
+                   protein_keys}, shapemer_keys
 
     def map_shapemer_to_residues(
             self, shapemer: Shapemer
@@ -136,282 +203,25 @@ class GeometricusEmbedding:
         Gets residue indices within a particular shapemer across all proteins.
         """
         protein_to_shapemer_residues: Dict[ProteinKey, Set[int]] = defaultdict(set)
-
         for protein_key, residue_index in self.shapemer_to_protein_indices[shapemer]:
-            shapemer_residues = self.invariants[protein_key].split_indices[residue_index]
+            shapemer_residues = self.proteins_to_shapemer_residue_indices[protein_key][residue_index]
             for residue in shapemer_residues:
                 protein_to_shapemer_residues[protein_key].add(residue)
 
         return protein_to_shapemer_residues
 
-    def plot_shapemers(
-            self,
-            shapemer: Shapemer,
-            subsample_upto: Union[int, None] = None,
-            distance_between: int = 0,
-            opacity=0.2,
-    ):
-        from plotly import graph_objects as go
-        from caretta import superposition_functions, score_functions
-
-        sizes, counts = np.unique(
-            [
-                len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]])
-                for p, r in self.shapemer_to_protein_indices[shapemer]
-            ],
-            return_counts=True,
-        )
-        size = sizes[np.argmax(counts)]
-        protein_indices = [
-            (p, r)
-            for p, r in self.shapemer_to_protein_indices[shapemer]
-            if len(self.invariants[p].coordinates[self.invariants[p].split_indices[r]])
-               == size
-        ]
-
-        if subsample_upto is not None:
-            chosen = np.random.choice(
-                range(len(protein_indices)),
-                min(subsample_upto, len(protein_indices)),
-                replace=False,
-            )
-        else:
-            chosen = np.arange(len(protein_indices))
-
-        protein_key, residue_index = protein_indices[chosen[0]]
-
-        first = self.invariants[protein_key].coordinates[
-            self.invariants[protein_key].split_indices[residue_index]
-        ]
-        first -= np.mean(first, axis=0)
-
-        data = [
-            go.Scatter3d(
-                x=first[:, 0],
-                y=first[:, 1],
-                z=first[:, 2],
-                name=f"{protein_key} residue index {residue_index}",
-                mode="lines",
-                line=dict(color="gray", width=3),
-                opacity=opacity,
-            )
-        ]
-
-        average_coords = [np.array(first)]
-        for i, x in enumerate(chosen[1:]):
-            protein_key, residue_index = protein_indices[x]
-            second = self.invariants[protein_key].coordinates[
-                self.invariants[protein_key].split_indices[residue_index]
-            ]
-            rot, tran = superposition_functions.paired_svd_superpose(first, second)
-            second = superposition_functions.apply_rotran(second, rot, tran)
-            rmsd = score_functions.get_rmsd(first, second)
-
-            second_reversed = second[::-1]
-            rot, tran = superposition_functions.paired_svd_superpose(
-                first, second_reversed
-            )
-            second_reversed = superposition_functions.apply_rotran(
-                second_reversed, rot, tran
-            )
-            rmsd_reversed = score_functions.get_rmsd(first, second_reversed)
-
-            add = (i + 1) * distance_between
-            if rmsd < rmsd_reversed:
-                data.append(
-                    go.Scatter3d(
-                        x=second[:, 0],
-                        y=second[:, 1],
-                        z=second[:, 2],
-                        name=f"{protein_key} residue index {residue_index}",
-                        mode="lines",
-                        line=dict(color="gray", width=3),
-                        opacity=opacity,
-                    )
-                )
-                average_coords += [second]
-            else:
-                data.append(
-                    go.Scatter3d(
-                        x=second_reversed[:, 0],
-                        y=second_reversed[:, 1],
-                        z=second_reversed[:, 2],
-                        name=f"{protein_key} residue index {residue_index}",
-                        mode="lines",
-                        line=dict(color="gray", width=3),
-                        opacity=opacity,
-                    )
-                )
-                average_coords += [second_reversed]
-        average_coords = np.median(average_coords, axis=0)
-        data.append(
-            go.Scatter3d(
-                x=average_coords[:, 0],
-                y=average_coords[:, 1],
-                z=average_coords[:, 2],
-                name="median shape-mer",
-                mode="lines",
-                line=dict(color="black", width=5),
-                opacity=1.0,
-            )
-        )
-
-        figure = go.Figure(
-            data,
-            layout=dict(
-                scene=dict(
-                    xaxis=dict(showbackground=False),
-                    yaxis=dict(showbackground=False),
-                    zaxis=dict(showbackground=False),
-                )
-            ),
-        )
-        figure.update_layout(
-            title=f"{len(protein_indices)} times across {len(set(i[0] for i in protein_indices))} proteins"
-        )
-        return figure
-
-    def plot_shapemer_on_protein(
-            self, shapemer: Shapemer, protein_key: ProteinKey, opacity=0.5
-    ):
-        from plotly import graph_objects as go
-
-        indices = [
-            r for p, r in self.shapemer_to_protein_indices[shapemer] if p == protein_key
-        ]
-        if len(indices) == 0:
-            print(f"Shapemer {shapemer} not found in protein {protein_key}")
-            return None
-        coordinates = self.invariants[protein_key].coordinates
-        data = [
-            go.Scatter3d(
-                x=coordinates[:, 0],
-                y=coordinates[:, 1],
-                z=coordinates[:, 2],
-                mode="lines",
-                line=dict(color="gray", width=3),
-            )
-        ]
-        for index in indices:
-            shapemer_coords = coordinates[
-                self.invariants[protein_key].split_indices[index]
-            ]
-            data.append(
-                go.Scatter3d(
-                    x=shapemer_coords[:, 0],
-                    y=shapemer_coords[:, 1],
-                    z=shapemer_coords[:, 2],
-                    name=f"{protein_key} residue index {index}",
-                    mode="markers",
-                    marker=dict(size=7, opacity=opacity),
-                )
-            )
-        figure = go.Figure(
-            data,
-            layout=dict(
-                scene=dict(
-                    xaxis=dict(showbackground=False),
-                    yaxis=dict(showbackground=False),
-                    zaxis=dict(showbackground=False),
-                )
-            ),
-        )
-        figure.update_layout(
-            title=f"{len(indices)} shapemer occurrences in {protein_key}"
-        )
-        return figure
-
-    def plot_shapemer_heatmap_on_protein(
-            self, shapemers: Shapemers, protein_key, cmap="Greys"
-    ):
-        import matplotlib.colors as mc
-        from matplotlib import cm
-        from plotly import graph_objects as go
-
-        heatmap = np.zeros(self.invariants[protein_key].coordinates.shape[0])
-        for shapemer in shapemers:
-            indices = [
-                self.invariants[p].split_indices[r]
-                for p, r in self.shapemer_to_protein_indices[shapemer]
-                if p == protein_key
-            ]
-            for idx in indices:
-                if len(idx):
-                    heatmap[idx] += 1
-
-        norm = mc.Normalize(vmin=np.min(heatmap), vmax=np.max(heatmap))
-        mapper = cm.ScalarMappable(norm=norm, cmap=cmap)
-        colors = [mapper.to_rgba(h) for h in heatmap]
-
-        coordinates = self.invariants[protein_key].coordinates
-        data = [
-            go.Scatter3d(
-                x=coordinates[:, 0],
-                y=coordinates[:, 1],
-                z=coordinates[:, 2],
-                mode="markers+lines",
-                line=dict(color="gray", width=3),
-                marker=dict(color=colors, size=7, line=dict(width=2, color="black")),
-            )
-        ]
-        figure = go.Figure(
-            data,
-            layout=dict(
-                scene=dict(
-                    xaxis=dict(showbackground=False),
-                    yaxis=dict(showbackground=False),
-                    zaxis=dict(showbackground=False),
-                )
-            ),
-        )
-        figure.update_layout(title=f"{protein_key}")
-        return figure, heatmap
+    def get_count_matrix(self, protein_keys=None, shapemer_keys=None):
+        if protein_keys is None:
+            protein_keys = self.protein_keys
+        proteins_to_shapemer_indices, shapemer_keys = self.map_protein_to_shapemer_indices(protein_keys, shapemer_keys)
+        return make_count_matrix([proteins_to_shapemer_indices[k] for k in protein_keys],
+                                 len(shapemer_keys))
 
 
-def get_shapes(
-        invariants: Dict[ProteinKey, MomentInvariants],
-        resolution: Union[float, np.ndarray] = 2.0,
-) -> Dict[ProteinKey, Shapemers]:
-    """
-    moment invariants -> log transformation -> multiply by resolution -> floor = shapemers
-    """
-    proteins_to_shapemers: Dict[ProteinKey, Shapemers] = dict()
-    for key in invariants:
-        moments = invariants[key].normalized_moments
-        proteins_to_shapemers[key] = [
-            tuple(list(x))
-            for x in (moments * resolution).astype(int)
-        ]
-    return proteins_to_shapemers
-
-
-def map_shapemers_to_indices(
-        protein_to_shapemers: Dict[ProteinKey, Shapemers]
-) -> Dict[Shapemer, List[Tuple[ProteinKey, int]]]:
-    """
-    Maps shapemer to (protein_key, residue_index)
-    """
-    shapemer_to_protein_indices: Dict[
-        Shapemer, List[Tuple[ProteinKey, int]]
-    ] = defaultdict(list)
-    for key in protein_to_shapemers:
-        for j, shapemer in enumerate(protein_to_shapemers[key]):
-            shapemer_to_protein_indices[shapemer].append((key, j))
-    return shapemer_to_protein_indices
-
-
-def make_embedding(
-        protein_keys: List[ProteinKey],
-        protein_to_shapemers: Dict[ProteinKey, Shapemers],
-        restrict_to: List[Shapemer],
-) -> np.ndarray:
-    """
-    Counts occurrences of each shapemer across proteins
-    """
-    shape_to_index = dict(zip(restrict_to, range(len(restrict_to))))
-    embedding = np.zeros((len(protein_keys), len(restrict_to)))
-    for i, key in enumerate(protein_keys):
-        for shapemer in protein_to_shapemers[key]:
-            if shapemer in shape_to_index:
-                embedding[i, shape_to_index[shapemer]] += 1
-    return embedding
+@nb.njit(parallel=True)
+def make_count_matrix(residues_list, alphabet_size: int):
+    out = np.zeros((len(residues_list), alphabet_size))
+    for i in nb.prange(len(residues_list)):
+        for j in range(len(residues_list[i])):
+            out[i, residues_list[i][j]] += 1
+    return out
