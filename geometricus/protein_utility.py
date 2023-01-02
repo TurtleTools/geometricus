@@ -9,6 +9,10 @@ from typing import Union, Tuple, List
 
 import numpy as np
 import numba as nb
+import warnings
+from Bio import BiopythonDeprecationWarning
+
+warnings.filterwarnings("ignore", category=BiopythonDeprecationWarning)
 import prody as pd
 
 ProteinKey = Union[str, Tuple[str, str]]
@@ -53,7 +57,10 @@ def parse_structure_file(input_value: Union[Path, (Path, str), str]):
         else:
             pdb_id = input_value
         protein = pd.parsePDB(pdb_id, compressed=False, chain=chain)
-        protein.setTitle(input_value)
+        if chain is not None:
+            protein.setTitle(f"{pdb_id}_{chain}")
+        else:
+            protein.setTitle(pdb_id)
     else:
         filename = str(input_value)
         if filename.endswith('.pdb') or filename.endswith('.pdb.gz'):
@@ -118,9 +125,13 @@ def get_structure_files(input_value: Union[Path, str, List[str]]) -> List[Union[
         protein_files = input_value
     final_protein_files = []
     for protein_file in protein_files:
-        if Path(protein_file).is_file():
+        if (type(protein_file) == str or type(protein_file) == PosixPath) and Path(protein_file).is_file():
             final_protein_files.append(protein_file)
+        elif type(protein_file) == tuple:
+            protein_file, chain = protein_file
+            final_protein_files.append((protein_file, chain))
         else:
+            assert type(protein_file) == str, "Could not understand input"
             if ", " in protein_file:
                 protein_file, chain = protein_file.split(", ")
                 final_protein_files.append((protein_file, chain))
@@ -129,7 +140,7 @@ def get_structure_files(input_value: Union[Path, str, List[str]]) -> List[Union[
                 final_protein_files.append((pdb_id, chain))
             else:
                 final_protein_files.append(protein_file)
-    return list(set(protein_files))
+    return list(set(final_protein_files))
 
 
 def group_indices(input_list: List[int]) -> List[List[int]]:

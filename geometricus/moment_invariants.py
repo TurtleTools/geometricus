@@ -10,6 +10,10 @@ from pathlib import Path
 from typing import List, Union, Tuple
 
 import numpy as np
+import warnings
+from Bio import BiopythonDeprecationWarning
+
+warnings.filterwarnings("ignore", category=BiopythonDeprecationWarning)
 import prody as pd
 from scipy.signal import resample
 
@@ -94,7 +98,9 @@ class MomentInvariants(Structure):
 
         Example
         --------
-        >>> invariants = MomentInvariants.from_prody_atomgroup(name, atom_group, split_type=SplitType.RADIUS, moment_types=[MomentType.O_3, MomentType.F, MomentType.phi_7, MomentType.phi_12])
+        >>> invariants = MomentInvariants.from_prody_atomgroup(name, atom_group,
+        >>>                    split_info=SplitInfo(SplitType.RADIUS, 10),
+        >>>                    moment_types=["O_3", "O_4", "O_5", "F"])
         """
         sequence: str = str(atom_group.select("protein and calpha").getSequence())
         calpha_coordinates: np.ndarray = atom_group.select("protein and calpha").getCoords()
@@ -129,7 +135,7 @@ class MomentInvariants(Structure):
 
         Example
         --------
-        >>> invariants = MomentInvariants.from_pdb_file("5EAU.pdb", chain="A", split_type=SplitType.RADIUS)
+        >>> invariants = MomentInvariants.from_pdb_file("5EAU.pdb", chain="A", split_info=SplitInfo(SplitType.RADIUS, 10))
         """
         pdb_name = Path(pdb_file).stem
         protein = pd.parsePDB(str(pdb_file))
@@ -301,6 +307,31 @@ class MultipleMomentInvariants:
             atom_group: pd.AtomGroup,
             split_infos=SPLIT_INFOS,
             moment_types=MOMENT_TYPES):
+        """
+        Construct MultipleMomentInvariants instance from a ProDy AtomGroup object.
+        `moment_types` determines which moments are calculated.
+        `split_infos` determines which fragmentation methods are used.
+
+        Example
+        --------
+        >>> invariants_old = MultipleMomentInvariants.from_prody_atomgroup(name, atom_group,
+        >>>                     split_infos=[SplitInfo(SplitType.RADIUS, 10)],
+        >>>                     moment_types=["O_3", "O_4", "O_5", "F"])
+        >>> invariants_new = MultipleMomentInvariants.from_prody_atomgroup(name, atom_group)
+
+        Parameters
+        ----------
+        name
+        atom_group
+            ProDy AtomGroup object
+        split_infos
+            List of SplitInfo objects, only set if not using trained ShapemerLearn model
+        moment_types
+            List of moment types, only set if not using trained ShapemerLearn model
+        Returns
+        -------
+        MultipleMomentInvariants
+        """
         multi: List[MomentInvariants] = []
         sequence: str = str(atom_group.select("protein and calpha").getSequence())
         calpha_coordinates: np.ndarray = atom_group.select("protein and calpha").getCoords()
@@ -335,6 +366,11 @@ class MultipleMomentInvariants:
     ):
         """
         Construct MultipleMomentInvariants instance from a structure file
+
+        Parameters
+        ----------
+
+        structure_file:  filename or (filename, chain) or PDBID or PDBID_Chain or (PDBID, chain)
         """
         protein = parse_structure_file(structure_file)
         return cls.from_prody_atomgroup(
@@ -400,12 +436,50 @@ class MultipleMomentInvariants:
         return moments
 
     def get_tensor_model(self, model):
+        """
+        Get the learned shapemer float representation for each residue in the protein.
+
+        Parameters
+        ----------
+        model
+            Trained ShapemerLearn model
+
+        Returns
+        -------
+        numpy array of float shapemers, one for each residue
+        """
         return model_utility.moments_to_tensors(self.normalized_moments, model)
 
     def get_shapemers_model(self, model):
+        """
+        Get learned shapemers for each residue in the protein.
+
+        Parameters
+        ----------
+        model
+            Trained ShapemerLearn model
+
+        Returns
+        -------
+        list of binary shapemers, one for each residue
+        """
         return model_utility.moments_to_shapemers(self.normalized_moments, model)
 
     def get_shapemers_binned(self, resolution):
+        """
+        Get binned shapemers for each residue in the protein using the old way of binning raw moment values.
+
+        Parameters
+        ----------
+        resolution
+            Multiplier that determines how coarse/fine-grained each shape is.
+            This can be a single number, multiplied to all calculated moment invariants
+            or a numpy array of numbers, one for each invariant
+
+        Returns
+        -------
+        list of integer shapemers, one for each residue
+        """
         return [tuple(list(x)) for x in
                 (np.nan_to_num(self.invariants[0].normalized_moments) * resolution).astype(np.int64)]
 
@@ -419,6 +493,12 @@ class MultipleMomentInvariants:
         return self.largest_kmer_split.split_indices
 
     def get_neighbors(self):
+        """
+        Get the neighbors of each residue in the protein used in calculating the shapemer.
+        Returns
+        -------
+        list of lists of indices, one for each residue
+        """
         neighbors = [set() for _ in range(self.length)]
         for moment in self.invariants:
             for i, indices in enumerate(moment.split_indices):
@@ -434,10 +514,35 @@ def get_invariants_for_file(protein_file, split_infos=SPLIT_INFOS, moment_types=
         return None
 
 
-def get_invariants_for_files(input_files, n_threads=1, verbose=True,
-                             split_infos: List[SplitInfo] = SPLIT_INFOS,
-                             moment_types: List[str] = MOMENT_TYPES) -> Tuple[List[MultipleMomentInvariants],
-                                                                              List[str]]:
+def get_invariants_for_structures(input_files, n_threads=1, verbose=True,
+                                  split_infos: List[SplitInfo] = SPLIT_INFOS,
+                                  moment_types: List[str] = MOMENT_TYPES) -> Tuple[List[MultipleMomentInvariants],
+                                                                                   List[str]]:
+    """
+    Get invariants for a list of structures using multiple threads.
+
+
+    Parameters
+    ----------
+    input_files
+        Can be \n
+        A list of structure files (.pdb, .pdb.gz, .cif, .cif.gz),
+        A list of (structure_file, chain)
+        A list of PDBIDs or PDBID_chain or (PDB ID, chain)
+        A folder with input structure files,
+        A file which lists structure filenames or "structure_filename, chain" on each line,
+        A file which lists PDBIDs or PDBID_chain or PDBID, chain on each line
+    n_threads
+    verbose
+    split_infos
+        List of SplitInfo objects, only set if not using trained ShapemerLearn model
+    moment_types
+        List of moment types, only set if not using trained ShapemerLearn model
+
+    Returns
+    -------
+    List of MultipleMomentInvariants objects, one for each structure, List of files which threw an error
+    """
     if split_infos is None:
         split_infos = SPLIT_INFOS
     if moment_types is None:

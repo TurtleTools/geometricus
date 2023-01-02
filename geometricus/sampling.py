@@ -6,6 +6,10 @@ from dataclasses import dataclass
 import h5py
 import numba as nb
 import numpy as np
+import warnings
+from Bio import BiopythonDeprecationWarning
+
+warnings.filterwarnings("ignore", category=BiopythonDeprecationWarning)
 import prody as pd
 from scipy.optimize import linear_sum_assignment
 from tqdm import tqdm

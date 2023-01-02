@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import numpy as np
 import numba as nb
 from geometricus.model_utility import ShapemerLearn
-from geometricus.moment_invariants import MultipleMomentInvariants, SplitInfo, get_invariants_for_files
+from geometricus.moment_invariants import MultipleMomentInvariants, SplitInfo, get_invariants_for_structures
 from geometricus.protein_utility import ProteinKey
 
 Shapemer = Union[bytes, tuple]
@@ -98,11 +98,11 @@ class Geometricus:
         -------
         Geometricus object
         """
-        invariants, errors = get_invariants_for_files(input_files,
-                                                      split_infos=split_infos,
-                                                      moment_types=moment_types,
-                                                      n_threads=n_threads,
-                                                      verbose=verbose)
+        invariants, errors = get_invariants_for_structures(input_files,
+                                                           split_infos=split_infos,
+                                                           moment_types=moment_types,
+                                                           n_threads=n_threads,
+                                                           verbose=verbose)
         return cls.from_invariants(
             invariants,
             model=model, resolution=resolution)
