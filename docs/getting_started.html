@@ -409,67 +409,42 @@ seen in <span class="math notranslate nohighlight">\(\beta\)</span>-sheets, as w
 <li><p>RADIUS - overlapping spheres of radius <code class="docutils literal notranslate"><span class="pre">split_size</span></code></p></li>
 </ul>
 <p>Moment invariants can be calculated using the <code class="docutils literal notranslate"><span class="pre">from_structure_file</span></code> constructor function of the <code class="docutils literal notranslate"><span class="pre">geometricus.MultipleMomentInvariants</span></code> class - this also allows simply giving the PDB ID and chain as input. Generally more useful is the function <code class="docutils literal notranslate"><span class="pre">geometricus.get_invariants_for_structures</span></code> that does multithreaded moment calculation for list of input structure files or PDB IDs.</p>
-<p>Shapemers can be generated using the trained <code class="docutils literal notranslate"><span class="pre">ShapemerLearn</span></code> model present in this repository. This uses four different fragmentation techniques: (RADIUS, 5), (RADIUS, 10), (KMER, 8), and (KMER, 16).</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<p>The <code class="docutils literal notranslate"><span class="pre">resolution</span></code> parameter describes how fine or coarse grained the resultant shape-mers are. This number is multiplied to each moment invariant value after which these values are rounded to the nearest integer.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">get_invariants_for_structures</span><span class="p">,</span> <span class="n">Geometricus</span><span class="p">,</span> <span class="n">ShapemerLearn</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">get_invariants_for_structures</span><span class="p">,</span> <span class="n">Geometricus</span><span class="p">,</span> <span class="n">SplitInfo</span><span class="p">,</span> <span class="n">SplitType</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">invariants</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">get_invariants_for_structures</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">invariants</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_invariants_for_structures</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                              <span class="n">split_infos</span><span class="o">=</span><span class="p">[</span><span class="n">SplitInfo</span><span class="p">(</span><span class="n">SplitType</span><span class="o">.</span><span class="n">KMER</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
+                                              <span class="n">moment_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O_3&quot;</span><span class="p">,</span> <span class="s2">&quot;O_4&quot;</span><span class="p">,</span> <span class="s2">&quot;O_5&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">])</span>
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">kmer_shapemer_class</span> <span class="o">=</span> <span class="n">Geometricus</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_names</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated kmer shapemers in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="n">invariants</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_invariants_for_structures</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                              <span class="n">split_infos</span><span class="o">=</span><span class="p">[</span><span class="n">SplitInfo</span><span class="p">(</span><span class="n">SplitType</span><span class="o">.</span><span class="n">RADIUS</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+                                              <span class="n">moment_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O_3&quot;</span><span class="p">,</span> <span class="s2">&quot;O_4&quot;</span><span class="p">,</span> <span class="s2">&quot;O_5&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">])</span>
+<span class="n">radius_shapemer_class</span> <span class="o">=</span> <span class="n">Geometricus</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_names</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated radius shapemers in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Shapemers can also be generated using the trained <code class="docutils literal notranslate"><span class="pre">ShapemerLearn</span></code> model present in this repository. This uses four different fragmentation techniques: (RADIUS, 5), (RADIUS, 10), (KMER, 8), and (KMER, 16) and all MomentTypes, and has been trained to generate 1024 unique shape-mers.</p>
+<p>The previous code can be modified to use the <code class="docutils literal notranslate"><span class="pre">ShapemerLearn</span></code> model as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geometricus</span> <span class="kn">import</span> <span class="n">get_invariants_for_structures</span><span class="p">,</span> <span class="n">Geometricus</span><span class="p">,</span> <span class="n">ShapemerLearn</span>
+<span class="n">invariants</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">get_invariants_for_structures</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ShapemerLearn</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">shapemer_class</span> <span class="o">=</span> <span class="n">Geometricus</span><span class="o">.</span><span class="n">from_invariants</span><span class="p">(</span><span class="n">invariants</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">protein_keys</span><span class="o">=</span><span class="n">X_names</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated shapemers in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Found 527 protein structures
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-100%|██████████| 527/527 [00:29&lt;00:00, 17.79it/s]
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Computed invariants in 29.70 seconds
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-100%|██████████| 527/527 [00:00&lt;00:00, 894.05it/s]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Generated shapemers in 1.60 seconds
-</pre></div></div>
 </div>
 <p>We can simply count how many times each shapemer appears to get a representation for each protein</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer_count_matrix</span> <span class="o">=</span> <span class="n">shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer_count_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">kmer_shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">(),</span> <span class="n">radius_shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">()))</span>
 <span class="n">shapemer_count_matrix</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -511,7 +486,7 @@ Generated shapemers in 1.60 seconds
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_8_0.png" src="_images/getting_started_8_0.png" />
+<img alt="_images/getting_started_9_0.png" src="_images/getting_started_9_0.png" />
 </div>
 </div>
 <section id="Embedding-for-Supervised-Learning">
@@ -525,9 +500,9 @@ Generated shapemers in 1.60 seconds
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">X_train_names</span><span class="p">,</span> <span class="n">X_test_names</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_names</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">train_shapemers</span> <span class="o">=</span> <span class="n">shapemer_class</span><span class="o">.</span><span class="n">map_protein_to_shapemer_indices</span><span class="p">(</span><span class="n">protein_keys</span><span class="o">=</span><span class="n">X_train_names</span><span class="p">)</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">(</span><span class="n">X_train_names</span><span class="p">,</span> <span class="n">shapemer_keys</span><span class="o">=</span><span class="n">train_shapemers</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">(</span><span class="n">X_test_names</span><span class="p">,</span> <span class="n">shapemer_keys</span><span class="o">=</span><span class="n">train_shapemers</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">train_shapemers</span> <span class="o">=</span> <span class="n">kmer_shapemer_class</span><span class="o">.</span><span class="n">map_protein_to_shapemer_indices</span><span class="p">(</span><span class="n">protein_keys</span><span class="o">=</span><span class="n">X_train_names</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">kmer_shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">(</span><span class="n">X_train_names</span><span class="p">,</span> <span class="n">shapemer_keys</span><span class="o">=</span><span class="n">train_shapemers</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">kmer_shapemer_class</span><span class="o">.</span><span class="n">get_count_matrix</span><span class="p">(</span><span class="n">X_test_names</span><span class="p">,</span> <span class="n">shapemer_keys</span><span class="o">=</span><span class="n">train_shapemers</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -584,7 +559,7 @@ weighted avg       0.92      0.91      0.91       159
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_14_0.png" src="_images/getting_started_14_0.png" />
+<img alt="_images/getting_started_15_0.png" src="_images/getting_started_15_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -600,7 +575,7 @@ weighted avg       0.92      0.91      0.91       159
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/getting_started_15_0.png" src="_images/getting_started_15_0.png" />
+<img alt="_images/getting_started_16_0.png" src="_images/getting_started_16_0.png" />
 </div>
 </div>
 <p>We can map back to the residues described by a shape-mer using the <code class="docutils literal notranslate"><span class="pre">map_shapemer_to_residues</span></code> function which returns a dictionary mapping each protein to the corresponding residue indices of the shape-mer within that protein, if it exists.</p>
@@ -609,7 +584,7 @@ weighted avg       0.92      0.91      0.91       159
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapemer</span> <span class="o">=</span> <span class="n">train_shapemers</span><span class="p">[</span><span class="n">predictive_feature_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-<span class="n">residue_indices</span> <span class="o">=</span> <span class="n">shapemer_class</span><span class="o">.</span><span class="n">map_shapemer_to_residues</span><span class="p">(</span><span class="n">shapemer</span><span class="p">)</span>
+<span class="n">residue_indices</span> <span class="o">=</span> <span class="n">kmer_shapemer_class</span><span class="o">.</span><span class="n">map_shapemer_to_residues</span><span class="p">(</span><span class="n">shapemer</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape-mer:&quot;</span><span class="p">,</span> <span class="n">shapemer</span><span class="p">,</span> <span class="s2">&quot;Number of proteins with shape-mer:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_indices</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Residue indices per protein (for 10 proteins):&quot;</span><span class="p">)</span>
